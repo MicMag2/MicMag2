@@ -27,18 +27,18 @@ def create_solver(world, module_list = [],  finescale = False, **kwargs):
 
     if finescale == True:
         from .heisenberg_model import HeisenbergModel
-        from heisenberg_model.heisenberg_model_solver import HeisenbergModelSolver
-        from heisenberg_model.heisenberg_model_stepsize_controller import HeisenbergModelStepSizeController
-        from heisenberg_model.landau_lifshitz_gilbert import LandauLifshitzGilbert
-        from heisenberg_model.stephandler import ScreenLog
+        from .heisenberg_model.heisenberg_model_solver import HeisenbergModelSolver
+        from .heisenberg_model.heisenberg_model_stepsize_controller import HeisenbergModelStepSizeController
+        from .heisenberg_model.landau_lifshitz_gilbert import LandauLifshitzGilbert
+        from .heisenberg_model.stephandler import ScreenLog
         sys = HeisenbergModel(world)
         sys.addModule(LandauLifshitzGilbert(do_precess = kwargs.pop("do_precess", True)))
     else:
         from .micromagnetics import MicroMagnetics
-        from micromagnetics.micro_magnetics_solver import MicroMagneticsSolver
-        from micromagnetics.micro_magnetics_stepsize_controller import MicroMagneticsStepSizeController
-        from micromagnetics.landau_lifshitz_gilbert import LandauLifshitzGilbert
-        from micromagnetics.stephandler import ScreenLog
+        from .micromagnetics.micro_magnetics_solver import MicroMagneticsSolver
+        from .micromagnetics.micro_magnetics_stepsize_controller import MicroMagneticsStepSizeController
+        from .micromagnetics.landau_lifshitz_gilbert import LandauLifshitzGilbert
+        from .micromagnetics.stephandler import ScreenLog
         sys = MicroMagnetics(world)
         sys.addModule(LandauLifshitzGilbert(do_precess = kwargs.pop("do_precess", True)))
     for mod in module_list:
@@ -55,7 +55,7 @@ def create_solver(world, module_list = [],  finescale = False, **kwargs):
     if evolver_id in ["rkf45", "rk23", "cc45", "dp54"]:
         eps_rel = kwargs.pop("eps_rel", 1e-4)
         eps_abs = kwargs.pop("eps_abs", 1e-3)
-	maxTimeStep = kwargs.pop("maxTimeStep", 1e-12)
+        maxTimeStep = kwargs.pop("maxTimeStep", 1e-12)
         if finescale == False:
             evo = evolver.RungeKutta(sys.mesh, evolver_id, MicroMagneticsStepSizeController(eps_abs, eps_rel))
         else:

@@ -38,7 +38,6 @@ class SimpleVectorField(module.Module):
 # This module is for use as an external field term in the LLG equation
 class SimpleExternalField(SimpleVectorField):
     def __init__(self, var_id):
-        print 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'
         super(SimpleExternalField, self).__init__(var_id)
         self.__var_id = var_id
 

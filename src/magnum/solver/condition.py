@@ -222,17 +222,16 @@ class fineRelaxed(Condition):
             # fine_deg_per_ns wird erst nach erstem coarse-Lauf gesetzt
             if hasattr(state, "fine_deg_per_ns"):
             	
-            	fine_deg_per_ns = state.fine_deg_per_ns
-            	#print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" + str(fine_deg_per_ns))
-            	#raise
+                fine_deg_per_ns = state.fine_deg_per_ns
+                #print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" + str(fine_deg_per_ns))
+                #raise
 
                 # Remember last degrees per ns.
                 try:
                     last_fine_deg_per_ns = getattr(state, "last_fine_deg_per_ns_%s" % id(self))
                 except AttributeError:
                     last_fine_deg_per_ns = None
-            	    setattr(state, "last_fine_deg_per_ns_%s" % id(self), fine_deg_per_ns)
-
+                    setattr(state, "last_fine_deg_per_ns_%s" % id(self), fine_deg_per_ns)
                 if last_fine_deg_per_ns is None: return False # Not enough data? Bail out.
 
             # Now we have valid values in 'deg_per_ns' and 'last_deg_per_ns'.

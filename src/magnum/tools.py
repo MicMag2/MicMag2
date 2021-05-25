@@ -187,7 +187,7 @@ def makeGrains2D(K, numcenters, variationPercent, distMin, seed, showProgress=Fa
 			p1x,p1y = p2x,p2y
 		return inside
 
-	def getDistance(M, (a,b,c), (x,y,z)):
+	def getDistance(M,a,b,c,x,y,z):
 
 		(nx,ny,nz) = M.mesh.getNumNodes()
 		(dx,dy,dz) = M.mesh.getDelta()

@@ -36,7 +36,7 @@ class PassThroughOptionParser(OptionParser):
         while rargs:
             try:
                 OptionParser._process_args(self,largs,rargs,values)
-            except (BadOptionError,AmbiguousOptionError), e:
+            except (BadOptionError,AmbiguousOptionError) as  e:
                 largs.append(e.opt_str)
 				
 class MagnumConfig(object):

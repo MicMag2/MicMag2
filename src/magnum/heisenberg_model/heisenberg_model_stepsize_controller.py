@@ -31,8 +31,8 @@ class HeisenbergModelStepSizeController(StepSizeController):
         self.STEP_HEADROOM = 0.85
         self.MIN_TIMESTEP_SCALE = 0.2
         self.MAX_TIMESTEP_SCALE = 5.0
-	self.MIN_TIMESTEP = min_ts
-	self.MAX_TIMESTEP = max_ts
+        self.MIN_TIMESTEP = min_ts
+        self.MAX_TIMESTEP = max_ts
 
     def adjust_stepsize(self, state, h, order, y, y_err, dydt):
         # [y] = A/m.

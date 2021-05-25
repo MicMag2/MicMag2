@@ -43,7 +43,7 @@ class ContinuityCheck(StepHandler):
                  fineMagIsGiven, DMI=False, mintrack=0.05, multiscaleLog=True, growshrink = False,  catchCoarseField = True, useMMstrayField = False):
 
         super(ContinuityCheck, self).__init__()
-	self.useMMstrayField =useMMstrayField	
+        self.useMMstrayField =useMMstrayField	
         self.DMI = DMI
         self.solver = coarseSolver
         self.world = coarseSolver.world
@@ -59,12 +59,12 @@ class ContinuityCheck(StepHandler):
         self.fineNodes = self.fineMesh.getNumNodes()
         self.l = self.fineMesh.getDelta()
         self.J = fineSolver.world.bodies[0].material.J
-	# print(self.fineMesh.getDelta())
+        # print(self.fineMesh.getDelta())
         # made for the skyrmion edge trackingte
 
         # if(hasattr(self, 'TrackingCond')):
         print("self.mesh"+str(self.mesh))
-#        if not hasattr()
+        #        if not hasattr()
 
 
         self.r_0 = r_0
@@ -321,34 +321,34 @@ class ContinuityCheck(StepHandler):
         #print(self.r_0)
 	#print(self.r_1)
 	#stray_mc = stray_bc[self.r_0[0]-frame:self.r_1[0]+frame+1,self.r_0[1]-frame:self.r_1[1]+frame+1, self.r_0[2]:self.r_1[2]+1]
-	stray_mc = stray_bc[self.r_0[0]:self.r_1[0]+1,self.r_0[1]:self.r_1[1]+1, self.r_0[2]:self.r_1[2]+1]
+        stray_mc = stray_bc[self.r_0[0]:self.r_1[0]+1,self.r_0[1]:self.r_1[1]+1, self.r_0[2]:self.r_1[2]+1]
         stray_mf = strafo.resize(stray_mc,(self.fineNodes[0],self.fineNodes[1], self.fineNodes[2], 3), order=1, mode="constant",  preserve_range=False) # mf means middle (plus frame for ghost cell interpolation)
         # now correct all areas and edges, beacuse interpolation fails at these points
         framex=int( self.FinenodesPerCoarseCell[0]/2)
         framey=int( self.FinenodesPerCoarseCell[1]/2)
         framez=int( self.FinenodesPerCoarseCell[2]/2)
 	#print("frame x, ", framex)
-	#print("frame y, ", framey)
-	#print("frame z, ", framez)
-	nx,ny,nz = self.fineNodes
-	print(nx, ny, nz)
-	stray_mf[:,:,0:framez,:] = stray_mf[:,:,framez,:].reshape((nx,ny,1,3))
-	stray_mf[:,:,-(framez+1):,:] = stray_mf[:,:,-(framez+1),:].reshape((nx,ny,1,3))
-	stray_mf[:,0:framey,:,:] = stray_mf[:,framey,:,:].reshape((nx,1,nz,3))
-	stray_mf[:,-(framey+1):,:,:] = stray_mf[:,-(framey+1),:,:].reshape((nx,1,nz,3))
-	stray_mf[0:framex,:,:,:] = stray_mf[framex,:,:,:].reshape((1,ny,nz,3))
-	stray_mf[-(framex+1):,:,:,:] = stray_mf[-(framex+1),:,:,:].reshape((1,ny,nz,3))
-	stray_mf[0:framex,0:framey,0:framez,:]=stray_mc[0,0,0,:]
-	stray_mf[0:framex,0:framey,-(framez+1):,:]=stray_mc[0,0,-1,:]
-	stray_mf[0:framex,-(1+framey):,0:framez,:]=stray_mc[framex, -(1+framey), framez,:]
-	stray_mf[0:framex,-(1+framey):,-(framez+1):,:]=stray_mc[framex, -(1+framey),-(1+framez),:]
-	stray_mf[-(1+framex):   ,0:framey,0:framez,:]=stray_mc[-(1+framex), framey, framez,:]
-	stray_mf[-(1+framex):   ,0:framey,-(framez+1):,:]=stray_mc[-(1+framex), framey,-(1+framez),:]
-	stray_mf[-(1+framex):   ,-(1+framey):,0:framez,:]=stray_mc[-(1+framex), -(1+framey), framez,:]
-	stray_mf[-(1+framex):   ,-(1+framey):,-(framez+1):,:]=stray_mc[-(1+framex), -(1+framey),-(1+framez),:]
-	#stray_mf=
+        #print("frame y, ", framey)
+        #print("frame z, ", framez)
+        nx,ny,nz = self.fineNodes
+        print(nx, ny, nz)
+        stray_mf[:,:,0:framez,:] = stray_mf[:,:,framez,:].reshape((nx,ny,1,3))
+        stray_mf[:,:,-(framez+1):,:] = stray_mf[:,:,-(framez+1),:].reshape((nx,ny,1,3))
+        stray_mf[:,0:framey,:,:] = stray_mf[:,framey,:,:].reshape((nx,1,nz,3))
+        stray_mf[:,-(framey+1):,:,:] = stray_mf[:,-(framey+1),:,:].reshape((nx,1,nz,3))
+        stray_mf[0:framex,:,:,:] = stray_mf[framex,:,:,:].reshape((1,ny,nz,3))
+        stray_mf[-(framex+1):,:,:,:] = stray_mf[-(framex+1),:,:,:].reshape((1,ny,nz,3))
+        stray_mf[0:framex,0:framey,0:framez,:]=stray_mc[0,0,0,:]
+        stray_mf[0:framex,0:framey,-(framez+1):,:]=stray_mc[0,0,-1,:]
+        stray_mf[0:framex,-(1+framey):,0:framez,:]=stray_mc[framex, -(1+framey), framez,:]
+        stray_mf[0:framex,-(1+framey):,-(framez+1):,:]=stray_mc[framex, -(1+framey),-(1+framez),:]
+        stray_mf[-(1+framex):   ,0:framey,0:framez,:]=stray_mc[-(1+framex), framey, framez,:]
+        stray_mf[-(1+framex):   ,0:framey,-(framez+1):,:]=stray_mc[-(1+framex), framey,-(1+framez),:]
+        stray_mf[-(1+framex):   ,-(1+framey):,0:framez,:]=stray_mc[-(1+framex), -(1+framey), framez,:]
+        stray_mf[-(1+framex):   ,-(1+framey):,-(framez+1):,:]=stray_mc[-(1+framex), -(1+framey),-(1+framez),:]
+        #stray_mf=
 	
-	#print("stray_mc", stray_mc.shape)
+        #print("stray_mc", stray_mc.shape)
         #stray_to_solver =  stray_mf[self.FinenodesPerCoarseCell[0]*frame:-frame*self.FinenodesPerCoarseCell[0],frame*self.FinenodesPerCoarseCell[1]:-frame*self.FinenodesPerCoarseCell[1],frame*self.FinenodesPerCoarseCell[2]:-frame*self.FinenodesPerCoarseCell[2],:]
         stray_to_solver =  stray_mf
         #print("stray_to_solver", stray_to_solver.shape)
@@ -359,47 +359,6 @@ class ContinuityCheck(StepHandler):
         minval=np.amin((maxval0, minval0))
 	#print(maxval)
         #print(minval)
-	plot = False
-	if plot:
-		plt.subplot(331)
-        	plt.pcolor(stray_bc[self.r_0[0]:self.r_1[0]+1,self.r_0[1]:self.r_1[1]+1,0,2], vmin=minval, vmax=maxval)
-		plt.subplot(332)
-        	plt.pcolor(stray_to_solver[:,:,0,2], vmin=minval, vmax=maxval)
-		plt.subplot(333)
-        	plt.pcolor(stray_to_solver[:,:,1,2], vmin=minval, vmax=maxval)
-		plt.subplot(334)
-        	plt.pcolor(stray_to_solver[:,:,2,2], vmin=minval, vmax=maxval)
-		plt.subplot(335)
-        	plt.pcolor(stray_to_solver[:,:,-1,2], vmin=minval, vmax=maxval)
-        	plt.legend()
-		plt.show()
-		plt.subplot(221)
-		for i in range(50):
-			plt.plot(stray_to_solver[i,i,:,2], label=str(i))
-		plt.plot(stray_to_solver[49,49,:,2],"o-", label=str(i))
-		plt.subplot(222)
-		for i in range(10):
-			plt.plot((2,7,12,17,22,27,32,37,42,47),stray_bc[i,i,:,2],"o-", label="coarse"+str(i))
-		plt.plot((2,7,12,17,22,27,32,37,42,47),stray_bc[1,1,:,2], label="coarse 1")
-		plt.subplot(223)
-		for i in range(50):
-			plt.plot(stray_mf[i,i,:,2], label=str(i))
-		plt.plot(stray_mf[-1,-1,:,2],"o-", label=str(i))
-		plt.legend()
-		plt.show()
-		print(stray_to_solver[0,2,0]) 
-        	print(stray_to_solver[1,2,0] )
-        	print(stray_to_solver[2,2,0] )
-        	print(stray_to_solver[2,2,1] )
-       		print(stray_to_solver[2,2,2])
-        	print(stray_to_solver[2,2,3])
-        	print(stray_to_solver[2,2,4])
-        	print(stray_to_solver[2,2,5])
-        	print(stray_to_solver[2,2,6])
-        	print(stray_to_solver[2,2,7])
-        	print(stray_to_solver[2,2,8])
-        self.fineSolver.state.fineStrayField.from_numpy(stray_to_solver )
-        #time4=time.time()
 
 
 
@@ -672,7 +631,7 @@ class ContinuityCheck(StepHandler):
                         self.fineSolver.state.fineDMIField.set(i, j, k,
                                                                self.OtI_H_DMI.get(i + left, j + bottom, k + below))
                     else:
-                    	print "VALUE ZERO above 2"
+                    	print("VALUE ZERO above 2")
                     #	time.sleep(1)
     def cellAverageFast(self,field, scale=1):
         #cellVolume=self.FinenodesPerCoarseCell[0]*self.FinenodesPerCoarseCell[1]*self.FinenodesPerCoarseCell[2]
@@ -1104,7 +1063,7 @@ class ContinuityCheck(StepHandler):
         solverNum = self.solver.state.M.to_numpy()
         #print(np.shape(solverNum))
         
-	solverNum[self.r_0[0]:self.r_1[0]+1,self.r_0[1] :self.r_1[1]+1,self.r_0[2] :self.r_1[2]+1] = Mavg
+        solverNum[self.r_0[0]:self.r_1[0]+1,self.r_0[1] :self.r_1[1]+1,self.r_0[2] :self.r_1[2]+1] = Mavg
         self.solver.state.M.from_numpy(solverNum)
         #time2=time.time()
         #print("r_0")

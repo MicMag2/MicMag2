@@ -32,7 +32,7 @@ from .vtk_storage       import VTKStorage
 from .screen_log        import ScreenLog
 from .data_table_log    import DataTableLog
 from .fancy_screen_log  import FancyScreenLog
-from .fscontinuity_check  import FSContinuityCheck
+#from .fscontinuity_check  import FSContinuityCheck
 #from .stephandlertest   import test
 
-__all__ = ["OOMMFStorage", "ImageStorage", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog", "FSContinuityCheck"]
+__all__ = ["OOMMFStorage", "ImageStorage", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog"]

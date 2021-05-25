@@ -35,7 +35,7 @@ from .simple_field import SimpleExternalField, SimpleVectorField
 from .pulse_current import PulseCurrent 
 from .spinHall_field import FSSpinHallField
 from .pulse_field import PulseField
-from macro_spin_torque import FSMacroSpinTorque
+from .macro_spin_torque import FSMacroSpinTorque
 from .dmi_field import FSDMIField
 from .temperature_field import TemperatureField
 

@@ -1,0 +1,5 @@
+Subdirectories:
+  build         - (Suggested) build directory.
+  magnum        - MagNum simulator: Python parts
+  magnum_tests  - Unit tests, written in Python
+  magneto       - "magneto" subsystem: C++/CUDA parts

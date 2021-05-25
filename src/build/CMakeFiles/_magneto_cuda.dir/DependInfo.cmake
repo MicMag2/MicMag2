@@ -1,0 +1,122 @@
+# The set of languages for which implicit dependencies are needed:
+SET(CMAKE_DEPENDS_LANGUAGES
+  "CXX"
+  )
+# The set of files for implicit dependencies of each language:
+SET(CMAKE_DEPENDS_CHECK_CXX
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/Benchmark.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/Benchmark.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/Logger.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/Logger.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/Magneto.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/Magneto.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/bindings/PythonByteArray.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/bindings/PythonByteArray.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/bindings/PythonCallable.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/bindings/PythonCallable.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/magneto/bindings/magnetoPYTHON_wrap.cxx" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/bindings/magnetoPYTHON_wrap.cxx.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/cosinecheck.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/cosinecheck.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/evolver/runge_kutta.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/evolver/runge_kutta.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/evolver/runge_kutta_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/evolver/runge_kutta_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/ScaledAbsMax.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/ScaledAbsMax.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/AntisymmetricMatrixVectorConvolution_FFT.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/AntisymmetricMatrixVectorConvolution_FFT.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/MatrixVectorConvolution_FFT.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/MatrixVectorConvolution_FFT.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/SymmetricMatrixVectorConvolution_FFT.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/SymmetricMatrixVectorConvolution_FFT.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/SymmetricMatrixVectorConvolution_Simple.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/SymmetricMatrixVectorConvolution_Simple.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/TensorFieldSetup.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/TensorFieldSetup.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/VectorVectorConvolution_FFT.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/VectorVectorConvolution_FFT.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/Transformer_CPU.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/Transformer_CPU.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/Transformer_CUDA.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/Transformer_CUDA.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/Transposer_CPU.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/Transposer_CPU.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/Transposer_CUDA.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/Transposer_CUDA.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/cpu_copy_pad.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/cpu_copy_pad.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/cpu_copy_unpad.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/cpu_copy_unpad.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/cpu_multiplication.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/cpu_multiplication.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/cpu_transpose_unpad.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/cpu_transpose_unpad.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/cpu_transpose_zeropad.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/cpu_transpose_zeropad.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/cuda_transpose_unpad.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/cuda_transpose_unpad.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/conv/kernels/cuda_transpose_zeropad.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/conv/kernels/cuda_transpose_zeropad.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/math/gradient.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/math/gradient.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/Shape.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/Shape.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/device/Array.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/device/Array.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/device/Device.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/device/Device.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/device/DeviceManager.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/device/DeviceManager.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/device/cpu/CPUArray.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/device/cpu/CPUArray.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/device/cpu/CPUDevice.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/device/cpu/CPUDevice.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/device/cuda/CUDAArray.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/device/cuda/CUDAArray.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/device/cuda/CUDADevice.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/device/cuda/CUDADevice.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/device/cuda_tools.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/device/cuda_tools.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/ext/Extremum.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/ext/Extremum.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/ext/FFT.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/ext/FFT.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/ext/LinearInterpolate.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/ext/LinearInterpolate.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/AbstractMatrix.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/AbstractMatrix.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/complex/ComplexMatrix.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/complex/ComplexMatrix.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/scalar/Matrix.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/scalar/Matrix.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/scalar/Matrix_accessor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/scalar/Matrix_accessor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/scalar/Matrix_cuda_accessor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/scalar/Matrix_cuda_accessor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/vector/Vector3d.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/vector/Vector3d.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/vector/VectorMatrix.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/vector/VectorMatrix.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/vector/VectorMatrix_accessor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/vector/VectorMatrix_accessor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matrix/vector/VectorMatrix_cuda_accessor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matrix/vector/VectorMatrix_cuda_accessor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/matrix/matty.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/matrix/matty.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mesh/Field.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mesh/Field.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mesh/VectorField.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mesh/VectorField.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/anisotropy/anisotropy.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/anisotropy/anisotropy.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/anisotropy/anisotropy_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/anisotropy/anisotropy_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/anisotropy/fs_anisotropy.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/anisotropy/fs_anisotropy.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/anisotropy/fs_anisotropy_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/anisotropy/fs_anisotropy_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/demag_static.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/demag_static.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/demag_tensor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/demag_tensor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/fs_demag_tensor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/fs_demag_tensor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/fs_tensor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/fs_tensor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/multiscale.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/multiscale.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/old/demag_old.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/old/demag_old.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/phi/demag_phi_tensor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/phi/demag_phi_tensor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/tensor.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/tensor.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/demag/tensor_round.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/demag/tensor_round.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/dmi/dmi.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/dmi/dmi.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/dmi/dmi_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/dmi/dmi_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/dmi/fs_dmi.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/dmi/fs_dmi.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/dmi/fs_dmi_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/dmi/fs_dmi_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/exchange/exchange.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/exchange/exchange.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/exchange/exchange_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/exchange/exchange_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/exchange/fs_exchange.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/exchange/fs_exchange.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/exchange/fs_exchange_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/exchange/fs_exchange_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/io/OMFExport.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/io/OMFExport.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/io/OMFHeader.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/io/OMFHeader.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/io/OMFImport.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/io/OMFImport.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/llge/llge.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/llge/llge.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/llge/llge_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/llge/llge_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/macrospintorque/fdm_slonchewski.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/macrospintorque/fdm_slonchewski.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/macrospintorque/fdm_slonchewski_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/macrospintorque/fdm_slonchewski_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/macrospintorque/fs_fdm_slonchewski.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/macrospintorque/fs_fdm_slonchewski.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/macrospintorque/fs_fdm_slonchewski_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/macrospintorque/fs_fdm_slonchewski_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/spinhall/fs_spinhall.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/spinhall/fs_spinhall.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/spinhall/fs_spinhall_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/spinhall/fs_spinhall_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/spintorque/fdm_zhangli.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/spintorque/fdm_zhangli.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/spintorque/fdm_zhangli_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/spintorque/fdm_zhangli_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/temperature/fdm_temperature.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/temperature/fdm_temperature.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/temperature/fdm_temperature_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/temperature/fdm_temperature_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/temperature/fs_fdm_temperature.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/temperature/fs_fdm_temperature.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/mmm/temperature/fs_fdm_temperature_cpu.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/mmm/temperature/fs_fdm_temperature_cpu.cpp.o"
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/magneto/os_posix.cpp" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir/magneto/os_posix.cpp.o"
+  )
+SET(CMAKE_CXX_COMPILER_ID "GNU")
+
+# Pairs of files generated by the same build rule.
+SET(CMAKE_MULTIPLE_OUTPUT_PAIRS
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/magneto.py" "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/magneto/bindings/magnetoPYTHON_wrap.cxx"
+  )
+
+
+# Targets to which this target links.
+SET(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/magneto_cu_parts.dir/DependInfo.cmake"
+  )
+
+# The include file search paths:
+SET(CMAKE_C_TARGET_INCLUDE_PATH
+  "/usr/local/include/python2.7"
+  "../magneto"
+  "../magneto/matrix"
+  "."
+  "/usr/local/cuda-8.0/include"
+  )
+SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+SET(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+SET(CMAKE_ASM_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

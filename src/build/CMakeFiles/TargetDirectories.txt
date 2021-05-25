@@ -1,0 +1,2 @@
+/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/_magneto_cuda.dir
+/home/twinkler/my_mycromagnumGPU_switch/MycroMagnum-master/src/build/CMakeFiles/magneto_cu_parts.dir

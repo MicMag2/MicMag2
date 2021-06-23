@@ -54,4 +54,4 @@ def callback(level, msg):
     elif level == 4:
         logger.critical(msg)
 magneto.setDebugCallback(callback)
-del callback
+#del callback leads to segmentation fault

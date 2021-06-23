@@ -32,3 +32,4 @@
 %include "mmm/fs_dmi.i"
 %include "mmm/temperature.i"
 %include "mmm/fs_temperature.i"
+%include "mmm/topology.i"

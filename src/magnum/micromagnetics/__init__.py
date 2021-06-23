@@ -36,13 +36,14 @@ from .pulse_field import PulseField
 from .macro_spin_torque import MacroSpinTorque
 from .dmi_field import DMIField
 from .temperature_field import TemperatureField
+from .topology import Topology
 
 __all__ = [
     "MicroMagnetics", "MicroMagneticsSolver", "create_solver",
     "MU0", "H_BAR", "ELECTRON_CHARGE", "MU_BOHR", "GYROMAGNETIC_RATIO", "BOLTZMANN_CONSTANT",
     "LandauLifshitzGilbert", "ExchangeField", "StrayField", "StrayFieldCalculator",
     "ExternalField", "AnisotropyField", "HomogeneousField", "HomogeneousCurrent",
-    "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "PulseField",  "DMIField", "TemperatureField","MacroSpinTorque",
+    "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "PulseField",  "DMIField", "TemperatureField","MacroSpinTorque","Topology",
 ]
 
 ## submodules

@@ -56,7 +56,8 @@ set(SRC
   macrospintorque/fs_fdm_slonchewski.cpp
   macrospintorque/fs_fdm_slonchewski_cpu.cpp
 
-
+  #charge
+  topology/charge.cpp
 
 
 )

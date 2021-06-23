@@ -186,7 +186,11 @@ public:
                 
                         return arr;
                 }
-                
+                //inspired by https://stackoverflow.com/questions/51427455/input-python-3-bytes-to-c-char-via-swig
+                %typemap(in) (const char * arr) {
+                        Py_ssize_t l;
+                        PyBytes_AsStringAndSize($input, &$1, &l);
+                }
                 void fromByteArray(const char* arr)
                 {
                         
@@ -304,7 +308,12 @@ public:
                 
                         return arr;
                 }
-                
+
+                //inspired by https://stackoverflow.com/questions/51427455/input-python-3-bytes-to-c-char-via-swig
+                %typemap(in) (const char * arr) {
+                        Py_ssize_t l;
+                        PyBytes_AsStringAndSize($input, &$1, &l);
+                }
                 void fromByteArray(const char* arr)
                 {
                         VectorMatrix::accessor acc(*$self);
@@ -373,14 +382,14 @@ def extend():
 
   def vector_matrix_to_numpy(self):
     # Get raw data
-    data = str(self.toByteArray())
+    data = self.toByteArray()
   
     # Convert to numpy array
     try:
       import numpy as np
     except ImportError:
       raise ImportError("numpy library not found!")
-    N = np.fromstring(data, dtype=np.float64, count=3*self.size())
+    N = np.frombuffer(data, dtype=np.float64, count=3*self.size())
     N.shape = self.shape + (3,)
     N.strides = (N.itemsize * 3, N.itemsize * 3 * self.dimX(), N.itemsize * 3 * self.dimX() * self.dimY(), N.itemsize)
     return N
@@ -401,21 +410,21 @@ def extend():
       N = N.astype(float)
     except:
       raise ValueError('VectorField.from_numpy(N): N must be convertable to float')
-    self.fromByteArray(np.swapaxes(N,2,0).flatten().tostring(order='C'))
+    self.fromByteArray(np.swapaxes(N,2,0).flatten().tobytes(order='C'))
 
   VectorMatrix.to_numpy   = vector_matrix_to_numpy
   VectorMatrix.from_numpy = vector_matrix_from_numpy
 
   def matrix_to_numpy(self):
     # Get raw data
-    data = str(self.toByteArray())
+    data = self.toByteArray()
   
     # Convert to numpy array
     try:
       import numpy as np
     except ImportError:
       raise ImportError("numpy library not found!")
-    N = np.fromstring(data, dtype=np.float64, count=self.size())
+    N = np.frombuffer(data, dtype=np.float64, count=self.size())
     N.shape = self.shape
     N.strides = (N.itemsize, N.itemsize * self.dimX(), N.itemsize * self.dimX() * self.dimY())
     return N
@@ -432,7 +441,7 @@ def extend():
       N = N.astype(float)
     except:
       raise ValueError("Field.from_numpy(N): N must be convertable to float")
-    self.fromByteArray(np.swapaxes(N,2,0).flatten().tostring(order='C'))
+    self.fromByteArray(np.swapaxes(N,2,0).flatten().tobytes(order='C'))
 
   Matrix.to_numpy   = matrix_to_numpy
   Matrix.from_numpy = matrix_from_numpy

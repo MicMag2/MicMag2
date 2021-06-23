@@ -17,6 +17,14 @@ if(ENABLE_CUDA_32 OR ENABLE_CUDA_64)
   set(ENABLE_CUDA ON)
 endif(ENABLE_CUDA_32 OR ENABLE_CUDA_64)
 
+option(USE_NEW_CUDA "Use new cuda" OFF)
+option(USE_NEW_SWIG "Use new swig" OFF)
+
+if(USE_NEW_SWIG)
+	cmake_policy(SET CMP0086 NEW)
+	cmake_policy(SET CMP0078 NEW)
+endif(USE_NEW_SWIG)
+
 # set cmake module path
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 ##############################################################
@@ -214,7 +222,11 @@ if(ENABLE_CUDA)
   set(CUDA_PROPAGATE_HOST_FLAGS OFF)
 
   if(ENABLE_CUDA_64)
-    set(CUDA_NVCC_FLAGS --gpu-architecture=compute_30;-Xcompiler;-fpic;-O6;--use_fast_math)
+	if(USE_NEW_CUDA)
+		set(CUDA_NVCC_FLAGS --gpu-architecture=compute_61;-Xcompiler;-fpic;-O6;--use_fast_math)
+	else(USE_NEW_CUDA)
+		set(CUDA_NVCC_FLAGS --gpu-architecture=compute_30;-Xcompiler;-fpic;-O6;--use_fast_math)
+	endif(USE_NEW_CUDA)
   else(ENABLE_CUDA_64)
     set(CUDA_NVCC_FLAGS -Xcompiler;-fpic;-O6;--use_fast_math)
   endif(ENABLE_CUDA_64)
@@ -232,8 +244,18 @@ if(ENABLE_CUDA)
 else()
   set(SWIG_MODULE_NAME "magneto_cpu")
 endif(ENABLE_CUDA)
-set_source_files_properties (${BINDINGS_SOURCE} PROPERTIES SWIG_FLAGS "-O;-module;${SWIG_MODULE_NAME}")
-swig_add_module(${SWIG_MODULE_NAME} python ${PROJECT_SOURCE_DIR}/magneto/bindings/magneto.i ${MAGNETO_SRC})
+
+if(USE_NEW_SWIG)
+	set_property(SOURCE ${BINDINGS_SOURCE} PROPERTY SWIG_MODULE_NAME ${SWIG_MODULE_NAME})
+	set_source_files_properties (${BINDINGS_SOURCE} PROPERTIES SWIG_FLAGS "-O;")
+	#swig_add_module(${SWIG_MODULE_NAME} python ${PROJECT_SOURCE_DIR}/magneto/bindings/magneto.i ${MAGNETO_SRC})
+	swig_add_library(${SWIG_MODULE_NAME} LANGUAGE python SOURCES ${PROJECT_SOURCE_DIR}/magneto/bindings/magneto.i ${MAGNETO_SRC} )
+else(USE_NEW_SWIG)
+	set_source_files_properties (${BINDINGS_SOURCE} PROPERTIES SWIG_FLAGS "-O;-module;${SWIG_MODULE_NAME}")
+	swig_add_module(${SWIG_MODULE_NAME} python ${PROJECT_SOURCE_DIR}/magneto/bindings/magneto.i ${MAGNETO_SRC})
+endif(USE_NEW_SWIG)
+
+
 if(HAVE_CVODE)
   swig_link_libraries(${SWIG_MODULE_NAME} ${FFTW_LIBRARIES} ${SUNDIALS_CVODE_LIBRARIES} ${SUNDIALS_NVECSERIAL_LIBRARIES})
 else(HAVE_CVODE)

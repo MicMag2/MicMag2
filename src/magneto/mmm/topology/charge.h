@@ -2,7 +2,7 @@
 #define CHARGE
 
 #include "config.h"
-#include "Matrix/matty.h"
+#include "matrix/matty.h"
 #include "mesh/Field.h"
 #include "mesh/VectorField.h"
 

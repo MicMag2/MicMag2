@@ -46,7 +46,7 @@ class Topology(module.Module):
                 cache.Q = magneto.topology_charge_continuous(0,state.M,state.Ms)
                 return cache.Q
             else:
-                raise KeyError(f"Topology: topo_method = {getattr(self,'topo_method')} not defined")
+                raise KeyError("Topology: topo_method = %s not defined" % getattr(self,'topo_method'))
 
         elif id == "Q_density":
             if hasattr(cache,"Q_density"): return cache.Q_density
@@ -60,7 +60,7 @@ class Topology(module.Module):
                 cache.Q_density = magneto.topology_charge_density_continuous(state.M,state.Ms)
                 return cache.Q_density
             else:
-                raise KeyError(f"Topology: topo_method = {getattr(self,'topo_method')} not defined")
+                raise KeyError("Topology: topo_method = %s not defined" % getattr(self,'topo_method'))
        
         else: 
-            raise KeyError(f"Topology: Can't calculate  {id}")
+            raise KeyError("Topology: Can't calculate  %s" % (id))

@@ -39,7 +39,7 @@ static const int BLOCK_3D_SIZE_Z = 8;
 
 template <typename real, bool periodic_x, bool periodic_y>
 __global__ 
-void kernel_dmi_2d(
+void fs_kernel_dmi_2d(
 	const real *Mx, const real *My, const real *Mz, 
 	real *Hx, real *Hy, real *Hz,
 	const real delta_x, const real delta_y, const real delta_z, 
@@ -199,7 +199,7 @@ void kernel_dmi_2d(
 
 template <typename real, bool periodic_x, bool periodic_y, bool periodic_z>
 __global__ 
-void kernel_dmi_3d(
+void fs_kernel_dmi_3d(
 	const real *Mx, const real *My, const real *Mz, 
 	real *Hx, real *Hy, real *Hz, 
 	const real delta_x, const real delta_y, const real delta_z, 
@@ -443,14 +443,14 @@ double fs_dmi_cuda_impl(
 			);
 			const dim3 block_dim(BLOCK_2D_SIZE_X, BLOCK_2D_SIZE_Y, 1);
 
-			#define DMI_2D(bx,by) if (periodic_x == bx && periodic_y == by) kernel_dmi_2d<real, bx, by><<<grid_dim, block_dim>>>(Mx, My, Mz, Hx, Hy, Hz, delta_x, delta_y, delta_z, Ms_acc.ptr(), Dx_x, Dx_y, Dx_z, Dy_x, Dy_y, Dy_z, dim_x, dim_y);
+			#define DMI_2D(bx,by) if (periodic_x == bx && periodic_y == by) fs_kernel_dmi_2d<real, bx, by><<<grid_dim, block_dim>>>(Mx, My, Mz, Hx, Hy, Hz, delta_x, delta_y, delta_z, Ms_acc.ptr(), Dx_x, Dx_y, Dx_z, Dy_x, Dy_y, Dy_z, dim_x, dim_y);
 			DMI_2D(false, false)
 			DMI_2D(false,  true)
 			DMI_2D( true, false)
 			DMI_2D( true,  true)
 			#undef DMI_2D
 
-			checkCudaLastError("gpu_dmi(): kernel_dmi_2d execution failed!");
+			checkCudaLastError("gpu_dmi(): fs_kernel_dmi_2d execution failed!");
 
 			CUDA_THREAD_SYNCHRONIZE();
 
@@ -467,7 +467,7 @@ double fs_dmi_cuda_impl(
 			grid_dim.y *= grid_dim.z;
 			grid_dim.z = 1;
 
-			#define DMI_3D(bx,by,bz) if (periodic_x == bx && periodic_y == by && periodic_z == bz) kernel_dmi_3d<real, bx, by, bz><<<grid_dim, block_dim>>>(Mx, My, Mz, Hx, Hy, Hz, delta_x, delta_y, delta_z, Ms_acc.ptr(), Dx_x, Dx_y, Dx_z, Dy_x, Dy_y, Dy_z, Dz_x, Dz_y, Dz_z, dim_x, dim_y, dim_z, logical_grid_dim_y);
+			#define DMI_3D(bx,by,bz) if (periodic_x == bx && periodic_y == by && periodic_z == bz) fs_kernel_dmi_3d<real, bx, by, bz><<<grid_dim, block_dim>>>(Mx, My, Mz, Hx, Hy, Hz, delta_x, delta_y, delta_z, Ms_acc.ptr(), Dx_x, Dx_y, Dx_z, Dy_x, Dy_y, Dy_z, Dz_x, Dz_y, Dz_z, dim_x, dim_y, dim_z, logical_grid_dim_y);
 			DMI_3D(false, false, false)
 			DMI_3D(false, false,  true)
 			DMI_3D(false,  true, false)
@@ -478,7 +478,7 @@ double fs_dmi_cuda_impl(
 			DMI_3D( true,  true,  true)
 			#undef DMI_3D
 
-			checkCudaLastError("gpu_DMI(): kernel_dmi_3d execution failed!");
+			checkCudaLastError("gpu_DMI(): fs_kernel_dmi_3d execution failed!");
 
 			CUDA_THREAD_SYNCHRONIZE();
 		}

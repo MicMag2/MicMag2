@@ -44,7 +44,7 @@ double uniaxial_anisotropy(
 	if (use_cuda) {
 #ifdef HAVE_CUDA
 		CUTIC("uniaxial_anisotropy");
-		uniaxial_anisotropy_cuda(axis, k, Ms, M, H, isCuda64Enabled());
+		energy_sum = uniaxial_anisotropy_cuda(axis, k, Ms, M, H, isCuda64Enabled());
 		CUTOC("uniaxial_anisotropy");
 #else
 		assert(0);

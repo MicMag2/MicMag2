@@ -260,7 +260,8 @@ double VectorMatrix::dotSum(const VectorMatrix &other) const
 {
 	if (isUniform() && other.isUniform()) {
 		const double x = uval[0], y = uval[1], z = uval[2];
-		const double dot = x*x + y*y + z*z;
+		const double xo = other.uval[0],yo = other.uval[1], zo = other.uval[2];
+		const double dot = x*xo + y*yo + z*zo;
 		return size() * dot;
 	} else {
 		const int dev = computeStrategy2(other);

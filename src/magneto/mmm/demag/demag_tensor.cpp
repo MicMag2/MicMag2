@@ -177,9 +177,9 @@ Matrix GenerateDemagTensor(
 	N.scale(-1);
 
 	// Save tensor field to cache (if the computation took longer than 30 secs)
-	if (t1-t0 > 30000.0) {
-		saveDemagTensor(info, cache_path, N);
-	}
+	//if (t1-t0 > 30000.0) {
+        //	saveDemagTensor(info, cache_path, N);
+	//}
 
 	// done
 	return N;

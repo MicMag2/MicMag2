@@ -144,6 +144,14 @@ class MagnumConfig(object):
           type    = "int",
           default = 1
         )
+        hw_group.add_option("-omp", "--openmp",
+                help = " enable openMP 5.1 parallelization of the solver",
+                metavar = "NUM_THREADS",
+                dest = "num_threads_openmp",
+                type = "int",
+                default = -1
+        }
+        
         parser.add_option_group(hw_group)
 
         log_group = OptionGroup(parser,

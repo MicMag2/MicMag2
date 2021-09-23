@@ -31,7 +31,10 @@ double uniaxial_anisotropy_cpu(
 	VectorMatrix &H
 );
 
-double cubic_anisotropy_cpu(
+
+
+
+double cubic_anisotropy_omp(
 	const VectorMatrix &axis1,
 	const VectorMatrix &axis2,
 	const       Matrix &k,
@@ -40,4 +43,23 @@ double cubic_anisotropy_cpu(
 	VectorMatrix &H
 );
 
+double uniaxial_anisotropy_omp(
+	const VectorMatrix &axis,
+	const       Matrix &k,
+	const       Matrix &Ms,
+	const VectorMatrix &M,
+	VectorMatrix &H
+);
+
+
+
+
+double cubic_anisotropy_cpu(
+	const VectorMatrix &axis1,
+	const VectorMatrix &axis2,
+	const       Matrix &k,
+	const       Matrix &Ms,
+	const VectorMatrix &M,
+	VectorMatrix &H
+);
 #endif

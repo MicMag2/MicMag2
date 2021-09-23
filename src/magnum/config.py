@@ -93,6 +93,9 @@ class MagnumConfig(object):
     def isCuda64Enabled(self):
         return magneto.isCuda64Enabled()
 
+    def isOpenMPEnabled(self):
+        return magneto.isOpenMPEnabled()
+
     def haveCudaSupport(self):
         return magneto.haveCudaSupport()
 
@@ -146,10 +149,10 @@ class MagnumConfig(object):
         )
         hw_group.add_option("-omp", "--openmp",
                 help = " enable openMP 5.1 parallelization of the solver",
-                metavar = "NUM_THREADS",
-                dest = "num_threads_openmp",
-                type = "int",
-                default = -1
+                # metavar = "NUM_THREADS",
+                #dest = "num_threads_openmp",
+                #type = "int",
+                #default = -1
         }
         
         parser.add_option_group(hw_group)

@@ -226,3 +226,49 @@ double cubic_anisotropy_cpu(
     }
   }
 */
+double uniaxial_anisotropy_avx(
+	const VectorMatrix &axis,
+	const Matrix &k,
+	const Matrix &Ms,
+	const VectorMatrix &M,
+	VectorMatrix &H)
+{
+	//
+	// Calculate:
+	//   H(i) = 2(i)k/(mu0*Ms^2) * (M(i)*axis) * axis
+	//
+	VectorMatrix::const_accessor M_acc(M);
+	VectorMatrix::accessor H_acc(H);
+	VectorMatrix::const_accessor axis_acc(axis);
+	Matrix::ro_accessor Ms_acc(Ms), k_acc(k);
+
+	double energy_sum = 0.0;
+
+	// Compute field
+	const size_t num_nodes = M.size();
+	for (size_t i=0; i<num_nodes; ++i) {
+		const double     Ms = Ms_acc.at(i);
+		const double      k = k_acc.at(i);
+
+		if (Ms == 0.0 || k == 0.0) {
+			H_acc.set(i, Vector3d( 0.0, 0.0,0.0));
+		} else {
+			const Vector4d axis = axis_acc.get4d(i);
+			const Vector4d spin = M_acc.get4d(i) / Ms;
+
+			const double d = dot(spin, axis);
+
+			const Vector4d H = (2.0 * k * d / Ms / MU0) * axis;
+			//std::cout << spin << H << std::endl;
+			H_acc.set(i, H);
+
+#ifdef USE_CROSS_PRODUCT_LIKE_OOMMF
+			energy_sum += k * cross(axis, spin).abs_squared();
+#else
+			energy_sum += k * (1.0 - d*d);
+#endif
+		}
+	}
+
+	return energy_sum;
+}

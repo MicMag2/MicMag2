@@ -5,14 +5,15 @@ set(SRC
   device/Array.cpp
   device/Device.cpp
   device/DeviceManager.cpp
-  
+
   device/cpu/CPUArray.cpp
   device/cpu/CPUDevice.cpp
-  
+
   matrix/AbstractMatrix.cpp
   matrix/scalar/Matrix.cpp
   matrix/scalar/Matrix_accessor.cpp
   matrix/vector/Vector3d.cpp
+  matrix/vector/Vector4d.cpp
   matrix/vector/VectorMatrix.cpp
   matrix/vector/VectorMatrix_accessor.cpp
   matrix/complex/ComplexMatrix.cpp

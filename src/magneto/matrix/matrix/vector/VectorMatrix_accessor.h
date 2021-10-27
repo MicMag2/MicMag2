@@ -23,6 +23,7 @@
 #include "config.h"
 #include "restrict.h"
 #include "Vector3d.h"
+#include "Vector4d.h"
 
 namespace matty {
 
@@ -35,11 +36,13 @@ public:
 	~VectorMatrixAccessor();
 
 	void set(int x0,                         Vector3d value) { data_x[x0] = value.x; data_y[x0] = value.y; data_z[x0] = value.z; }
+	void set(int x0,                         Vector4d value) { data_x[x0] = value.x; data_y[x0] = value.y; data_z[x0] = value.z; }
 	void set(int x0, int x1,                 Vector3d value) { set(x0 + x1*strides[1], value); }
 	void set(int x0, int x1, int x2,         Vector3d value) { set(x0 + x1*strides[1] + x2*strides[2], value); }
 	void set(int x0, int x1, int x2, int x3, Vector3d value) { set(x0 + x1*strides[1] + x2*strides[2] + x3*strides[3], value); }
 
 	Vector3d get(int x0                        ) const { return Vector3d(data_x[x0], data_y[x0], data_z[x0]); }
+	Vector4d get4d(int x0                      ) const { return Vector4d(data_x[x0], data_y[x0], data_z[x0],0); }
 	Vector3d get(int x0, int x1                ) const { return get(x0 + x1*strides[1]); }
 	Vector3d get(int x0, int x1, int x2        ) const { return get(x0 + x1*strides[1] + x2*strides[2]); }
 	Vector3d get(int x0, int x1, int x2, int x3) const { return get(x0 + x1*strides[1] + x2*strides[2] + x3*strides[3]); }
@@ -61,6 +64,7 @@ public:
 	~ConstVectorMatrixAccessor();
 
 	Vector3d get(int x0                        ) const { return Vector3d(data_x[x0], data_y[x0], data_z[x0]); }
+    Vector4d get4d(int x0                      ) const { return Vector4d(data_x[x0], data_y[x0], data_z[x0],0); }
 	Vector3d get(int x0, int x1                ) const { return get(x0 + x1*strides[1]); }
 	Vector3d get(int x0, int x1, int x2        ) const { return get(x0 + x1*strides[1] + x2*strides[2]); }
 	Vector3d get(int x0, int x1, int x2, int x3) const { return get(x0 + x1*strides[1] + x2*strides[2] + x3*strides[3]); }

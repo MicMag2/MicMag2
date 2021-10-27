@@ -24,6 +24,7 @@
 
 #include "matrix/AbstractMatrix.h"
 #include "Vector3d.h"
+#include "Vector4d.h"
 
 #include "VectorMatrix_accessor.h"
 #ifdef HAVE_CUDA
@@ -69,11 +70,16 @@ public:
 	Vector3d maximum() const;
 	Vector3d average() const;
 	Vector3d sum() const;
+	
+    //#Vector4d maximum() const;
+    //#	Vector4d average() const;
+	//Vector4d sum() const;
 
 	double absMax() const;
 	double dotSum(const VectorMatrix &other) const;
 
 	Vector3d getUniformValue() const;
+	//Vector4d getUniformValue() const;
 
 	Array *getArray(int dev, int comp) const;
 };

@@ -38,7 +38,7 @@ double uniaxial_anisotropy(
 	VectorMatrix &H)
 {
 	const bool use_cuda = isCudaEnabled();
-
+	const bool use_openmp = isOpenMPEnabled();
 	double energy_sum = 0.0;
 
 	if (use_cuda) {
@@ -50,10 +50,17 @@ double uniaxial_anisotropy(
 		assert(0);
 #endif
 	} else {
+		if (use_openmp) {
 		TIC("uniaxial_anisotropy");
-		energy_sum = uniaxial_anisotropy_cpu(axis, k, Ms, M, H);
-		TOC("uniaxial_anisotropy");
+		energy_sum = uniaxial_anisotropy_omp(axis, k, Ms, M, H);	
+		TOC("uniaxial anisotropy");
+		} else{
+			TIC("uniaxial_anisotropy");
+			energy_sum = uniaxial_anisotropy_cpu(axis, k, Ms, M, H);
+			TOC("uniaxial_anisotropy");
+		}
 	}
+
 
 	return energy_sum;
 }
@@ -67,7 +74,7 @@ double cubic_anisotropy(
 	VectorMatrix &H)
 {
 	const bool use_cuda = isCudaEnabled();
-
+        const bool use_openmp = isOpenMPEnabled();
 	double energy_sum = 0.0;
 
 	if (use_cuda) {
@@ -79,9 +86,15 @@ double cubic_anisotropy(
 		assert(0);
 #endif
 	} else {
+		if (use_openmp) {
 		TIC("cubic_anisotropy");
-		energy_sum = cubic_anisotropy_cpu(axis1, axis2, k, Ms, M, H);
+		energy_sum = cubic_anisotropy_omp(axis1, axis2, k, Ms, M, H);	
 		TOC("cubic_anisotropy");
+		} else{
+			TIC("cubic_anisotropy");
+			energy_sum = cubic_anisotropy_cpu(axis1, axis2, k, Ms, M, H);
+			TOC("cubic_anisotropy");
+		}
 	}
 
 	return energy_sum;

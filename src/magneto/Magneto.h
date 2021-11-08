@@ -59,6 +59,8 @@ bool isCudaEnabled();
 bool isCuda64Enabled();
 bool haveCudaSupport();
 void cudaSync();
+//Open MP support control
+bool isOpenMPEnabled();
 
 // Set FFTW thread configuration
 bool haveFFTWThreads();

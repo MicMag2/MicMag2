@@ -26,7 +26,6 @@
 #include "Benchmark.h"
 #include "Logger.h"
 #include "cosinecheck.h"
-
 #ifdef HAVE_CUDA
 #include <cuda_runtime.h>
 #include "matrix/matty.h"
@@ -59,15 +58,15 @@ void enableCuda(CudaMode mode, int gpu_id)
 	cuda_mode = mode;
 
 	if (mode == CUDA_32 || mode == CUDA_64) {
-#ifdef HAVE_CUDA
+	#ifdef HAVE_CUDA
 		LOG_DEBUG << "GPU is enabled (" << (mode == CUDA_32 ? "32" : "64") << " bit mode)";
 		::initialize_cuda(gpu_id);
 		matty::getDeviceManager().addCUDADevice(gpu_id);
-#else
+	#else
 		cuda_mode = CUDA_DISABLED;
 		LOG_ERROR << "Can't enable GPU because GPU support is not available (not enabled at compile time).";
 		LOG_DEBUG << "GPU is disabled!";
-#endif
+	#endif
 	} else {
 		LOG_DEBUG << "GPU is disabled!";
 	}
@@ -107,6 +106,15 @@ void cudaSync()
 	if (isCudaEnabled()) {
 		checkCudaSuccess(cudaThreadSynchronize());
 	}
+#endif
+}
+
+bool isOpenMPEnabled()
+{
+#ifdef HAVE_OMP
+	return omp_mode != OMP_DISABLED;
+#else
+	return false;
 #endif
 }
 

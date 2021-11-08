@@ -18,33 +18,94 @@ double topology_continuous_helper(int i, int j, int k, bool px, bool py, int dim
     }
     Mij = M_acc.get(i,j,k);
 
-    if(j==0){
-        if(py){
+
+    bool magjm1 = true;
+    bool magjp1 = true;
+    bool magim1 = true;
+    bool magip1 = true;
+    if(j!=0){
+        if(Ms_acc.at(i,j-1,k)==0){
+            magjm1 = false;
+        }
+    }else if(py){
+        if(Ms_acc.at(i,dim_y-1,k)==0){
+            magjm1 = false;
+        }
+    }else{
+        magjm1 = false;
+    }   
+
+    if(j != dim_y -1){
+        if(Ms_acc.at(i,j+1,k)==0){
+            magjp1 = false;
+        }
+    }else if(py){
+        if(Ms_acc.at(i,0,k)==0){
+            magjp1 = false;
+        }
+    }else{
+        magjp1 = false;
+    } 
+
+    if(i!=0){
+        if(Ms_acc.at(i-1,j,k)==0){
+            magim1 = false;
+        }
+    }else if(px){
+        if(Ms_acc.at(dim_x-1,j,k)==0){
+            magim1 = false;
+        }
+    }else{
+        magim1 = false;
+    } 
+
+    if(i != dim_x -1){
+        if(Ms_acc.at(i+1,j,k)==0){
+            magip1 = false;
+       }
+    }else if(px){
+        if(Ms_acc.at(0,j,k)==0){
+            magip1 = false;
+        }
+    }else{
+        magip1 = false;
+    }
+
+    if (magim1 == false && magip1 == false){
+        return 0;
+    }
+
+    if (magjm1 == false && magjp1 == false){
+        return 0;
+    }
+
+    if(j==0 || !magjm1){
+        if(py && j==0 && magjm1){
             My = (M_acc.get(i,j+1,k) - M_acc.get(i,dim_y-1,k))/2;
         }else{
-            My = M_acc.get(i,1,k) - Mij;
+            My = M_acc.get(i,j+1,k) - Mij;
         }
-    }else if(j == dim_y-1){
-        if(py){
+    }else if(j == dim_y-1  || !magjp1){
+        if(py && j==dim_y-1 && magjp1){
             My = (M_acc.get(i,0,k) - M_acc.get(i,j-1,k))/2;
         }else{
-            My = Mij - M_acc.get(i,dim_y-2,k);
+            My = Mij - M_acc.get(i,j-1,k);
         }
     }else{
         My = (M_acc.get(i,j+1,k) - M_acc.get(i,j-1,k))/2;
     }
 
-    if(i==0){
-        if(px){
+    if(i==0 || !magim1){
+        if(px && i ==0 && magim1){
             Mx = (M_acc.get(i+1,j,k) - M_acc.get(dim_x-1,j,k))/2;
         }else{
-            Mx = M_acc.get(1,j,k) - Mij;    
+            Mx = M_acc.get(i+1,j,k) - Mij;    
         }
-    }else if(i == dim_x-1){
-        if(px){
+    }else if(i == dim_x-1 || !magip1){
+        if(px && i == dim_x-1 && magip1){
             Mx = (M_acc.get(0,j,k) - M_acc.get(i-1,j,k))/2;
         }else{
-            Mx = Mij - M_acc.get(dim_x-2,j,k);    
+            Mx = Mij - M_acc.get(i-1,j,k);    
         }
     }else{
         Mx = (M_acc.get(i+1,j,k) - M_acc.get(i-1,j,k))/2;
@@ -194,9 +255,9 @@ Field topology_charge_berg_luescher_density_dual_lattice(const VectorField &M, c
                     dS = helper_luescher_charge(i,j,i+1,j+1,k,M_acc,Ms_acc);
                 }else if(j==dim_y-1  && i==dim_y-1 && px && py){
                     dS = helper_luescher_charge(dim_x-1,dim_y-1,0,0,k,M_acc,Ms_acc);
-                }else if(i==dim_x-1 && px){
+                }else if(i==dim_x-1 && px && j!=dim_y-1){
                     dS = helper_luescher_charge(dim_x-1,j,0,j+1,k,M_acc,Ms_acc);
-                }else if(j==dim_y-1 && py){
+                }else if(j==dim_y-1 && py && i!=dim_x-1){
                     dS = helper_luescher_charge(i,dim_y-1,i+1,0,k,M_acc,Ms_acc);
                 }                
                 density_acc.at(i,j,k) = dS/(4*PI*delta_x*delta_y);   
@@ -214,7 +275,7 @@ double topology_charge_berg_luescherhelper(int i, int j, int k, bool px, bool py
     double Msijm1 = 0;
     double area = 0;   
     double dS  = 0;
-
+    
     Vector3d vMsij,vMsi1j,vMsij1,vMsim1j,vMsijm1;
     Vector3d Mij,Mx,My;
 

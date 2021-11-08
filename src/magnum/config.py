@@ -26,11 +26,11 @@ class PassThroughOptionParser(OptionParser):
     An unknown option pass-through implementation of OptionParser.
 
     When unknown arguments are encountered, bundle with largs and try again,
-    until rargs is depleted.  
+    until rargs is depleted.
 
     sys.exit(status) will still be called if a known argument is passed
-    incorrectly (e.g. missing arguments or bad argument types, etc.)  
-    source: http://stackoverflow.com/questions/1885161/how-can-i-get-optparses-optionparser-to-ignore-invalid-options	
+    incorrectly (e.g. missing arguments or bad argument types, etc.)
+    source: http://stackoverflow.com/questions/1885161/how-can-i-get-optparses-optionparser-to-ignore-invalid-options
     """
     def _process_args(self, largs, rargs, values):
         while rargs:
@@ -38,7 +38,7 @@ class PassThroughOptionParser(OptionParser):
                 OptionParser._process_args(self,largs,rargs,values)
             except (BadOptionError,AmbiguousOptionError) as  e:
                 largs.append(e.opt_str)
-				
+
 class MagnumConfig(object):
 
     def initialize(self, argv=None):
@@ -153,8 +153,8 @@ class MagnumConfig(object):
                 #dest = "num_threads_openmp",
                 #type = "int",
                 #default = -1
-        }
-        
+                            )
+
         parser.add_option_group(hw_group)
 
         log_group = OptionGroup(parser,

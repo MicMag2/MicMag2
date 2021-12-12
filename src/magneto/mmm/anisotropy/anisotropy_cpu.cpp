@@ -226,12 +226,7 @@ double cubic_anisotropy_cpu(
     }
   }
 */
-<<<<<<< HEAD
 double uniaxial_anisotropy_avx(
-=======
-
-double uniaxial_anisotropy_omp(
->>>>>>> 693484e94cf88f019ea6048c482e58742ecabc5c
 	const VectorMatrix &axis,
 	const Matrix &k,
 	const Matrix &Ms,
@@ -248,24 +243,20 @@ double uniaxial_anisotropy_omp(
 	Matrix::ro_accessor Ms_acc(Ms), k_acc(k);
 
 	double energy_sum = 0.0;
-<<<<<<< HEAD
 
 	// Compute field
 	const size_t num_nodes = M.size();
-=======
         double energy_local = 0.0;
 
 	// Compute field
 	const size_t num_nodes = M.size();
 	#pragma omp parallel for shared(energy_sum) reduction(+:energy_sum)
 	{
->>>>>>> 693484e94cf88f019ea6048c482e58742ecabc5c
 	for (size_t i=0; i<num_nodes; ++i) {
 		const double     Ms = Ms_acc.at(i);
 		const double      k = k_acc.at(i);
 
 		if (Ms == 0.0 || k == 0.0) {
-<<<<<<< HEAD
 			H_acc.set(i, Vector3d( 0.0, 0.0,0.0));
 		} else {
 			const Vector4d axis = axis_acc.get4d(i);
@@ -274,7 +265,6 @@ double uniaxial_anisotropy_omp(
 			const double d = dot(spin, axis);
 
 			const Vector4d H = (2.0 * k * d / Ms / MU0) * axis;
-=======
 			H_acc.set(i, Vector3d(0.0, 0.0, 0.0));
 		} else {
 			const Vector3d axis = axis_acc.get(i);
@@ -283,30 +273,15 @@ double uniaxial_anisotropy_omp(
 			const double d = dot(spin, axis);
 
 			const Vector3d H = (2.0 * k * d / Ms / MU0) * axis;
->>>>>>> 693484e94cf88f019ea6048c482e58742ecabc5c
 			//std::cout << spin << H << std::endl;
 			H_acc.set(i, H);
 
 #ifdef USE_CROSS_PRODUCT_LIKE_OOMMF
-<<<<<<< HEAD
 			energy_sum += k * cross(axis, spin).abs_squared();
 #else
 			energy_sum += k * (1.0 - d*d);
 #endif
 		}
-	}
-
-	return energy_sum;
-}
-=======
-			energy_local = k*cross(axis, spin).abs_squared();
-			energy_sum += energy_local;
-#else
-			energy_local = k*(1.0-d*d);
-			energy_sum += energy_local;
-#endif
-		}
-	}
 	}
 
 	return energy_sum;
@@ -359,4 +334,3 @@ double cubic_anisotropy_omp(
 	}
 	return energy_sum;
 }
->>>>>>> 693484e94cf88f019ea6048c482e58742ecabc5c

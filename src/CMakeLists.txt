@@ -7,7 +7,7 @@ cmake_minimum_required (VERSION 2.8.0)
 project (Magneto)
 
 option(ENABLE_CUDA_32 "Enable CUDA (only 32 bit support)" OFF)
-option(ENABLE_CUDA_64 "Enable CUDA (both 32 and 64 bit support, needs CUDA device capability of 2.0 or higher)" ON)
+option(ENABLE_CUDA_64 "Enable CUDA (both 32 and 64 bit support, needs CUDA device capability of 2.0 or higher)" OFF)
 
 option(USE_PYTHON2 "Use Python2" OFF)
 option(USE_PYTHON3 "Use Python3" ON)
@@ -59,10 +59,12 @@ endmacro(append_magneto_cusrc)
 
 # FFTW
 find_library(FFTW   fftw3 REQUIRED)
-find_library(FFTWF  fftw3f REQUIRED)
+#find_library(FFTWF  fftw3f REQUIRED)
 find_library(FFTWT  fftw3_threads REQUIRED)
-find_library(FFTWFT fftw3f_threads REQUIRED)
-set(FFTW_LIBRARIES "${FFTW};${FFTWF};${FFTWT};${FFTWFT}")
+#find_library(FFTWFT fftw3f_threads REQUIRED)
+find_library(FFTWO  fftw3_omp REQUIRED)
+#find_library(FFTWFO fftw3f_omp REQUIRED)
+set(FFTW_LIBRARIES "${FFTW};${FFTWF};${FFTWT};${FFTWFT};${FFTWO};${FFTWFO}")
 
 # SWIG + Python
 find_package(SWIG REQUIRED)

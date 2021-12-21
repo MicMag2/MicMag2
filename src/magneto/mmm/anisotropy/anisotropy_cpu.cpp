@@ -226,7 +226,7 @@ double cubic_anisotropy_cpu(
     }
   }
 */
-double uniaxial_anisotropy_avx(
+/*double uniaxial_anisotropy_avx(
 	const VectorMatrix &axis,
 	const Matrix &k,
 	const Matrix &Ms,
@@ -333,4 +333,4 @@ double cubic_anisotropy_omp(
 	}
 	}
 	return energy_sum;
-}
+}*/ 

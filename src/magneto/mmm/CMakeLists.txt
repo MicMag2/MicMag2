@@ -24,14 +24,16 @@ set(SRC
   demag/fs_demag_tensor.cpp
   demag/multiscale.cpp
   #temperature
-  temperature/fdm_temperature.cpp 
-  temperature/fdm_temperature_cpu.cpp 
-  temperature/fs_fdm_temperature.cpp 
-  temperature/fs_fdm_temperature_cpu.cpp 
+  temperature/fdm_temperature.cpp
+  temperature/fdm_temperature_cpu.cpp
+  temperature/fs_fdm_temperature.cpp
+  temperature/fs_fdm_temperature_cpu.cpp
 
   # exchange
   exchange/exchange.cpp
   exchange/exchange_cpu.cpp
+  interlayerExchange/interlayerExchange_cpu.cpp
+  interlayerExchange/interlayerExchange_multi_cpu.cpp
   exchange/fs_exchange.cpp
   exchange/fs_exchange_cpu.cpp
   spinhall/fs_spinhall.cpp
@@ -49,7 +51,7 @@ set(SRC
   # spintorque
   spintorque/fdm_zhangli.cpp
   spintorque/fdm_zhangli_cpu.cpp
-  
+
   # macrospintorque
   macrospintorque/fdm_slonchewski.cpp
   macrospintorque/fdm_slonchewski_cpu.cpp
@@ -73,6 +75,8 @@ set(CUSRC
   dmi/dmi_cuda.cu
   dmi/fs_dmi_cuda.cu
   exchange/fs_exchange_cuda.cu
+  interlayerExchange/interlayerExchange_cuda.cu
+  interlayerExchange/interlayerExchange_multi_cuda.cu
   macrospintorque/fs_fdm_slonchewski_cuda.cu
   macrospintorque/fdm_slonchewski_cuda.cu
 )

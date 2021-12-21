@@ -45,7 +45,7 @@ double fs_uniaxial_anisotropy_cpu(
 	 {
 				const double spin = mu_acc.at(i); // remember to replace with: spin_acc.at(i);
 				const double k = k_acc.at(i);
-				const double Ms = Ms_acc.at(i);
+                //const double Ms = Ms_acc.at(i);
 
 				if (spin == 0.0 || k == 0) {
 					H_acc.set(i, Vector3d(0.0, 0.0, 0.0));

@@ -7,7 +7,7 @@ cmake_minimum_required (VERSION 2.8.0)
 project (Magneto)
 
 option(ENABLE_CUDA_32 "Enable CUDA (only 32 bit support)" OFF)
-option(ENABLE_CUDA_64 "Enable CUDA (both 32 and 64 bit support, needs CUDA device capability of 2.0 or higher)" ON)
+option(ENABLE_CUDA_64 "Enable CUDA (both 32 and 64 bit support, needs CUDA device capability of 2.0 or higher)" OFF)
 
 option(USE_PYTHON2 "Use Python2" OFF)
 option(USE_PYTHON3 "Use Python3" ON)
@@ -18,7 +18,7 @@ if(ENABLE_CUDA_32 OR ENABLE_CUDA_64)
 endif(ENABLE_CUDA_32 OR ENABLE_CUDA_64)
 
 option(USE_NEW_CUDA "Use new cuda" ON)
-option(USE_NEW_SWIG "Use new swig" OFF)
+option(USE_NEW_SWIG "Use new swig" ON)
 
 if(USE_NEW_SWIG)
 	cmake_policy(SET CMP0086 NEW)
@@ -62,7 +62,9 @@ find_library(FFTW   fftw3 REQUIRED)
 find_library(FFTWF  fftw3f REQUIRED)
 find_library(FFTWT  fftw3_threads REQUIRED)
 find_library(FFTWFT fftw3f_threads REQUIRED)
-set(FFTW_LIBRARIES "${FFTW};${FFTWF};${FFTWT};${FFTWFT}")
+#find_library(FFTWO  fftw3_omp REQUIRED)
+#find_library(FFTWFO fftw3f_omp REQUIRED)
+set(FFTW_LIBRARIES "${FFTW};${FFTWF};${FFTWT};${FFTWFT};${FFTWO};${FFTWFO}")
 
 # SWIG + Python
 find_package(SWIG REQUIRED)
@@ -193,7 +195,7 @@ add_subdirectory(magneto/mesh)
 ##############################################################
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -march=native -msse3 -fomit-frame-pointer -ffast-math -fpermissive -fPIC -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -march=native -msse3 -fomit-frame-pointer -ffast-math -fpermissive -fPIC")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 if(OPENMP_FOUND)
@@ -218,13 +220,13 @@ if(ENABLE_CUDA)
   endif(ENABLE_CUDA_64)
 
   # Setup nvcc command line args
-  set(CUDA_PROPAGATE_HOST_FLAGS OFF)
+  set(CUDA_PROPAGATE_HOST_FLAGS ON)
 
   if(ENABLE_CUDA_64)
 	if(USE_NEW_CUDA)
 		set(CUDA_NVCC_FLAGS --gpu-architecture=compute_61;-Xcompiler;-fpic;-O6;--use_fast_math)
 	else(USE_NEW_CUDA)
-		set(CUDA_NVCC_FLAGS --gpu-architecture=compute_30;-Xcompiler;-fpic;-O6;--use_fast_math)
+		set(CUDA_NVCC_FLAGS --gpu-architecture=compute_61;-Xcompiler;-fpic;-O6;--use_fast_math)
 	endif(USE_NEW_CUDA)
   else(ENABLE_CUDA_64)
     set(CUDA_NVCC_FLAGS -Xcompiler;-fpic;-O6;--use_fast_math)
@@ -247,7 +249,6 @@ endif(ENABLE_CUDA)
 if(USE_NEW_SWIG)
 	set_property(SOURCE ${BINDINGS_SOURCE} PROPERTY SWIG_MODULE_NAME ${SWIG_MODULE_NAME})
 	set_source_files_properties (${BINDINGS_SOURCE} PROPERTIES SWIG_FLAGS "-O;")
-	#swig_add_module(${SWIG_MODULE_NAME} python ${PROJECT_SOURCE_DIR}/magneto/bindings/magneto.i ${MAGNETO_SRC})
 	swig_add_library(${SWIG_MODULE_NAME} LANGUAGE python SOURCES ${PROJECT_SOURCE_DIR}/magneto/bindings/magneto.i ${MAGNETO_SRC} )
 else(USE_NEW_SWIG)
 	set_source_files_properties (${BINDINGS_SOURCE} PROPERTIES SWIG_FLAGS "-O;-module;${SWIG_MODULE_NAME}")
@@ -290,7 +291,7 @@ configure_file(
 ##############################################################
 
 # set PYTHON_SITE_MODULES path
-#execute_process ( COMMAND python${PYTHON_VERSION} -c "import sys; from distutils.sysconfig import get_python_lib; d0 = get_python_lib(0,0,'/usr/local'); d1 = get_python_lib(); print(d0 if d0 in sys.path else d1)" OUTPUT_VARIABLE PYTHON_SITE_MODULES OUTPUT_STRIP_TRAILING_WHITESPACE)
+execute_process ( COMMAND python${PYTHON_VERSION} -c "import sys; from distutils.sysconfig import get_python_lib; d0 = get_python_lib(0,0,'/usr/local'); d1 = get_python_lib(); print(d0 if d0 in sys.path else d1)" OUTPUT_VARIABLE PYTHON_SITE_MODULES OUTPUT_STRIP_TRAILING_WHITESPACE)
 message ("-- Found Python ${PYTHON_VERSION}, will install at ${PYTHON_SITE_MODULES}")
 
 # install directory magnum, exclude the symlinks

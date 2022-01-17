@@ -19,8 +19,5 @@ try:
     from .magneto_cuda import *
     print("load cuda")
 except ImportError:
-    from .magneto_omp import *
-    print("load open mp version")
-    except Import Error:
         from .magneto_cpu import *
-        print("load cpu") 
+        print("load cpu")

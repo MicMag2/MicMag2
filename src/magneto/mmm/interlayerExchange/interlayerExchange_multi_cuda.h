@@ -17,21 +17,22 @@
  * along with MicroMagnum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-%include "mmm/exchange.i"
-%include "mmm/fs_exchange.i"
-%include "mmm/llge.i"
-%include "mmm/demag.i"
-%include "mmm/anisotropy.i"
-%include "mmm/fs_anisotropy.i"
-%include "mmm/zhangli.i"
-%include "mmm/fdm_slonchewski.i"
-%include "mmm/io.i"
-%include "mmm/fs_spinhall.i"
-%include "mmm/fs_fdm_slonchewski.i"
-%include "mmm/dmi.i"
-%include "mmm/fs_dmi.i"
-%include "mmm/interlayerExchange.i"
-%include "mmm/interlayerExchange_multi.i"
-%include "mmm/temperature.i"
-%include "mmm/fs_temperature.i"
-%include "mmm/topology.i"
+#ifndef CUDA_FDM_INTERLAYEREXCHANGE_MULTI_H
+#define CUDA_FDM_INTERLAYEREXCHANGE_MULTI_H
+
+#include "config.h"
+#include "matrix/matty.h"
+
+double interlayerExchange_multi_cuda(
+	int dim_x, int dim_y, int dim_z,
+	double delta_x, double delta_y, double delta_z,
+	bool periodic_x, bool periodic_y, bool periodic_z,
+	const Matrix &Ms,
+	const VectorMatrix &intExchPat,
+	int numEntries,
+	const VectorMatrix &M,
+	VectorMatrix &H,
+	bool cuda64
+);
+
+#endif

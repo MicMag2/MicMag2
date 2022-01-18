@@ -24,10 +24,10 @@ set(SRC
   demag/fs_demag_tensor.cpp
   demag/multiscale.cpp
   #temperature
-  temperature/fdm_temperature.cpp 
-  temperature/fdm_temperature_cpu.cpp 
-  temperature/fs_fdm_temperature.cpp 
-  temperature/fs_fdm_temperature_cpu.cpp 
+  temperature/fdm_temperature.cpp
+  temperature/fdm_temperature_cpu.cpp
+  temperature/fs_fdm_temperature.cpp
+  temperature/fs_fdm_temperature_cpu.cpp
 
   # exchange
   exchange/exchange.cpp
@@ -49,15 +49,35 @@ set(SRC
   # spintorque
   spintorque/fdm_zhangli.cpp
   spintorque/fdm_zhangli_cpu.cpp
-  
+
   # macrospintorque
   macrospintorque/fdm_slonchewski.cpp
   macrospintorque/fdm_slonchewski_cpu.cpp
   macrospintorque/fs_fdm_slonchewski.cpp
   macrospintorque/fs_fdm_slonchewski_cpu.cpp
 
-  #charge
+  # charge
   topology/charge.cpp
+
+
+  # interlayerExchange
+  interlayerExchange/interlayerExchange.cpp
+  interlayerExchange/interlayerExchange_cpu.cpp
+  interlayerExchange/interlayerExchange_multi.cpp
+  interlayerExchange/interlayerExchange_multi_cpu.cpp
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 )
@@ -71,6 +91,8 @@ set(CUSRC
   spintorque/fdm_zhangli_cuda.cu
   anisotropy/fs_anisotropy_cuda.cu
   dmi/dmi_cuda.cu
+  interlayerExchange/interlayerExchange_cuda.cu
+  interlayerExchange/interlayerExchange_multi_cuda.cu
   dmi/fs_dmi_cuda.cu
   exchange/fs_exchange_cuda.cu
   macrospintorque/fs_fdm_slonchewski_cuda.cu

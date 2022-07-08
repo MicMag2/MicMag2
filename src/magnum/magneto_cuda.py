@@ -1,1 +1,1 @@
-../build/magneto_cuda.py
+../build_orig/magneto_cuda.py

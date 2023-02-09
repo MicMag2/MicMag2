@@ -24,7 +24,7 @@ from magnum.create_solver import create_solver
 from .constants import MU0, H_BAR, ELECTRON_CHARGE, MU_BOHR, GYROMAGNETIC_RATIO, BOLTZMANN_CONSTANT
 from .landau_lifshitz_gilbert import LandauLifshitzGilbert
 from .exchange_field import FSExchangeField
-from .stray_field import FSStrayField, FSStrayFieldCalculator
+from .stray_field import FSStrayField, FSStrayFieldCalculator, FSStrayFieldTensor
 from .external_field import ExternalField
 from .anisotropy_field import FSAnisotropyField
 from .homogeneous_field import HomogeneousField, HomogeneousCurrent
@@ -32,7 +32,7 @@ from .spin_torque import SpinTorque
 from .alternating_field import AlternatingField
 from .alternating_current import AlternatingCurrent
 from .simple_field import SimpleExternalField, SimpleVectorField
-from .pulse_current import PulseCurrent 
+from .pulse_current import PulseCurrent
 from .spinHall_field import FSSpinHallField
 from .pulse_field import PulseField
 from .macro_spin_torque import FSMacroSpinTorque
@@ -42,7 +42,7 @@ from .temperature_field import TemperatureField
 __all__ = [
     "HeisenbergModel", "HeisenbergModelSolver", "create_solver",
     "MU0", "H_BAR", "ELECTRON_CHARGE", "MU_BOHR", "GYROMAGNETIC_RATIO", "BOLTZMANN_CONSTANT",
-    "LandauLifshitzGilbert", "FSExchangeField", "FSStrayField", "FSStrayFieldCalculator",
+    "LandauLifshitzGilbert", "FSExchangeField", "FSStrayField", "FSStrayFieldCalculator","FSStrayFieldTensor",
     "ExternalField", "FSAnisotropyField", "HomogeneousField", "HomogeneousCurrent",
     "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "FSSpinHallField", "PulseCurrent", "PulseField", "FSMacroSpinTorque", "FSDMIField", "TemperatureField"
 ]

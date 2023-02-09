@@ -18,7 +18,7 @@
 from magnum.mesh import VectorField
 from magnum.module import Module
 
-from .stray_field_calculator import DemagTensorField, FSStrayFieldCalculator
+from .stray_field_calculator import DemagTensorField, FSStrayFieldCalculator, FSStrayFieldTensor
 from .constants import MU0
 
 class FSStrayField(Module):

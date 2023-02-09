@@ -140,5 +140,30 @@ class FSStrayFieldCalculator(object):
         else:
             assert False
 
+class FSStrayFieldTensor(object):
+    def __init__(self, mesh, method = "tensor", padding = TensorField.PADDING_ROUND_4):
+        # are we periodic?
+        peri, peri_repeat = mesh.periodic_bc
+        peri_x = peri.find("x") != -1
+        peri_y = peri.find("y") != -1
+        peri_z = peri.find("z") != -1
+
+        # number of cells and cell sizes
+        nx, ny, nz = mesh.num_nodes
+        dx, dy, dz = mesh.delta
+
+        if nx * ny * nz > 32:
+            if not (nx < ny < nz):
+                logger.info("Performance hint: The number of cells nx, ny, nz in each direction should satisfy nx >= ny >= nz.")
+            if (nx == 1 or ny == 1) and nz != 1:
+                logger.info("Performance hint: Meshes with 2-dimensional cell grids should span the xy-plane, i.e. the number of cells in z-direction should be 1.")
+
+        # generate calculation function depending on user-selected method
+        tensor = DemagTensorField(mesh, padding)
+        tensor.setPeriodicBoundaries(peri_x, peri_y, peri_z, peri_repeat)
+
+        return tensor.to_numpy()
+
+
     def calculate(self, M, H):
         self.__calc(M, H)

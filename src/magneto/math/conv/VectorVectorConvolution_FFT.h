@@ -62,14 +62,14 @@ private:
 	void setupInverseTransforms();
 
 	// Transpose and transform algorithms
-	std::auto_ptr<Transposer_CPU> transposer;
-	std::auto_ptr<Transformer_CPU> transformer;
+	std::unique_ptr<Transposer_CPU> transposer;
+	std::unique_ptr<Transformer_CPU> transformer;
 	fftw_plan plan_x_c2r, plan_y_inv; // we need different X,Y back transforms than in Transposer_CPU...
 	void calculate_multiplication(double *inout_x, double *in_y, double *in_z);
 	
 #ifdef HAVE_CUDA
-	std::auto_ptr<Transposer_CUDA> transposer_cuda;
-	std::auto_ptr<Transformer_CUDA> transformer_cuda;
+	std::unique_ptr<Transposer_CUDA> transposer_cuda;
+	std::unique_ptr<Transformer_CUDA> transformer_cuda;
 	cufftHandle plan_x_c2r_cuda, plan_y_inv_cuda;
 #endif
 };

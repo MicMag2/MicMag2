@@ -105,7 +105,7 @@ void cudaSync()
 {
 #ifdef HAVE_CUDA
 	if (isCudaEnabled()) {
-		checkCudaSuccess(cudaThreadSynchronize());
+		checkCudaSuccess(cudaDeviceSynchronize());
 	}
 #endif
 }

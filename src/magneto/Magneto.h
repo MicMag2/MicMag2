@@ -39,8 +39,8 @@ void printProfilingReport();
 #define TIC(id) { if (isProfilingEnabled()) Benchmark::inst().tic(id); }
 #define TOC(id) { if (isProfilingEnabled()) Benchmark::inst().toc(id); }
 
-#define CUTIC(id) { if (isProfilingEnabled()) { cudaThreadSynchronize(); Benchmark::inst().tic(id); } }
-#define CUTOC(id) { if (isProfilingEnabled()) { cudaThreadSynchronize(); Benchmark::inst().toc(id); } }
+#define CUTIC(id) { if (isProfilingEnabled()) { cudaDeviceSynchronize(); Benchmark::inst().tic(id); } }
+#define CUTOC(id) { if (isProfilingEnabled()) { cudaDeviceSynchronize(); Benchmark::inst().toc(id); } }
 
 #ifdef HAVE_CUDA
 #define SWIG_SYNCHRONIZE() do { CUDA_THREAD_SYNCHRONIZE(); } while (false);

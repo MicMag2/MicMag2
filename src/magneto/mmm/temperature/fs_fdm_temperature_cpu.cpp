@@ -40,7 +40,7 @@ void fs_fdm_temperature_cpu(
 	VectorMatrix::accessor Hth_acc(Hth);
 
 	const int N = dim_x * dim_y * dim_z;
-	const double volume = delta_x * delta_y * delta_z;
+	//const double volume = delta_x * delta_y * delta_z;
 
 	std::default_random_engine generator;
 	generator.seed( seed + step);

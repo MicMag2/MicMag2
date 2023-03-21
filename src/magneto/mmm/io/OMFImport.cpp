@@ -51,7 +51,7 @@ struct OMFImport
 	bool eof;
 	int next_char;
 
-	std::auto_ptr<VectorMatrix> field;
+	std::unique_ptr<VectorMatrix> field;
 
 	void acceptLine();
 	void acceptCharacter();

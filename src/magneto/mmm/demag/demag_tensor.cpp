@@ -72,14 +72,14 @@ static std::string cacheFile(const DemagTensorInfo &info)
 	return ss.str();
 }
 
-static void saveDemagTensor(const DemagTensorInfo &info, const std::string &path, Matrix &mat)
-{
-	LOG_INFO << "Saving demagnetization tensor field to cache.";
-	Matrix::ro_accessor acc(mat);
-	std::ofstream out(path.c_str());
-	out.write((const char*)acc.ptr(), sizeof(double) * mat.size());
-	LOG_DEBUG << "Done.";
-}
+//static void saveDemagTensor(const DemagTensorInfo &info, const std::string &path, Matrix &mat)
+//{
+//	LOG_INFO << "Saving demagnetization tensor field to cache.";
+//	Matrix::ro_accessor acc(mat);
+//	std::ofstream out(path.c_str());
+//	out.write((const char*)acc.ptr(), sizeof(double) * mat.size());
+//	LOG_DEBUG << "Done.";
+//}
 
 Matrix loadDemagTensor(const DemagTensorInfo &info, const std::string &path, bool &success /*out*/)
 {
@@ -163,7 +163,7 @@ Matrix GenerateDemagTensor(
 	const int repeat_y = periodic_y ? periodic_repeat : 1;
 	const int repeat_z = periodic_z ? periodic_repeat : 1;
 
-	const double t0 = os::getTickCount();
+	//const double t0 = os::getTickCount();
 #ifdef USE_OLD_CODE
 	// Old implementation (in old/demag_old.cpp)
 	Matrix N = calculateDemagTensor_old(delta_x, delta_y, delta_z, dim_x, dim_y, dim_z, exp_x, exp_y, exp_z, repeat_x, repeat_y, repeat_z);
@@ -171,7 +171,7 @@ Matrix GenerateDemagTensor(
 	// New implementation (in ./tensor.cpp)
 	Matrix N = calculateDemagTensor(delta_x, delta_y, delta_z, dim_x, dim_y, dim_z, exp_x, exp_y, exp_z, repeat_x, repeat_y, repeat_z);
 #endif
-	const double t1 = os::getTickCount();
+	//const double t1 = os::getTickCount();
 
 	// we actually compute -N because H = -(N x M) = (-N) x M
 	N.scale(-1);

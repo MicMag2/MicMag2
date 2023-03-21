@@ -58,11 +58,11 @@ protected:
 	} s1, s2;
 
 	// Transpose and transform algorithms
-	std::auto_ptr<Transposer_CPU> transposer;
-	std::auto_ptr<Transformer_CPU> transformer;
+	std::unique_ptr<Transposer_CPU> transposer;
+	std::unique_ptr<Transformer_CPU> transformer;
 #ifdef HAVE_CUDA
-	std::auto_ptr<Transposer_CUDA> transposer_cuda;
-	std::auto_ptr<Transformer_CUDA> transformer_cuda;
+	std::unique_ptr<Transposer_CUDA> transposer_cuda;
+	std::unique_ptr<Transformer_CUDA> transformer_cuda;
 #endif
 };
 

@@ -257,10 +257,10 @@ void cuda_transpose_zeropad_c2c_3d(
 			num_blocks.x *= 2;
 		}
 
-		const int  in_stride_x = 2 * 1;
+		//const int  in_stride_x = 2 * 1; 
 		const int  in_stride_y = 2 * dim_x;
 		const int  in_stride_z = 2 * dim_x * dim_y;
-		const int out_stride_x = 2 * 1;
+		//const int out_stride_x = 2 * 1;
 		const int out_stride_y = 2 * exp_y;
 		const int out_stride_z = 2 * exp_y * dim_z;
 

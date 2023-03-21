@@ -270,7 +270,8 @@ double VectorMatrix::dotSum(const VectorMatrix &other) const
 			this->getArray(dev, 0), this->getArray(dev, 1), this->getArray(dev, 2),
 			other.getArray(dev, 0), other.getArray(dev, 1), other.getArray(dev, 2)
 		);
-		if (this != &other) other.readUnlock(dev); readUnlock(dev);
+	    if (this != &other) other.readUnlock(dev); 
+        readUnlock(dev);
 		return sum;
 	}
 }

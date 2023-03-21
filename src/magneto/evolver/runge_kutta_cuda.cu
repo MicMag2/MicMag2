@@ -132,7 +132,7 @@ void rk_combine_result_cuda_impl(
 	kernel_runge_kutta_combine_result4<real><<<32, 128>>>(h, tab.c[0], tab.ec[0], k0_acc.ptr_z(), tab.c[1], tab.ec[1], k1_acc.ptr_z(), tab.c[2], tab.ec[2], k2_acc.ptr_z(), tab.c[3], tab.ec[3], k3_acc.ptr_z(), y_acc.ptr_z(), y_error_acc.ptr_z(), y.size());
 
 	checkCudaLastError("kernel_runge_kutta_combine_result5() execution failed");
-	checkCudaSuccess(cudaThreadSynchronize());
+	checkCudaSuccess(cudaDeviceSynchronize());
 }
 
 template <typename real>
@@ -154,7 +154,7 @@ void rk_combine_result_cuda_impl(
 	kernel_runge_kutta_combine_result5<real><<<32, 128>>>(h, tab.c[0], tab.ec[0], k0_acc.ptr_z(), tab.c[2], tab.ec[2], k2_acc.ptr_z(), tab.c[3], tab.ec[3], k3_acc.ptr_z(), tab.c[4], tab.ec[4], k4_acc.ptr_z(), tab.c[5], tab.ec[5], k5_acc.ptr_z(), y_acc.ptr_z(), y_error_acc.ptr_z(), y.size());
 
 	checkCudaLastError("kernel_runge_kutta_combine_result5() execution failed");
-	checkCudaSuccess(cudaThreadSynchronize());
+	checkCudaSuccess(cudaDeviceSynchronize());
 }
 
 void rk_combine_result_cuda(

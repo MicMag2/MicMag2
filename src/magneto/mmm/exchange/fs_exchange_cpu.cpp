@@ -131,34 +131,33 @@ static double fs_exchange_cpu_nonperiodic(
 			}
 		}
 	}
-return energy;}
+return energy;
+
+}
 
 
 static double fs_exchange_cpu_periodic(
 	int dim_x, int dim_y, int dim_z,
 	double delta_x, double delta_y, double delta_z,
 	bool periodic_x, bool periodic_y, bool periodic_z,
-	const Matrix &Ms,
-	const Matrix &A,
+	const Matrix &mu,
+	const Matrix &J,
 	const VectorMatrix &M,
 	VectorMatrix &H)
 {
 	const int dim_xy = dim_x * dim_y;
-	const double wx = 1.0 / (delta_x * delta_x);
-	const double wy = 1.0 / (delta_y * delta_y);
-	const double wz = 1.0 / (delta_z * delta_z);
 
 	VectorMatrix::const_accessor M_acc(M);
 	VectorMatrix::accessor H_acc(H);
-	Matrix::ro_accessor Ms_acc(Ms), A_acc(A);
+	Matrix::ro_accessor J_acc(J), spin_acc(mu);
 
 	double energy = 0.0;
 	for (int z=0; z<dim_z; ++z) {
 		for (int y=0; y<dim_y; ++y) {	
 			for (int x=0; x<dim_x; ++x) {
 				const int i = z*dim_xy + y*dim_x + x; // linear index of (x,y,z)
-				const double Ms = Ms_acc.at(i);
-				if (Ms == 0.0) {
+				const double spin = spin_acc.at(i);
+				if (spin == 0.0) {
 					H_acc.set(i, Vector3d(0.0, 0.0, 0.0));
 					continue;
 				}
@@ -184,40 +183,40 @@ static double fs_exchange_cpu_periodic(
 					if (z == dim_z-1) idx_b -= dim_xy*dim_z;
 				}
 
-				const Vector3d M_i = M_acc.get(i) / Ms; // magnetization at (x,y,z)
+				const Vector3d M_i = M_acc.get(i); 
 
 				Vector3d sum(0.0, 0.0, 0.0);
 
 				// left / right (X)
 				if (x >       0 || periodic_x) {
-					const double Ms_l = Ms_acc.at(idx_l);
-					if (Ms_l != 0.0) sum += ((M_acc.get(idx_l) / Ms_l) - M_i) * wx;
+					const double spin_l = spin_acc.at(idx_l);
+					if (spin_l != 0.0) sum += (M_acc.get(idx_l) / spin_l);
 				}
 				if (x < dim_x-1 || periodic_x) {
-					const double Ms_r = Ms_acc.at(idx_r);	
-					if (Ms_r != 0.0) sum += ((M_acc.get(idx_r) / Ms_r) - M_i) * wx;
+					const double spin_r = spin_acc.at(idx_r);	
+					if (spin_r != 0.0) sum += (M_acc.get(idx_r) / spin_r);
 				}
 				// up / down (Y)
 				if (y >       0 || periodic_y) {
-					const double Ms_u = Ms_acc.at(idx_u);
-					if (Ms_u != 0.0) sum += ((M_acc.get(idx_u) / Ms_u) - M_i) * wy;
+					const double spin_u = spin_acc.at(idx_u);
+					if (spin_u != 0.0) sum += (M_acc.get(idx_u) / spin_u);
 				}
 				if (y < dim_y-1 || periodic_y) {
-					const double Ms_d = Ms_acc.at(idx_d);
-					if (Ms_d != 0.0) sum += ((M_acc.get(idx_d) / Ms_d) - M_i) * wy;
+					const double spin_d = spin_acc.at(idx_d);
+					if (spin_d != 0.0) sum += (M_acc.get(idx_d) / spin_d);
 				}
 				// forward / backward (Z)
 				if (z >       0 || periodic_z) {
-					const double Ms_f = Ms_acc.at(idx_f);
-					if (Ms_f != 0.0) sum += ((M_acc.get(idx_f) / Ms_f) - M_i) * wz;
+					const double spin_f = spin_acc.at(idx_f);
+					if (spin_f != 0.0) sum += (M_acc.get(idx_f) / spin_f);
 				}
 				if (z < dim_z-1 || periodic_z) {
-					const double Ms_b = Ms_acc.at(idx_b);
-					if (Ms_b != 0.0) sum += ((M_acc.get(idx_b) / Ms_b) - M_i) * wz;
+					const double spin_b = spin_acc.at(idx_b);
+					if (spin_b != 0.0) sum += (M_acc.get(idx_b) / spin_b);
 				}
 
 				// Exchange field at (x,y,z)
-				const Vector3d H_i = (2/MU0) * A_acc.at(i) * sum / Ms;
+				const Vector3d H_i = 2*J_acc.at(i)*sum/(spin*MU0);//(2/MU0) * A_acc.at(i) * sum / Ms;
 				H_acc.set(i, H_i);
 
 				// Exchange energy sum
@@ -225,7 +224,5 @@ static double fs_exchange_cpu_periodic(
 			}
 		}
 	}
-
-	energy *= -MU0/2.0 * delta_x * delta_y * delta_z;
 	return energy;
 }

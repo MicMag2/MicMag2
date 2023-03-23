@@ -96,7 +96,8 @@ class Solver(object):
 
     def reInitStrayField(self):
         idx = [i for i, m in enumerate(self.system.modules) if "StrayField" in str(type(m))]
-        self.system.modules[idx[0]].calculator.__init__(self.mesh)
+        if len(idx)>0:
+            self.system.modules[idx[0]].calculator.__init__(self.mesh)
 
     def setGPU(self, cudaEnable):
         if cudaEnable:

@@ -25,7 +25,7 @@ class FSDMIField(module.Module):
         super(FSDMIField, self).__init__()
 
     def calculates(self):
-        return ["H_fsdmi", "E_dmi"]
+        return ["H_dmi", "E_dmi"]
 
     def params(self):
         return ["Dx", "Dy", "Dz"]
@@ -45,7 +45,7 @@ class FSDMIField(module.Module):
     def calculate(self, state, id):
         cache = state.cache
 
-        if id == "H_fsdmi":
+        if id == "H_dmi":
             if hasattr(cache, "H_fsdmi"): return cache.H_fsdmi
             H_fsdmi = cache.H_fsdmi = VectorField(self.system.mesh)
             H_fsdmi.fill((0,0,0))

@@ -1,6 +1,6 @@
-from .alternating_field import AlternatingField
+from .alternating_field import FSAlternatingField
 
-class PulseCurrent(AlternatingField):
+class PulseCurrent(FSAlternatingField):
 	def __init__(self, var_id = "pj"):
 		super(PulseCurrent, self).__init__(var_id)
 

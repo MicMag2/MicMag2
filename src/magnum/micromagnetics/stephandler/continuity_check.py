@@ -43,7 +43,7 @@ class ContinuityCheck(StepHandler):
                  fineMagIsGiven, DMI=False, mintrack=0.05, multiscaleLog=True, growshrink = False,  catchCoarseField = True, useMMstrayField = False):
 
         super(ContinuityCheck, self).__init__()
-        self.useMMstrayField =useMMstrayField	
+        self.useMMstrayField =useMMstrayField
         self.DMI = DMI
         self.solver = coarseSolver
         self.world = coarseSolver.world
@@ -63,7 +63,7 @@ class ContinuityCheck(StepHandler):
         # made for the skyrmion edge trackingte
 
         # if(hasattr(self, 'TrackingCond')):
-        print("self.mesh"+str(self.mesh))
+        #print("self.mesh"+str(self.mesh))
         #        if not hasattr()
 
 
@@ -297,41 +297,23 @@ class ContinuityCheck(StepHandler):
         M_dummy = VectorField(self.mesh)
         H_Stray = VectorField(self.mesh)
         M_dummy = self.solver.state.M
-        M_dummy_numpy = self.solver.state.M.to_numpy() 
+        M_dummy_numpy = self.solver.state.M.to_numpy()
        	if self.useMMstrayField == False:
-        #TOOK THIS AGAIN
-          #print(self.r_0[0], self.r_1[0]+1, self.r_0[2], self.r_1[2]+1)
           M_dummy_numpy[self.r_0[0]:self.r_1[0]+1, self.r_0[1]:self.r_1[1]+1,self.r_0[2]:self.r_1[2]+1,:] = 0
-        #print(M_dummy_numpy[self.r_0[0], self.r_0[1], 0])
-
-        #TOOK THIS IN AGAIN+
-        #for i in range(self.r_0[0], self.r_1[0]+1):
-        #    for j in range(self.r_0[1], self.r_1[1]+1):
-        #        for k in range(self.r_0[2], self.r_1[2]+1):
-        #            M_dummy.set(i,j,k, (0,0,0))
-        #time2=time.time()
-          #M_dummy_numpy[self.r_0[0]:self.r_1[0]+1,self.r_0[1]:self.r_1[1]+1,self.r_0[2]:self.r_1[2]+1]=0
           M_dummy.from_numpy(M_dummy_numpy)
-        #print(M_dummy_numpy.shape)
         frame= 1
-        #M_dummy.from_numpy(M_dummy_numpy)
         self.stray.calculate(M_dummy, H_Stray)
-        #time3=time.time()
         stray_bc = H_Stray.to_numpy()   # bc means big coarse
-        #print(self.r_0)
-	#print(self.r_1)
-	#stray_mc = stray_bc[self.r_0[0]-frame:self.r_1[0]+frame+1,self.r_0[1]-frame:self.r_1[1]+frame+1, self.r_0[2]:self.r_1[2]+1]
         stray_mc = stray_bc[self.r_0[0]:self.r_1[0]+1,self.r_0[1]:self.r_1[1]+1, self.r_0[2]:self.r_1[2]+1]
         stray_mf = strafo.resize(stray_mc,(self.fineNodes[0],self.fineNodes[1], self.fineNodes[2], 3), order=1, mode="constant",  preserve_range=False) # mf means middle (plus frame for ghost cell interpolation)
         # now correct all areas and edges, beacuse interpolation fails at these points
         framex=int( self.FinenodesPerCoarseCell[0]/2)
         framey=int( self.FinenodesPerCoarseCell[1]/2)
         framez=int( self.FinenodesPerCoarseCell[2]/2)
-	#print("frame x, ", framex)
-        #print("frame y, ", framey)
-        #print("frame z, ", framez)
+        print(stray_mc.shape)
+        print(stray_mf.shape)
+        print(framez)
         nx,ny,nz = self.fineNodes
-        print(nx, ny, nz)
         stray_mf[:,:,0:framez,:] = stray_mf[:,:,framez,:].reshape((nx,ny,1,3))
         stray_mf[:,:,-(framez+1):,:] = stray_mf[:,:,-(framez+1),:].reshape((nx,ny,1,3))
         stray_mf[:,0:framey,:,:] = stray_mf[:,framey,:,:].reshape((nx,1,nz,3))
@@ -340,25 +322,26 @@ class ContinuityCheck(StepHandler):
         stray_mf[-(framex+1):,:,:,:] = stray_mf[-(framex+1),:,:,:].reshape((1,ny,nz,3))
         stray_mf[0:framex,0:framey,0:framez,:]=stray_mc[0,0,0,:]
         stray_mf[0:framex,0:framey,-(framez+1):,:]=stray_mc[0,0,-1,:]
-        stray_mf[0:framex,-(1+framey):,0:framez,:]=stray_mc[framex, -(1+framey), framez,:]
-        stray_mf[0:framex,-(1+framey):,-(framez+1):,:]=stray_mc[framex, -(1+framey),-(1+framez),:]
-        stray_mf[-(1+framex):   ,0:framey,0:framez,:]=stray_mc[-(1+framex), framey, framez,:]
-        stray_mf[-(1+framex):   ,0:framey,-(framez+1):,:]=stray_mc[-(1+framex), framey,-(1+framez),:]
-        stray_mf[-(1+framex):   ,-(1+framey):,0:framez,:]=stray_mc[-(1+framex), -(1+framey), framez,:]
-        stray_mf[-(1+framex):   ,-(1+framey):,-(framez+1):,:]=stray_mc[-(1+framex), -(1+framey),-(1+framez),:]
-        #stray_mf=
-	
-        #print("stray_mc", stray_mc.shape)
-        #stray_to_solver =  stray_mf[self.FinenodesPerCoarseCell[0]*frame:-frame*self.FinenodesPerCoarseCell[0],frame*self.FinenodesPerCoarseCell[1]:-frame*self.FinenodesPerCoarseCell[1],frame*self.FinenodesPerCoarseCell[2]:-frame*self.FinenodesPerCoarseCell[2],:]
+
+        stray_mf[0:framex,-(1+framey):,0:framez,:]=stray_mc[framex, -(1+framey), 0,:]
+
+        stray_mf[0:framex,-(1+framey):,-(framez+1):,:]=stray_mc[framex, -(1+framey),-1,:]
+        stray_mf[-(1+framex):   ,0:framey,0:framez,:]=stray_mc[-(1+framex), framey, 0,:]
+        stray_mf[-(1+framex):   ,0:framey,-(framez+1):,:]=stray_mc[-(1+framex), framey,-1,:]
+        stray_mf[-(1+framex):   ,-(1+framey):,0:framez,:]=stray_mc[-(1+framex), -(1+framey),0,:]
+        stray_mf[-(1+framex):   ,-(1+framey):,-(framez+1):,:]=stray_mc[-(1+framex), -(1+framey),-1,:]
+
+        #stray_mf[0:framex,-(1+framey):,0:framez,:]=stray_mc[framex, -(1+framey), framez,:]
+        #stray_mf[0:framex,-(1+framey):,-(framez+1):,:]=stray_mc[framex, -(1+framey),-(1+framez),:]
+        #stray_mf[-(1+framex):   ,0:framey,0:framez,:]=stray_mc[-(1+framex), framey, framez,:]
+        #stray_mf[-(1+framex):   ,0:framey,-(framez+1):,:]=stray_mc[-(1+framex), framey,-(1+framez),:]
+        #stray_mf[-(1+framex):   ,-(1+framey):,0:framez,:]=stray_mc[-(1+framex), -(1+framey), framez,:]
+        #stray_mf[-(1+framex):   ,-(1+framey):,-(framez+1):,:]=stray_mc[-(1+framex), -(1+framey),-(1+framez),:]
         stray_to_solver =  stray_mf
-        #print("stray_to_solver", stray_to_solver.shape)
-        #import matplotlib.pyplot as plt
         maxval0= np.amax(stray_bc[:,:,:,2] )
         minval0= np.amin(stray_bc[:,:,:,2] )
         maxval=np.amax((maxval0, minval0))
         minval=np.amin((maxval0, minval0))
-	#print(maxval)
-        #print(minval)
 
 
 
@@ -643,7 +626,7 @@ class ContinuityCheck(StepHandler):
         #print("avgfield shape "+str(avgfield.shape))
         #print("avg field[2,2,0] "+str(avgfield[2,2,0]))
         return avgfield
-					
+
     def cellAverage(self, field, scale=1):
         cellVolume = self.FinenodesPerCoarseCell[0] * self.FinenodesPerCoarseCell[1] * self.FinenodesPerCoarseCell[2]
         M = VectorField(self.mesh)
@@ -985,9 +968,9 @@ class ContinuityCheck(StepHandler):
         fineSolverPlusFrame = solvernumpy[self.r_0[0]-frame:self.r_1[0]+frame+1, self.r_0[1]-frame:self.r_1[1]+frame+1, self.r_0[2]-2:self.r_1[2]+frame+1]
         fineSolverPlusFrameInterpolated = strafo.resize(fineSolverPlusFrame,(self.fineNodes[0]+(2*frame)*self.FinenodesPerCoarseCell[0],self.fineNodes[1]+(2*frame)*self.FinenodesPerCoarseCell[1], self.FinenodesPerCoarseCell[2] ,3), order = 1, mode = "symmetric", preserve_range= True)
         self.fineSolver.state.M.from_numpy(self.mu/self.Ms*fineSolverPlusFrameInterpolated[self.FinenodesPerCoarseCell[0]*frame: - frame*self.FinenodesPerCoarseCell[0],self.FinenodesPerCoarseCell[1]*frame: - frame*self.FinenodesPerCoarseCell[1],self.FinenodesPerCoarseCell[2]])
-        
+
         self.fineMagIsGiven = True
-    
+
     def Multiscaleloop(self):
         self.h = self.solver.state.h
         self.t = self.solver.state.t
@@ -1016,17 +999,17 @@ class ContinuityCheck(StepHandler):
             #    self.fineSolver.solve(condition.Time(self.t + (self.h) / 2))
             #else:
             #print("stateM(avg): "+str(self.fineSolver.state.M.get(0,0,0)))
-            
+
             #print("stateM(avg): "+str(self.fineSolver.state.M.get(310,310,0)))
             #print("stateM(avg): "+str(self.fineSolver.state.M.get(10,10,0)))
             self.fineSolver.solve(condition.Time(self.t+(self.h)/2))
             #print("solver stray 200 200", self.solver.state.H_stray.get(200,200,0))
             #print("solver stray 200 201", self.solver.state.H_stray.get(200,201,0))
-            
+
             #print("finesolver stray 202 202", self.fineSolver.state.fineStrayField.get(202,202,0))
 
             #print("finesolver stray 202 203", self.fineSolver.state.fineStrayField.get(202,203,0))
-            
+
             #self.fineSolver.solve(condition.Time(self.t + (self.h) / 2))
 
             #print("state after: "+str(self.fineSolver.state.M.get(0,0,0)))
@@ -1062,7 +1045,7 @@ class ContinuityCheck(StepHandler):
         #time1 = time.time()
         solverNum = self.solver.state.M.to_numpy()
         #print(np.shape(solverNum))
-        
+
         solverNum[self.r_0[0]:self.r_1[0]+1,self.r_0[1] :self.r_1[1]+1,self.r_0[2] :self.r_1[2]+1] = Mavg
         self.solver.state.M.from_numpy(solverNum)
         #time2=time.time()
@@ -1086,11 +1069,11 @@ class ContinuityCheck(StepHandler):
             self.solver.state.coarseDMIField.fill((0,0,0))
         self.coarseExch()
         time6 = time.time()
-        #self.wholefineExch += fexstop -fexstart 
+        #self.wholefineExch += fexstop -fexstart
         #print("whole coarseExch "+str(self.wholecoarseExch))
         #print("whole fineExch "+str(self.wholefineExch))
         self.done()
-		
+
     def shrinkright(self, shrinkcoarserangex):
         # shrink T/B stephandler
         # copying to tmp values
@@ -1953,7 +1936,7 @@ class ContinuityCheck(StepHandler):
             self.solvetime += (self.stopsolve - self.startsolve)
             #self.exchangetime += (self.stopexchange - self.startexchange)
             self.straytime += (self.stopfinestray - self.startfinestray)
-            
+
             #print("whole: " + str(self.handletime))
 
             #print("solve: "+str(self.solvetime))

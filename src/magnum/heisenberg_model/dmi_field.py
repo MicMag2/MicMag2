@@ -56,7 +56,7 @@ class FSDMIField(module.Module):
             return H_fsdmi
 
         elif id == "E_dmi":
-            return -MU0/2.0 * self.system.mesh.cell_volume * state.M.dotSum(state.H_fsdmi)
+            return -MU0/2.0 * state.M.dotSum(state.H_fsdmi)
 
         else:
             raise KeyError("DMIField.calculate: Can't calculate %s", id)

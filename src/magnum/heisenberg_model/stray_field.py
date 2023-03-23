@@ -48,7 +48,7 @@ class FSStrayField(Module):
 
         elif id == "E_stray":
             if hasattr(cache, "E_stray"): return cache.E_stray
-            E_stray = cache.E_stray = -MU0/2.0 * self.system.mesh.cell_volume * state.M.dotSum(state.H_stray)
+            E_stray = cache.E_stray = -MU0/2.0 * state.M.dotSum(state.H_stray)
             return E_stray
 
         else:

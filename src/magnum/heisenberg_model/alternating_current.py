@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with MicroMagnum.  If not, see <http://www.gnu.org/licenses/>.
 
-from .alternating_field import AlternatingField
+from .alternating_field import FSAlternatingField
 
-class AlternatingCurrent(AlternatingField):
+class FSAlternatingCurrent(FSAlternatingField):
     def __init__(self, var_id = "j"):
-        super(AlternatingCurrent, self).__init__(var_id)
+        super(FSAlternatingCurrent, self).__init__(var_id)

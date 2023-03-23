@@ -21,9 +21,9 @@ from magnum.logger import logger
 from math import sin
 
 # AlternatingHomogeneousField
-class AlternatingField(module.Module):
+class FSAlternatingField(module.Module):
     def __init__(self, var_id):
-        super(AlternatingField, self).__init__()
+        super(FSAlternatingField, self).__init__()
 
         # Parameters
         self.__offs = var_id + "_offs"
@@ -67,7 +67,7 @@ class AlternatingField(module.Module):
             t = state.t
             if fn: # with user function
                 if any(x != (0.0, 0.0, 0.0) for x in (amp, freq, phase, offs)):
-                    raise ValueError("AlternatingField.calculates: If %s is defined, the parameters %s, %s, %s and %s must be zero vectors, i.e. (0.0, 0.0, 0.0)" % (self.__func, self.__offs, self.__amp, self.__freq, self.__phase))
+                    raise ValueError("FSAlternatingField.calculates: If %s is defined, the parameters %s, %s, %s and %s must be zero vectors, i.e. (0.0, 0.0, 0.0)" % (self.__func, self.__offs, self.__amp, self.__freq, self.__phase))
                 # call user function
                 A = fn(t)
             else:
@@ -84,4 +84,4 @@ class AlternatingField(module.Module):
             return A
 
         else:
-            raise KeyError("AlternatingField.calculates: Can't calculate %s", id)
+            raise KeyError("FSAlternatingField.calculates: Can't calculate %s", id)

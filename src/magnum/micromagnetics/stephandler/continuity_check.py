@@ -973,13 +973,6 @@ class ContinuityCheck(StepHandler):
     def Multiscaleloop(self):
         self.h = self.solver.state.h
         self.t = self.solver.state.t
-        #if self.catchCoarseField == True:
-        #    if not self.solver.state.coarseExternalField.uniform_value == self.fineSolver.state.fineExternalField.uniform_value:
-        #        #print("fill finescale external Field")
-        #        self.fineSolver.state.fineExternalField.fill(self.Solver.state.coarseExternalField.uniform_value)
-        #    else:
-        #        print("fill not finescale, equal")
-        #self.fineSolver.state.fineStrayField.fill((0, 0, 0))
         self.fineSolver.state.fineExchField.fill((0, 0, 0))
         if self.DMI == True:
             self.fineSolver.state.fineDMIField.fill((0, 0, 0))
@@ -991,8 +984,8 @@ class ContinuityCheck(StepHandler):
         fexstop=time.time()
 
         if not self.t == 0:
-            if self.multiscaleLog:
-                print('_____________________________',' new NumNodes '+str(self.fineNodes), "  coarse/fine step: "+str(self.solver.state.step)+","+str(self.fineSolver.state.step))
+            #if self.multiscaleLog:
+                #print("_____________________________  coarse/fine step: "+str(self.solver.state.step)+","+str(self.fineSolver.state.step))
             self.startsolve=time.time()
             #if self.fineSolver.state.step != 1:
             #    self.fineSolver.solve(condition.Time(self.t + (self.h) / 2))

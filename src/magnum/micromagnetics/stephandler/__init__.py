@@ -24,7 +24,7 @@
 #  |   |- OOMMFStorage
 #  |   |- ImageStorage
 #  |- FancyScreenLog
-#  |- test 
+#  |- test
 
 from .oommf_storage     import OOMMFStorage
 from .image_storage     import ImageStorage
@@ -33,6 +33,7 @@ from .screen_log        import ScreenLog
 from .data_table_log    import DataTableLog
 from .fancy_screen_log  import FancyScreenLog
 from .continuity_check  import ContinuityCheck
+from .image_storage2 import ImageStorage2
 #from .device_handler    import DeviceHandler
 
 __all__ = ["OOMMFStorage", "ImageStorage", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog", "ContinuityCheck"]

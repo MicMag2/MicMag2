@@ -140,6 +140,9 @@ class FSStrayFieldCalculator(object):
         else:
             assert False
 
+    def calculate(self, M, H):
+        self.__calc(M, H)
+
 class FSStrayFieldTensor(object):
     def __init__(self, mesh, method = "tensor", padding = TensorField.PADDING_ROUND_4):
         # are we periodic?
@@ -162,8 +165,5 @@ class FSStrayFieldTensor(object):
         tensor = DemagTensorField(mesh, padding)
         tensor.setPeriodicBoundaries(peri_x, peri_y, peri_z, peri_repeat)
 
-        return tensor.to_numpy()
+        return tensor
 
-
-    def calculate(self, M, H):
-        self.__calc(M, H)

@@ -64,7 +64,6 @@ class FSExchangeField(module.Module):
             return H_exch
 
         elif id == "E_exch":
-            print("HB exchange: ", -MU0/2.0 * self.system.mesh.cell_volume * state.M.dotSum(state.H_exch) )
             return -MU0/2.0 * self.system.mesh.cell_volume * state.M.dotSum(state.H_exch)
 
         else:

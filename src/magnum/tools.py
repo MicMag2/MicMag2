@@ -130,14 +130,14 @@ def plot2Dsimple(M, path = ".", text="2d"):
 			X.append((i+0.5)*dx*1e9)
 			Y.append((j+0.5)*dy*1e9)
 			DATA.append(M.get(i,j,0))
-			
+
 	DATA = np.array(DATA)
 	X = np.array(X)
 	Y = np.array(Y)
-	grid = DATA.reshape((ny, nx))		
-	
+	grid = DATA.reshape((ny, nx))
+
 	plt.imshow(grid, extent=(X.min(), X.max(), Y.min(), Y.max()),interpolation='nearest', cmap=cmx.gist_rainbow)
-	
+
 	plt.xlabel("x [nm]")
 	plt.ylabel("y [nm]")
 	filedest = path + "/" + "plot_" + text + ".png"
@@ -160,14 +160,14 @@ def update_progress(progress, barLength,text="progress"):
         progress = 1
         status = "Done...\r\n"
     block = int(round(barLength*progress))
-    text = "\r" + text + ": [{0}] {1}% ".format( "#"*block + "-"*(barLength-block), int((progress)*100)) 
+    text = "\r" + text + ": [{0}] {1}% ".format( "#"*block + "-"*(barLength-block), int((progress)*100))
     sys.stdout.write(text)
     sys.stdout.flush()
-	
+
 def makeGrains2D(K, numcenters, variationPercent, distMin, seed, showProgress=False):
 	from scipy.spatial import Voronoi
 	from magnum.logger import logger
-	
+
 	# determine if a point is inside a given polygon or not
 	# Polygon is a list of (x,y) pairs.
 	#http://www.ariel.com.au/a/python-point-int-poly.html
@@ -191,11 +191,11 @@ def makeGrains2D(K, numcenters, variationPercent, distMin, seed, showProgress=Fa
 
 		(nx,ny,nz) = M.mesh.getNumNodes()
 		(dx,dy,dz) = M.mesh.getDelta()
-		
+
 		px = M.mesh.periodic_bc[0].find("x") != -1
 		py = M.mesh.periodic_bc[0].find("y") != -1
 		pz = M.mesh.periodic_bc[0].find("z") != -1
-		
+
 		if not (px or py or pz):
 			res = (a-x,b-y,c-z)
 		elif px:
@@ -203,28 +203,28 @@ def makeGrains2D(K, numcenters, variationPercent, distMin, seed, showProgress=Fa
 		elif py:
 			res = (a-x,(b-y)%(ny*dy),c-z)
 		elif pz:
-			res = (a-x,b-y,(c-z)%(nz*dz))	
+			res = (a-x,b-y,(c-z)%(nz*dz))
 		elif py and py:
-			res = ((a-x)%(nx*dx),(b-y)%(ny*dy),c-z)	
+			res = ((a-x)%(nx*dx),(b-y)%(ny*dy),c-z)
 		elif px and pz:
-			res = ((a-x)%(nx*dx),b-y,(c-z)%(nz*dz))	
+			res = ((a-x)%(nx*dx),b-y,(c-z)%(nz*dz))
 		elif py and pz:
-			res = (a-x,(b-y)%(ny*dy),(c-z)%(nz*dz))		
-		else: 
+			res = (a-x,(b-y)%(ny*dy),(c-z)%(nz*dz))
+		else:
 			print("encountered unknown periodic boundary settings. exiting.")
 			exit(2)
 		distance = (res[0]**2 + res[1]**2 + res[2]**2)**0.5
-				
+
 		return distance
-		
-		
+
+
 	logger.info("Creating grains...")
 	if seed != "": 	random.seed(seed)
 	else:			random.seed(1234568756489)
-	
+
 	(nx,ny,nz) = K.mesh.getNumNodes()
 	(dx,dy,dz) = K.mesh.getDelta()
-	
+
 	centers = []
 	idc = 0
 	logger.info("  -- Building Centers...")
@@ -240,13 +240,13 @@ def makeGrains2D(K, numcenters, variationPercent, distMin, seed, showProgress=Fa
 		idc += 1
 		if showProgress: update_progress(float(idc)/float(numcenters),20, "building centers")
 	if showProgress: print()
-	
+
 	points = []
 	for cen in centers:
 		points.append((cen[0], cen[1]))
-	
+
 	vor = Voronoi(points)
-	
+
 	regions = []
 	for reg in vor.regions:
 		entry = []
@@ -255,18 +255,16 @@ def makeGrains2D(K, numcenters, variationPercent, distMin, seed, showProgress=Fa
 			entry.append(vor.vertices[elm])
 		if len(entry) < 3: continue
 		if entry != []: regions.append((entry, 1.+variationPercent*(2.*random.random()-1.)))
-	
+
 	logger.info("  -- Filling Patterns...")
 	for i in range(nx):
 		for j in range(ny):
 			for k in range(nz):
 				x,y,z = (i+0.5)*dx, (j+0.5)*dy, (k+0.5)*dz
 				for reg in regions:
-					if point_inside_polygon(x,y,reg[0]): 
+					if point_inside_polygon(x,y,reg[0]):
 						K.set(i,j,k, K.get(i,j,k)*reg[1])
 						break
 		if showProgress: update_progress(float(i)/float(nx),20, "filling patterns")
-		#else: 
-		#	if int(float(i)/float(nx) * 100.) % 10 == 0: logger.info("     " + str(int(float(i)/float(nx) * 100.)) + "...")
-	if showProgress: print()
-	return K		
+    #$if showProgress: print()
+	return K

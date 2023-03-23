@@ -53,14 +53,9 @@ class FSDMIField(module.Module):
             Dy = getattr(self, 'Dy')
             Dz = getattr(self, 'Dz')
             magneto.fs_dmi(self.system.mu, Dx, Dy, Dz, state.M, H_fsdmi)
-#            print (self.system.mu.get(0,0,0)), (Dx.get(0,0,0)), (Dy.get(0,0,0)), (Dz.get(0,0,0)), (state.M.get(1,1,1)), (H_fsdmi.get(1,1,1))
- #           print '##############################################################################################################################################################time = ', state.t
-            #print "dmi ", H_fsdmi.average()
-            #print "dmi " , H_fsdmi.average()
             return H_fsdmi
 
         elif id == "E_dmi":
-            #return("HB dmi: ",-MU0/2.0 * self.system.mesh.cell_volume * state.M.dotSum(state.H_fsdmi) )
             return -MU0/2.0 * self.system.mesh.cell_volume * state.M.dotSum(state.H_fsdmi)
 
         else:

@@ -90,7 +90,6 @@ class StrayFieldCalculator(object):
         peri_x = peri.find("x") != -1
         peri_y = peri.find("y") != -1
         peri_z = peri.find("z") != -1
-        print("reinit")
         # number of cells and cell sizes
         nx, ny, nz = mesh.num_nodes
         dx, dy, dz = mesh.delta
@@ -108,11 +107,9 @@ class StrayFieldCalculator(object):
 
             # Determine if we should use the fast convolution (via FFT) or the simple convolution (using for-loops, CPU only).
             if cfg.isCudaEnabled():
-                print("stray field on gpu enabled")
                 use_fft = True
             else:
                 # HACK: Our CPU implementation of fast convolution doesn't support these input dimensions.
-                print("stray field on cpu enabled")
                 if nx == 1 and (ny != 1 or nz != 1):
                     use_fft = False
                 else:

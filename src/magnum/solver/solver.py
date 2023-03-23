@@ -88,58 +88,31 @@ class Solver(object):
         del self.__step_handlers[idx[0]]
 
     def set_precession(self, precess):
-      
+
         idx = [i for i, m in enumerate(self.system.modules) if "LandauLifshitzGilbert" in str(type(m))]
-        print(idx[0])
-        #print(self.system.modules[0]._LandauLifshitzGilbert__do_precess)
         self.system.modules[idx[0]].__init__(do_precess=precess)
         self.system.modules[idx[0]]._LandauLifshitzGilbert__initFactors()
-        print("precession set to ", self.system.modules[idx[0]]._LandauLifshitzGilbert__do_precess)
-   
-   	 
+
+
     def reInitStrayField(self):
-        print("self.system.modules", dir(self.system.modules)) 
         idx = [i for i, m in enumerate(self.system.modules) if "StrayField" in str(type(m))]
-        print(dir(self.system.modules[idx[0]]))
-        print("system modules[0].calculators", dir(self.system.modules[idx[0]].calculator))
         self.system.modules[idx[0]].calculator.__init__(self.mesh)
-        #self.system.modules[idx[0]].__init__()
-        #self.system.modules[idx[0]]._LandauLifshitzGilbert__initFactors()
-        print("run on CPU now")
 
     def setGPU(self, cudaEnable):
         if cudaEnable:
             magneto.enableCuda(magneto.CUDA_64, -1)
         else:
             magneto.enableCuda(magneto.CUDA_DISABLED, -1)
-        self.reInitStrayField() 
-        #self.system.modules[0]
-        #self.system.modules[0].__initFactors
-        #del self.system.modules[idx[0]]
-        #self.system.addModule(MicroMagnetics.LandauLifshitzGilbert(do_precess=precess))
-        #        sys.addModule(LandauLifshitzGilbert(do_precess = kwargs.pop("do_precess", True)))
-        #self.system.modules.reverse()
-        #print("precession is set to "+str(precess))
+        self.reInitStrayField()
     ### The solver loop ##############################################################
 
     def step_with_t_max(self, t_max):
         # I. Get "smallest time of interest in the future" from the step handlers
         t0 = self.__state.t
         t1 = min(filter(lambda t: t is not None and t > t0, [t_max] + [c.get_time_of_interest(self.__state) for s, c in self.__step_handlers]))
-        #print("do step from t0 up to t1")
-        #print(self.state.__module__)
-        #print(self.state.mesh)
         # II. Do step from t0 to up to t1.
-        #print("before evolve")
         self.__state = self.__evolver.evolve(self.__state, t1)
-        #print("after evolve")
-        #else:
-        #else:
-        #    self.__state = self.__evolver.evolve(self.__state, t1, False)
-
-
         # III. Call step handlers
-        #print("call step handlers now")
         self.__call_step_handlers()
 
     def step(self):
@@ -176,10 +149,6 @@ class Solver(object):
         #tools.flush()
 
     def __call_step_handlers(self):
-        #for paralleization
-        #print("test0")
-                #print("sec for stephandler seriel total: " + str(tmptime-self.whole_time)+"after steps: "+str(self.state.step+1))
-                # TODO entferne die raute nahe
 
 
         for step_handler, condition in self.__step_handlers:
@@ -205,8 +174,6 @@ class Solver(object):
             if self.state.step == 0:
                 self.whole_time = time.time()
         self.__call_step_handlers() # Because this makes sense.
-        #firstStep= True
-        #secondStep= False
         counter = 0
         while not stop_condition.check(self.__state):
 
@@ -223,7 +190,6 @@ class Solver(object):
                 self.step_with_t_max(stop_condition.get_time_of_interest(self.__state) or 1e100)
 
             else:
-                #print("befor step with tmax")
                 self.step_with_t_max(stop_condition.get_time_of_interest(self.__state) or 1e100)
 
             if self.__interrupted:
@@ -242,8 +208,6 @@ class Solver(object):
                     self.__interrupted = False
                 if do_finish: break # pretend that stop_condition is
 
-            #print("counter: " +str(counter))
-            #counter += 1
 
     def handle_interrupt(self):
         raise KeyboardInterrupt()

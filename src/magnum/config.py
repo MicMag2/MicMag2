@@ -44,7 +44,10 @@ class MagnumConfig(object):
     def initialize(self, argv=None):
         # Initialize magneto
         magneto.initialize(self.getCacheDirectory())
-        self.parseCommandLine(argv or sys.argv)
+        #print(argv)
+        #print(sys.argv)
+        #self.parseCommandLine(argv or sys.argv)
+        self.parseCommandLine(["-G", "auto"])
 
         # Register cleanup function
         atexit.register(MagnumConfig.cleanupBeforeExit, self)
@@ -144,8 +147,6 @@ class MagnumConfig(object):
           type    = "int",
           default = 1
         )
-<<<<<<< HEAD
-=======
         #hw_group.add_option("-omp", "--openmp",
         #        help = " enable openMP 5.1 parallelization of the solver"
         #        # metavar = "NUM_THREADS",
@@ -153,7 +154,6 @@ class MagnumConfig(object):
         #        #type = "int",
         #        #default = -1
         #                    )
->>>>>>> 5bf3367 (newest changes)
 
         parser.add_option_group(hw_group)
 
@@ -265,7 +265,6 @@ class MagnumConfig(object):
         def parse_gpu_id(arg): return -1 if arg == "auto" else int(arg)
         if   options.gpu64:
              cuda_mode, cuda_dev = MagnumConfig.CUDA_64, parse_gpu_id(options.gpu64)
-             print("cuda dev", cuda_dev)
         elif options.gpu32: cuda_mode, cuda_dev = MagnumConfig.CUDA_32, parse_gpu_id(options.gpu32)
         else:               cuda_mode, cuda_dev = MagnumConfig.CUDA_DISABLED, -1
 

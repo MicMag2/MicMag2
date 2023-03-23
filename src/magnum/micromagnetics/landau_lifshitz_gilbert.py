@@ -133,7 +133,6 @@ class LandauLifshitzGilbert(module.Module):
         return deg_per_ns
 
     def __initFactors(self):
-        print("_initFactors")
         self.__f1 = f1 = Field(self.system.mesh) # precession factors of llge
         self.__f2 = f2 = Field(self.system.mesh) # damping factors of llge
 
@@ -157,7 +156,5 @@ class LandauLifshitzGilbert(module.Module):
         if not self.__do_precess:
             #print("precession deactivated")
             f1.fill(0.0)
-        else:    
-            print("precession activated")
         # Done.
         self.__valid_factors = True

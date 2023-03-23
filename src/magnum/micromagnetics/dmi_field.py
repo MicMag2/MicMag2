@@ -58,7 +58,6 @@ class DMIField(module.Module):
             return H_dmi
 
         elif id == "E_dmi":
-            print("MM dmi: ", -MU0/2.0 * self.system.mesh.cell_volume * state.M.dotSum(state.H_dmi))
             return -MU0/2.0 * self.system.mesh.cell_volume * state.M.dotSum(state.H_dmi)
 
         else:

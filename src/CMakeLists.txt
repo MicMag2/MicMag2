@@ -193,7 +193,7 @@ add_subdirectory(magneto/mesh)
 ##############################################################
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -march=native -msse3 -fomit-frame-pointer -ffast-math -fpermissive -fPIC -std=c++11")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -march=native -msse3 -fomit-frame-pointer -fpermissive -fPIC -std=c++11")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 if(OPENMP_FOUND)

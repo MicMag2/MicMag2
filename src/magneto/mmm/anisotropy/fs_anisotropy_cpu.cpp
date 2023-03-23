@@ -54,7 +54,7 @@ double fs_uniaxial_anisotropy_cpu(
 				Vector3d M_i = M_acc.get(i)/(spin);
 				const Vector3d axis = axis_acc.get(i);
         const double d = dot(axis, M_i);
-				const Vector3d H_i = 2.0*k * d * axis/(MU0);//*Ms/spin
+				const Vector3d H_i = 2.0*k * d * axis/(spin*MU0);///(MU0);//*Ms/spin
 				H_acc.set(i, H_i);
 				//std::cout <<M_i << H_i << std::endl;
 

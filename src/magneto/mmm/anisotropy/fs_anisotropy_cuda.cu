@@ -59,7 +59,7 @@ __global__ void kernel_uniaxial_anisotropy(
 			const real ax = ax_ptr[i], ay = ay_ptr[i], az = az_ptr[i];
 			const real  d = (Mx*ax + My*ay + Mz*az) / mu;
 			
-			real f = 2.0 * k * d / (real(MU0)); // / (real(MU0)*mu) ; //*Ms/mu
+			real f = 2.0 * k * d / (mu*real(MU0)); // / (real(MU0)*mu) ; //*Ms/mu
 			Hx_ptr[i] = f * ax;
 			Hy_ptr[i] = f * ay;
 			Hz_ptr[i] = f * az;

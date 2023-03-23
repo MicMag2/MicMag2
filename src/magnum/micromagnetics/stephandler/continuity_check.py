@@ -293,7 +293,6 @@ class ContinuityCheck(StepHandler):
     # TODO ? @jit()
 
     def fineStrayFast(self):
-       # time1=time.time()
         M_dummy = VectorField(self.mesh)
         H_Stray = VectorField(self.mesh)
         M_dummy = self.solver.state.M
@@ -310,9 +309,9 @@ class ContinuityCheck(StepHandler):
         framex=int( self.FinenodesPerCoarseCell[0]/2)
         framey=int( self.FinenodesPerCoarseCell[1]/2)
         framez=int( self.FinenodesPerCoarseCell[2]/2)
-        print(stray_mc.shape)
-        print(stray_mf.shape)
-        print(framez)
+        #print(stray_mc.shape)
+        #print(stray_mf.shape)
+        #print(framez)
         nx,ny,nz = self.fineNodes
         stray_mf[:,:,0:framez,:] = stray_mf[:,:,framez,:].reshape((nx,ny,1,3))
         stray_mf[:,:,-(framez+1):,:] = stray_mf[:,:,-(framez+1),:].reshape((nx,ny,1,3))
@@ -342,7 +341,7 @@ class ContinuityCheck(StepHandler):
         minval0= np.amin(stray_bc[:,:,:,2] )
         maxval=np.amax((maxval0, minval0))
         minval=np.amin((maxval0, minval0))
-
+        self.fineSolver.state.fineStrayField.from_numpy(stray_to_solver)
 
 
     def fineStray(self):
@@ -1929,7 +1928,7 @@ class ContinuityCheck(StepHandler):
 
         handletime = self.stophandle-self.starthandle
         self.wholehandlestime += handletime
-        print("handletime "+str(self.wholehandlestime))
+        #print("handletime "+str(self.wholehandlestime))
 
         if not self.t == 0:
             self.handletime += (self.stophandle - self.starthandle)

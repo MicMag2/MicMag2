@@ -63,7 +63,8 @@ __global__ void kernel_uniaxial_anisotropy(
 			Hx_ptr[i] = f * ax;
 			Hy_ptr[i] = f * ay;
 			Hz_ptr[i] = f * az;
-			 E_ptr[i] = k * (1.0 - d*d);
+			 //E_ptr[i] = k * (1.0 - d*d);
+			 E_ptr[i] = -k * d*d;
 		}
 	}
 }

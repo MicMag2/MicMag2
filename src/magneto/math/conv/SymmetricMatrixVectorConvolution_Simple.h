@@ -26,7 +26,7 @@ class SymmetricMatrixVectorConvolution_Simple
 {
 public:
 	SymmetricMatrixVectorConvolution_Simple(const Matrix &lhs, int dim_x, int dim_y, int dim_z);
-	~SymmetricMatrixVectorConvolution_Simple();
+	virtual ~SymmetricMatrixVectorConvolution_Simple();
 
 	virtual void execute(const VectorMatrix &rhs, VectorMatrix &res);
 

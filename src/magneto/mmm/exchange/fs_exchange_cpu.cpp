@@ -122,7 +122,7 @@ static double fs_exchange_cpu_nonperiodic(
 				}
 
 				// Exchange field at (x,y,z)
-				Vector3d H_i = 2*J_acc.at(i) * (sum)/(spin*MU0);				
+				Vector3d H_i = J_acc.at(i) * (sum)/(spin*MU0);				
 				H_acc.set(i, H_i);
 				//std::cout << x << y << H_i << std::endl;
 				// Exchange energy sum
@@ -216,7 +216,7 @@ static double fs_exchange_cpu_periodic(
 				}
 
 				// Exchange field at (x,y,z)
-				const Vector3d H_i = 2*J_acc.at(i)*sum/(spin*MU0);//(2/MU0) * A_acc.at(i) * sum / Ms;
+				const Vector3d H_i = J_acc.at(i)*sum/(spin*MU0);//(2/MU0) * A_acc.at(i) * sum / Ms;
 				H_acc.set(i, H_i);
 
 				// Exchange energy sum

@@ -31,7 +31,7 @@ class FSDMIField(module.Module):
         return ["Dx", "Dy", "Dz"]
 
     def properties(self):
-        return {'EFFECTIVE_FIELD_TERM': "H_fsdmi", 'EFFECTIVE_FIELD_ENERGY': "E_dmi"}
+        return {'EFFECTIVE_FIELD_TERM': "H_dmi", 'EFFECTIVE_FIELD_ENERGY': "E_dmi"}
 
     def initialize(self, system):
         self.system = system
@@ -46,17 +46,17 @@ class FSDMIField(module.Module):
         cache = state.cache
 
         if id == "H_dmi":
-            if hasattr(cache, "H_fsdmi"): return cache.H_fsdmi
-            H_fsdmi = cache.H_fsdmi = VectorField(self.system.mesh)
-            H_fsdmi.fill((0,0,0))
+            if hasattr(cache, "H_dmi"): return cache.H_dmi
+            H_dmi = cache.H_dmi = VectorField(self.system.mesh)
+            H_dmi.fill((0,0,0))
             Dx = getattr(self, 'Dx')
             Dy = getattr(self, 'Dy')
             Dz = getattr(self, 'Dz')
-            magneto.fs_dmi(self.system.mu, Dx, Dy, Dz, state.M, H_fsdmi)
-            return H_fsdmi
+            magneto.fs_dmi(self.system.mu, Dx, Dy, Dz, state.M, H_dmi)
+            return H_dmi
 
         elif id == "E_dmi":
-            return -MU0/2.0 * state.M.dotSum(state.H_fsdmi)
+            return -MU0/2.0 * state.M.dotSum(state.H_dmi)
 
         else:
             raise KeyError("DMIField.calculate: Can't calculate %s", id)

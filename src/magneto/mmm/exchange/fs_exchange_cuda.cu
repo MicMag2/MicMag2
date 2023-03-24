@@ -172,9 +172,9 @@ void kernel_exchange_2d(
 			}
 
 			const real factor = A[i]/Ms_i;
-			Hx[i] = sum[0] * factor * 2.0/MU0;
-			Hy[i] = sum[1] * factor * 2.0/MU0;
-			Hz[i] = sum[2] * factor * 2.0/MU0;
+			Hx[i] = sum[0] * factor * 1.0/MU0;
+			Hy[i] = sum[1] * factor * 1.0/MU0;
+			Hz[i] = sum[2] * factor * 1.0/MU0;
 		} else {
 			Hx[i] = 0;
 			Hy[i] = 0;
@@ -364,9 +364,9 @@ void kernel_exchange_3d(
 			}
 
 			const real factor = A[i]/Ms_i ;
-			Hx[i] = sum[0] * factor * 2.0/MU0;
-			Hy[i] = sum[1] * factor * 2.0/MU0;
-			Hz[i] = sum[2] * factor * 2.0/MU0;
+			Hx[i] = sum[0] * factor * 1.0/MU0;
+			Hy[i] = sum[1] * factor * 1.0/MU0;
+			Hz[i] = sum[2] * factor * 1.0/MU0;
 
 		} else {
 			Hx[i] = 0.0;

@@ -40,6 +40,7 @@ for ratio in range(4,40+1):
   H = 10.0e-3/MU0
   while True:
     solver.state.H_ext_offs = field(H, (1,1,1))
+    solver.setGPU(False)
     solver.relax(1.0)
 
     h = H/Ms

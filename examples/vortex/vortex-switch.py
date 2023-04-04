@@ -20,7 +20,7 @@ solver.state.M = M
 solver.state.H_ext_amp = (10e-3/MU0, 0, 0)
 solver.state.H_ext_freq = (4.4e9, 0, 0)
 
-solver.addStepHandler(VTKStorage("switch", "M"), condition.EveryNthStep(20))
+#solver.addStepHandler(VTKStorage("switch", "M"), condition.EveryNthStep(20))
 
 log = DataTableLog("vortex-switch.odt")
 log.addColumn(("core_x", "core_x"), ("core_y", "core_y"), lambda state: vortex.findCore2(solver, 100e-9, 100e-9))

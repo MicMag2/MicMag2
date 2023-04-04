@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from magnum import *
 from math import sin, cos, pi
-
+import itertools
 Py = Material.Py(Ms=8e5, A=1.3e-11,k_uniaxial=5e2, axis1=(0,1,0))
 
 # x: "short axis"
@@ -22,8 +22,8 @@ def hysteresis(name, axis):
   )
   solver.state.M = (axis[0]*Py.Ms, axis[1]*Py.Ms, axis[2]*Py.Ms)
 
-  for H in [x*1e-3/MU0 for x in range(50,-51,-1) + range(-50,51,1)]:
-    print name, H*MU0
+  for H in [x*1e-3/MU0 for x in itertools.chain(range(50,-51,-1), range(-50,51,1))]:
+    print(name, H*MU0)
     Hx, Hy, Hz = H*axis[0], H*axis[1], H*axis[2]
     solver.state.H_ext_offs = (Hx, Hy, Hz)
     solver.relax(1.0)

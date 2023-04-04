@@ -1,4 +1,4 @@
-#!/usr/bin/python 
+#!/usr/bin/python
 from magnum import *
 import math
 
@@ -8,18 +8,19 @@ l_ex = math.sqrt(Py.A/K_m)
 
 def sim(N, ratio):
   def get_info(state):
-    E_str = state.E_str / K_m / L**3
-    E_ex  = state.E_ex  / K_m / L**3
-    E_ani = state.E_ani / K_m / L**3
+    print(dir(state))
+    E_str = state.E_stray / K_m / L**3
+    E_ex  = state.E_exch  / K_m / L**3
+    E_ani = state.E_aniso / K_m / L**3
     E_tot = E_str + E_ex + E_ani
-    return E_tot, E_st, E_ex, E_ani, [x/Py.Ms for x in state.M.average()]
-  
-  def my_vortex(field, pos): 
+    return E_tot, E_str, E_ex, E_ani, [x/Py.Ms for x in state.M.average()]
+
+  def my_vortex(field, pos):
     x, y, z = pos
     Mx = 8e-9
     My = -(z-0.5*L)
     Mz = +(y-0.5*L)
-    scale = Py.Ms / math.sqrt(Mx**2 + My**2 + Mz**2) 
+    scale = Py.Ms / math.sqrt(Mx**2 + My**2 + Mz**2)
     return Mx*scale, My*scale, Mz*scale
 
   L = ratio*l_ex # cube side length
@@ -30,12 +31,12 @@ def sim(N, ratio):
   solver.relax(2)
   writeOMF("omf/state-vortex-%s-%s.omf" % (N, ratio), solver.state.M)
   vo = get_info(solver.state)
-  
+
   solver.state.M = (0, 0, Py.Ms)
   solver.relax(2)
   writeOMF("omf/state-flower-%s-%s.omf" % (N, ratio), solver.state.M)
   fl = get_info(solver.state)
-  
+
   return vo, fl
 
 def full_sp3():

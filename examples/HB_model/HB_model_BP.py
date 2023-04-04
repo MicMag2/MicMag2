@@ -27,8 +27,8 @@ a=0.4679*1e-09  # lattice constant of FeGe in m
 random.seed(0)
 t=(naz1+naz2)*a  #total thickness in [m]
 r=nar*a       #radius in [m]
-dia=2*r       #diameter in [m]  
-d = a*(naz1+naz2)/nt  #MM mesh size in [m] 
+dia=2*r       #diameter in [m]
+d = a*(naz1+naz2)/nt  #MM mesh size in [m]
 nz = nt             # number of cells in z-direction
 n =int(round(dia/d)) # number of cells in x- and y-direction
 
@@ -52,7 +52,7 @@ DISK = Material({
 'l':a,
 'mu':mu,
 'J':J})
-relax=1.0 # degree per nanosecond relax condition
+relax=50.0 # degree per nanosecond relax condition
 
 mesh = RectangularMesh((n, n, nz), (d, d, d))
 if sample == "rectangular":
@@ -65,7 +65,6 @@ solver = create_solver(world, module_list =[FSStrayField, FSExchangeField,  FSDM
 
 
 solver.state.M.fill((0,0,mu))
-#solver.state.Ms.fill(Ms)
 
 def fillDMIx(field, pos):
     x,y,z = pos
@@ -88,52 +87,49 @@ def fillDMIz(field, pos):
     else:
         return (0, 0, 0)
 
-solver.state.Dx = fillDMIx  #fill DMI tensor 
+solver.state.Dx = fillDMIx  #fill DMI tensor
 solver.state.Dy = fillDMIy  #fill DMI tensor
 solver.state.Dz = fillDMIz  #fill DMI tensor
 solver.state.M.normalize(mu)
 solver.relax(relax)
 
 solver.state.M.normalize(1)
-mag = solver.state
-solver.state.M.normalize(1)
 numpymag = solver.state.M.to_numpy()
 plt.figure(figsize=(3,3))
 plt.imshow(numpymag[:,:,0,2])
 plt.colorbar()
 plt.title("z-magnetization bottom")
-plt.savefig("HB_BP_1.png")
+plt.savefig("HB_BP_bottomz.png")
 plt.show()
 plt.figure(figsize=(3,3))
 plt.imshow(numpymag[:,:,0,0])
 plt.colorbar()
 plt.title("x-magnetization bottom")
-plt.savefig("HB_BP_2.png")
+plt.savefig("HB_BP_bottomx.png")
 plt.show()
 plt.figure(figsize=(3,3))
 plt.imshow(numpymag[:,:,-1,2])
 plt.colorbar()
 plt.title("z-magnetization top")
-plt.savefig("HB_BP_3.png")
+plt.savefig("HB_BP_topz.png")
 plt.show()
 plt.figure(figsize=(3,3))
 plt.imshow(numpymag[:,100,:,2])
 plt.colorbar()
 plt.title("z-magnetization slice")
-plt.savefig("HB_BP_4.png")
+plt.savefig("HB_BP_cross.png")
 plt.show()
 
 mag = solver.state.M.to_numpy()
-#print(mag.shape)
-a=0.4679
+a_nm=0.4679
 
-x_ = np.linspace(0., 200*a, int(mag.shape[0]/10))
-y_ = np.linspace(0., 200*a, int(mag.shape[1]/10))
-z_ = np.linspace(0., 50*a, int(mag.shape[2]/2))
-x, y, z = np.meshgrid(x_, y_, z_, indexing='xy') 
-magx =mag[::10,::10,::2,0] 
-magy =mag[::10,::10,::2,1] 
-magz =mag[::10,::10,::2,2] 
+x_ = np.linspace(0., 200*a_nm, int(mag.shape[0]/10))
+y_ = np.linspace(0., 200*a_nm, int(mag.shape[1]/10))
+z_ = np.linspace(0., 50*a_nm, int(mag.shape[2]/2))
+x, y, z = np.meshgrid(x_, y_, z_, indexing='xy')
+magx =mag[::10,::10,::2,0]
+magy =mag[::10,::10,::2,1]
+magz =mag[::10,::10,::2,2]
 magzabs = np.absolute(magz)
 xrav = np.ravel(x)
 yrav=np.ravel(y)
@@ -148,7 +144,7 @@ yravUP = np.delete(yrav,deleteindicesUP)
 zravUP = np.delete(zrav,deleteindicesUP)
 magxravUP = np.delete(magxrav,deleteindicesUP)
 magyravUP = np.delete(magyrav,deleteindicesUP)
-magzravUP = np.delete(magzrav,deleteindicesUP)  
+magzravUP = np.delete(magzrav,deleteindicesUP)
 magzravabsUP = np.delete(magzravabs, deleteindicesUP)
 deleteindicesDOWN = np.argwhere(magzrav >-0.9) #down-magnetzied
 xravDOWN = np.delete(xrav,deleteindicesDOWN)
@@ -156,8 +152,8 @@ yravDOWN = np.delete(yrav,deleteindicesDOWN)
 zravDOWN = np.delete(zrav,deleteindicesDOWN)
 magxravDOWN = np.delete(magxrav,deleteindicesDOWN)
 magyravDOWN = np.delete(magyrav,deleteindicesDOWN)
-magzravDOWN = np.delete(magzrav,deleteindicesDOWN)  
-magzravabsDOWN = np.delete(magzravabs, deleteindicesDOWN) 
+magzravDOWN = np.delete(magzrav,deleteindicesDOWN)
+magzravabsDOWN = np.delete(magzravabs, deleteindicesDOWN)
 
 
 
@@ -212,7 +208,7 @@ fig.add_trace(trace3)
 fig.update_layout(scene=dict(aspectratio=dict(x=1, y=1, z=0.25),
                     camera_eye=dict(x=1.2, y=0.8, z=0.6),
                         xaxis_title="x (nm)",   yaxis_title= "y (nm)", zaxis_title="z (nm)",
-                            zaxis= dict(tickvals=[0.0, 12.5, 25.0] )), 
+                            zaxis= dict(tickvals=[0.0, 12.5, 25.0] )),
                           xaxis = dict(tickvals=[0, 20, 40, 60, 80]),
                       yaxis = dict(tickvals=[0, 20, 40, 60, 80])
                  )

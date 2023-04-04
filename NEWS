@@ -1,0 +1,9 @@
+MicMag2_rc0 changes - compared to original MicroMagnum:
+Included Heisenberg interactions
+Included DMI
+Included Temperature module (euler eolver)
+included included Topology module (to calculate topolgical winding number)
+python 3.8 support
+swig 4.0.2 support
+cuda 11 support
+some minor generell bug fixing

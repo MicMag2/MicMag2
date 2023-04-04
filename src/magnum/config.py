@@ -46,8 +46,8 @@ class MagnumConfig(object):
         magneto.initialize(self.getCacheDirectory())
         #print(argv)
         #print(sys.argv)
-        self.parseCommandLine(argv or sys.argv)
-        #self.parseCommandLine(["-G", "auto"])
+        #self.parseCommandLine(argv or sys.argv)
+        self.parseCommandLine(["-G", "auto"])
 
         # Register cleanup function
         atexit.register(MagnumConfig.cleanupBeforeExit, self)
@@ -253,7 +253,7 @@ class MagnumConfig(object):
 
         logger.info("----------------------------------------------------------------------")
         logger.info("MicroMagnum %s" % magnum.__version__)
-        logger.info("Copyright (C) 2012 by the MicroMagnum team.")
+        logger.info("Copyright (C) 2012 - 2023 by the MicroMagnum team and the MicMag2 contributors.")
         logger.info("This program comes with ABSOLUTELY NO WARRANTY.")
         logger.info("This is free software, and you are welcome to redistribute it under")
         logger.info("certain conditions; see the file COPYING in the distribution package.")

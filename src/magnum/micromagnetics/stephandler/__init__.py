@@ -32,9 +32,8 @@ from .vtk_storage       import VTKStorage
 from .screen_log        import ScreenLog
 from .data_table_log    import DataTableLog
 from .fancy_screen_log  import FancyScreenLog
-from .continuity_check  import ContinuityCheck
 from .image_storage2 import ImageStorage2
 from .image_storage2 import writeImage2
 #from .device_handler    import DeviceHandler
 
-__all__ = ["OOMMFStorage", "writeImage2", "ImageStorage", "ImageStorage2", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog", "ContinuityCheck"]
+__all__ = ["OOMMFStorage", "writeImage2", "ImageStorage", "ImageStorage2", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog"]

@@ -29,7 +29,7 @@ def field(A, axis = (1,1,1)):
 
 for ratio in range(4,40+1):
   L, d, t = geometry(ratio)
-  print "d/l_ex=%s, L=%s, d=%s, t=%s" % (ratio, L, d, t)
+  print("d/l_ex=%s, L=%s, d=%s, t=%s" % (ratio, L, d, t))
 
   mesh = discretize(L, d, t)
   world = World(mesh, Body("thinfilm", Py, Everywhere()))
@@ -44,7 +44,7 @@ for ratio in range(4,40+1):
 
     h = H/Ms
     m = tuple(a/Ms for a in solver.state.M.average())
-    print h, m, sum(m)*Ms
+    print(h, m, sum(m)*Ms)
 
     # remember remanence mag
     if abs(h) < 1e-10:

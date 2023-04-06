@@ -59,42 +59,41 @@ void fs_kernel_dmi_2d(
 	// Shared mem
 	__shared__ real shared[4][2+BLOCK_2D_SIZE_X][2+BLOCK_2D_SIZE_Y]; // mx,my,mz,Ms
 
+	// I. Prepare indices
+	const int i = sx + dim_x*sy; // center pos
+
+	const real Dxx = Dx_x[i]*delta_x*delta_x;
+	const real Dxy = Dx_y[i]*delta_x*delta_x;
+	const real Dxz = Dx_z[i]*delta_x*delta_x;
+
+	const real Dyx = Dy_x[i]*delta_y*delta_y;
+	const real Dyy = Dy_y[i]*delta_y*delta_y;
+	const real Dyz = Dy_z[i]*delta_y*delta_y;
+
+	int idx_l = i-     1;
+	int idx_r = i+     1;
+	int idx_u = i- dim_x;
+	int idx_d = i+ dim_x;
+
+	if (periodic_x) {
+		if (sx ==       0) idx_l += dim_x;
+		if (sx == dim_x-1) idx_r -= dim_x;
+	}
+	if (periodic_y) {
+		if (sy ==       0) idx_u += dim_x*dim_y;
+		if (sy == dim_y-1) idx_d -= dim_x*dim_y;
+	}
+
+	// II. Prepare shared memory
+
+	// these are indices into shared memory: shared[..][TZ][TY][TX]
+	const int TX = tx+1; // own pos
+	const int TY = ty+1;
+	real Ms_i;
+
 	if (sx < dim_x && sy < dim_y) {
-		// I. Prepare indices
-		const int i = sx + dim_x*sy; // center pos
-
-
-		const real Dxx = Dx_x[i]*delta_x*delta_x;
-                const real Dxy = Dx_y[i]*delta_x*delta_x;
-                const real Dxz = Dx_z[i]*delta_x*delta_x;
-
-                const real Dyx = Dy_x[i]*delta_y*delta_y;
-                const real Dyy = Dy_y[i]*delta_y*delta_y;
-                const real Dyz = Dy_z[i]*delta_y*delta_y;
-
-		int idx_l = i-     1;
-		int idx_r = i+     1;
-		int idx_u = i- dim_x;
-		int idx_d = i+ dim_x;
-
-		if (periodic_x) {
-			if (sx ==       0) idx_l += dim_x;
-			if (sx == dim_x-1) idx_r -= dim_x;
-		}
-		if (periodic_y) {
-			if (sy ==       0) idx_u += dim_x*dim_y;
-			if (sy == dim_y-1) idx_d -= dim_x*dim_y;
-		}
-
-
-		// II. Prepare shared memory
-
-		// these are indices into shared memory: shared[..][TZ][TY][TX]
-		const int TX = tx+1; // own pos
-		const int TY = ty+1;
-
 		// Regular, non-ghost cells
-		const real Ms_i = Ms[i];
+		Ms_i = Ms[i];
 		if (Ms_i != 0.0) { 
 			shared[0][TY][TX] = Mx[i] / Ms_i;
 			shared[1][TY][TX] = My[i] / Ms_i;
@@ -151,9 +150,11 @@ void fs_kernel_dmi_2d(
 			}
 			shared[3][TY+1][TX] = Ms_d; 
 		}
+	}
 
-		__syncthreads();
+	__syncthreads();
 
+	if (sx < dim_x && sy < dim_y) {
 		// III. Compute the finite differences
 		if (Ms_i > 0) {
 			real sum[3] = {0,0,0};
@@ -191,10 +192,7 @@ void fs_kernel_dmi_2d(
 			Hy[i] = 0;
 			Hz[i] = 0;
 		}
-
-	} else {
-		__syncthreads();
-	}
+	} 
 }
 
 template <typename real, bool periodic_x, bool periodic_y, bool periodic_z>
@@ -222,53 +220,53 @@ void fs_kernel_dmi_3d(
 	// Copy into shared mem
 	__shared__ real shared[4][BLOCK_3D_SIZE_Z+2][BLOCK_3D_SIZE_Y+2][BLOCK_3D_SIZE_X+2];
 
+	// I. Prepare indices
+	const int dim_xy = dim_x*dim_y;
+	const int i = sx + dim_x*sy + dim_xy*sz; // center pos
+
+	int idx_l = i -      1;
+	int idx_r = i +      1;
+	int idx_u = i -  dim_x;
+	int idx_d = i +  dim_x;
+	int idx_f = i - dim_xy;
+	int idx_b = i + dim_xy;
+
+	const real Dxx = Dx_x[i]*delta_x*delta_x;
+	const real Dxy = Dx_y[i]*delta_x*delta_x;
+	const real Dxz = Dx_z[i]*delta_x*delta_x;
+
+	const real Dyx = Dy_x[i]*delta_y*delta_y;
+	const real Dyy = Dy_y[i]*delta_y*delta_y;
+	const real Dyz = Dy_z[i]*delta_y*delta_y;
+
+	const real Dzx = Dz_x[i]*delta_z*delta_z;
+	const real Dzy = Dz_y[i]*delta_z*delta_z;
+	const real Dzz = Dz_z[i]*delta_z*delta_z;
+
+	if (periodic_x) {
+		if (sx ==       0) idx_l += dim_x;
+		if (sx == dim_x-1) idx_r -= dim_x;
+	}
+	if (periodic_y) {
+		if (sy ==       0) idx_u += dim_xy;
+		if (sy == dim_y-1) idx_d -= dim_xy;
+	}
+	if (periodic_z) {
+		if (sz ==       0) idx_f += dim_xy*dim_z;
+		if (sz == dim_z-1) idx_d -= dim_xy*dim_z;
+	}
+
+	// II. Prepare shared memory
+
+	// these are indices into shared memory: shared[..][TZ][TY][TX]
+	const int TX = tx+1; // own pos in shared mem
+	const int TY = ty+1;
+	const int TZ = tz+1;
+	real Ms_i;
+
 	if (sx < dim_x && sy < dim_y && sz < dim_z) {
-		// I. Prepare indices
-		const int dim_xy = dim_x*dim_y;
-		const int i = sx + dim_x*sy + dim_xy*sz; // center pos
-
-		int idx_l = i -      1;
-		int idx_r = i +      1;
-		int idx_u = i -  dim_x;
-		int idx_d = i +  dim_x;
-		int idx_f = i - dim_xy;
-		int idx_b = i + dim_xy;
-
-		const real Dxx = Dx_x[i]*delta_x*delta_x;
-		const real Dxy = Dx_y[i]*delta_x*delta_x;
-		const real Dxz = Dx_z[i]*delta_x*delta_x;
-
-		const real Dyx = Dy_x[i]*delta_y*delta_y;
-                const real Dyy = Dy_y[i]*delta_y*delta_y;
-                const real Dyz = Dy_z[i]*delta_y*delta_y;
-
-		const real Dzx = Dz_x[i]*delta_z*delta_z;
-                const real Dzy = Dz_y[i]*delta_z*delta_z;
-                const real Dzz = Dz_z[i]*delta_z*delta_z;
-
-
-		if (periodic_x) {
-			if (sx ==       0) idx_l += dim_x;
-			if (sx == dim_x-1) idx_r -= dim_x;
-		}
-		if (periodic_y) {
-			if (sy ==       0) idx_u += dim_xy;
-			if (sy == dim_y-1) idx_d -= dim_xy;
-		}
-		if (periodic_z) {
-			if (sz ==       0) idx_f += dim_xy*dim_z;
-			if (sz == dim_z-1) idx_d -= dim_xy*dim_z;
-		}
-
-		// II. Prepare shared memory
-
-		// these are indices into shared memory: shared[..][TZ][TY][TX]
-		const int TX = tx+1; // own pos in shared mem
-		const int TY = ty+1;
-		const int TZ = tz+1;
-
 		// Regular, non-ghost cells
-		const real Ms_i = Ms[i];
+		Ms_i = Ms[i];
 		if (Ms_i > 0.0) { 
 			shared[0][TZ][TY][TX] = Mx[i] / Ms_i; 
 			shared[1][TZ][TY][TX] = My[i] / Ms_i; 
@@ -288,7 +286,8 @@ void fs_kernel_dmi_3d(
 				}
 			}
 			shared[3][TZ][TY][TX-1] = Ms_l;
-		} else if ((threadIdx.x == BLOCK_3D_SIZE_X-1) || (sx == dim_x-1)) { // right ghost cells
+		} 
+		if ((threadIdx.x == BLOCK_3D_SIZE_X-1) || (sx == dim_x-1)) { // right ghost cells
 			real Ms_r = 0.0;
 			if (periodic_x || sx < dim_x-1) {
 				Ms_r = Ms[idx_r];
@@ -311,7 +310,8 @@ void fs_kernel_dmi_3d(
 				}
 			}
 			shared[3][TZ][TY-1][TX] = Ms_u;
-		} else if ((threadIdx.y == BLOCK_3D_SIZE_Y-1) || (sy == dim_y-1)) { // bottom ghost cells
+		} 
+		if ((threadIdx.y == BLOCK_3D_SIZE_Y-1) || (sy == dim_y-1)) { // bottom ghost cells
 			real Ms_d = 0.0;
 			if (periodic_y || (sy < dim_y-1)) {
 				Ms_d = Ms[idx_d];
@@ -334,7 +334,8 @@ void fs_kernel_dmi_3d(
 				}
 			}
 			shared[3][TZ-1][TY][TX] = Ms_f;
-		} else if ((threadIdx.z == BLOCK_3D_SIZE_Z-1) || (sz == dim_z-1)) { // back ghost cells
+		} 
+		if ((threadIdx.z == BLOCK_3D_SIZE_Z-1) || (sz == dim_z-1)) { // back ghost cells
 			real Ms_b = 0.0;
 			if (periodic_z || (sz < dim_z-1)) {
 				Ms_b = Ms[idx_b];
@@ -346,9 +347,9 @@ void fs_kernel_dmi_3d(
 			}
 			shared[3][TZ+1][TY][TX] = Ms_b;
 		}
-
-		__syncthreads();
-
+	}
+	__syncthreads();
+	if (sx < dim_x && sy < dim_y && sz < dim_z) {
 		// III. Compute the finite differences
 		if (Ms_i > 0.0) {
 			real sum[3] = {0,0,0};
@@ -399,8 +400,6 @@ void fs_kernel_dmi_3d(
 			Hy[i] = 0.0;
 			Hz[i] = 0.0;
 		}
-	} else {
-		__syncthreads();
 	}
 }
 

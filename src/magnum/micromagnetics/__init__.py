@@ -39,13 +39,13 @@ from .interlayer_exchange_field_multi  import MultiInterlayerExchangeField
 from .dmi_field import DMIField
 from .temperature_field import TemperatureField
 from .topology import Topology
-
+from .current_path import CurrentPath
 __all__ = [
     "MicroMagnetics", "MicroMagneticsSolver", "create_solver",
     "MU0", "H_BAR", "ELECTRON_CHARGE", "MU_BOHR", "GYROMAGNETIC_RATIO", "BOLTZMANN_CONSTANT",
     "LandauLifshitzGilbert", "ExchangeField", "StrayField", "StrayFieldCalculator",
     "ExternalField", "AnisotropyField", "HomogeneousField", "HomogeneousCurrent","MultiInterlayerExchangeField","InterlayerExchangeField",
-    "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "PulseField",  "DMIField", "TemperatureField","MacroSpinTorque","Topology",
+    "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "PulseField",  "DMIField", "TemperatureField","MacroSpinTorque","Topology","CurrentPath"
 ]
 
 ## submodules

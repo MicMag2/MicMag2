@@ -1,7 +1,7 @@
 /*
- * Copyright 2012, 2013 by the Micromagnum authors.
+ * Copyright 2012, 2013, 2023 by the Micromagnum authors and the MicMag2 contributors.
  *
- * This file is part of MicroMagnum.
+ * This file is part of MicMag2.
  * 
  * MicroMagnum is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

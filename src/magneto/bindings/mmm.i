@@ -35,3 +35,4 @@
 %include "mmm/temperature.i"
 %include "mmm/fs_temperature.i"
 %include "mmm/topology.i"
+%include "mmm/amr.i"

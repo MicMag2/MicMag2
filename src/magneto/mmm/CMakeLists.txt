@@ -1,4 +1,9 @@
 set(SRC
+  # amr
+  amr/AMR.cpp
+  amr/CurrentCalculator.cpp
+  amr/LinearSolver.cpp
+
   # anisotropy
   anisotropy/anisotropy.cpp
   anisotropy/anisotropy_cpu.cpp

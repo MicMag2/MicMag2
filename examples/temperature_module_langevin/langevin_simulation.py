@@ -1,7 +1,7 @@
 from magnum import *
 import time
 
-mu_b = 9.27401008e-24 
+mu_b = 9.27401008e-24
 nx = 15
 ny = 15
 nz = 15

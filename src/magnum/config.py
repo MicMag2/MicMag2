@@ -47,7 +47,7 @@ class MagnumConfig(object):
         #print(argv)
         #print(sys.argv)
         #self.parseCommandLine(argv or sys.argv)
-        self.parseCommandLine(["-G", "auto"])
+        self.parseCommandLine(["-g", "auto"])
 
         # Register cleanup function
         atexit.register(MagnumConfig.cleanupBeforeExit, self)

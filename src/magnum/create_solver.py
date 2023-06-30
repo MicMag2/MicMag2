@@ -68,7 +68,7 @@ def create_solver(world, module_list = [],  finescale = False, **kwargs):
         step_size = kwargs.pop("step_size", 3e-13)
         evo = evolver.RungeKutta4(sys.mesh, step_size)
     elif evolver_id in ["euler"]:
-        step_size = kwargs.pop("step_size", 5e-15)
+        step_size = kwargs.pop("step_size", 1e-15)
         evo = evolver.Euler(sys.mesh, step_size)
     elif evolver_id in ["cvode"]:
         eps_rel = kwargs.pop("eps_rel", 1e-4)
@@ -98,5 +98,5 @@ def create_solver(world, module_list = [],  finescale = False, **kwargs):
         raise ValueError("create_solver: Excess parameters given: %s" % ", ".join(kwargs.keys()))
 
     return solver
-    
+
 #TODO: Fix HeisenbergModelStepsizeController (Now it's just the MM SSC)

@@ -35,7 +35,7 @@ else:
             A.fill(42.0)
 
             B = A.to_numpy()
-            self.assertEquals((10,10,10), B.shape)
+            self.assertEqual((10,10,10), B.shape)
             self.assertTrue(np.all(B[:,:,:] == 42.0))
 
         def test_matrix_to_numpy_2(self):
@@ -46,16 +46,16 @@ else:
                 A.set(x,y,z, flub(x,y,z))
 
             B = A.to_numpy()
-            self.assertEquals(A.shape, B.shape)
+            self.assertEqual(A.shape, B.shape)
             for x,y,z in itertools.product(range(10), range(20), range(30)):
-                self.assertEquals(flub(x,y,z), B[x,y,z])
+                self.assertEqual(flub(x,y,z), B[x,y,z])
 
         def test_vectormatrix_to_numpy_1(self):
             A = VectorMatrix(Shape(10,10,10))
             A.fill((1.0, 2.0, 3.0))
 
             B = A.to_numpy()
-            self.assertEquals((10,10,10,3), B.shape)
+            self.assertEqual((10,10,10,3), B.shape)
             self.assertTrue(np.all(B[:,:,:,0] == 1.0))
             self.assertTrue(np.all(B[:,:,:,1] == 2.0))
             self.assertTrue(np.all(B[:,:,:,2] == 3.0))
@@ -68,12 +68,12 @@ else:
                 A.set(x,y,z, flub(x,y,z))
 
             B = A.to_numpy()
-            self.assertEquals(A.shape + (3,), B.shape)
+            self.assertEqual(A.shape + (3,), B.shape)
             for x,y,z in itertools.product(range(10), range(20), range(30)):
                 f = flub(x,y,z)
-                self.assertEquals(f[0], B[x,y,z,0])
-                self.assertEquals(f[1], B[x,y,z,1])
-                self.assertEquals(f[2], B[x,y,z,2])
+                self.assertEqual(f[0], B[x,y,z,0])
+                self.assertEqual(f[1], B[x,y,z,1])
+                self.assertEqual(f[2], B[x,y,z,2])
 
 if __name__ == '__main__':
     unittest.main()

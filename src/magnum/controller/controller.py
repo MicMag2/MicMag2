@@ -48,10 +48,10 @@ class LocalController(ControllerBase):
             if i < self.num_params:
                 self.my_params.append((i, self.all_params[i]))
             else:
-                logger.warn("Ignoring parameter id %s (no such parameter set!)" % i)
+                logger.warning("Ignoring parameter id %s (no such parameter set!)" % i)
 
         if len(self.my_params) == 0:
-            logger.warn("Controller: No parameter sets selected!")
+            logger.warning("Controller: No parameter sets selected!")
 
     def start(self):
         if cfg.options.toggle_multi_thread_py or cfg.options.toggle_multi_thread_py_1F:
@@ -73,7 +73,7 @@ class LocalController(ControllerBase):
                 else:                       lenDiff = len(maxStr) - len(strNum)
                 for addLen in range(lenDiff): strNum = "0" + strNum
                 return strNum
-    
+
             for idx, param in self.my_params:
                 t = mp.Process(target=helper, args=(idx, param))
                 threads.append(t)
@@ -81,16 +81,16 @@ class LocalController(ControllerBase):
 
             # Start all threads
             if cfg.options.toggle_multi_thread_py:
-                cwd = os.getcwd() 
+                cwd = os.getcwd()
                 for x in range(len(threads)):
                     num = makeNumStr(x, len(threads),3)
                     if not os.path.isdir(cwd + "/" + num): os.mkdir(cwd + "/" + num)
                     os.chdir(cwd + "/" + num)
                     threads[x].start()
-                    os.chdir(cwd)    
+                    os.chdir(cwd)
             else:
                 for x in threads:
-                    x.start()         
+                    x.start()
 
             # Wait for all of them to finish
             for x in threads:

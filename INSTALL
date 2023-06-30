@@ -1,27 +1,31 @@
-Installation instructions are available at:
+Prerequisites:
 
-  http://micromagnum-tis.informatik.uni-hamburg.de
+Python == 3.8
+swig == 4.0.2
+CUDA libraries and compiler and a GPU with architecture compute_61 
+FFTW package (3.3) 
+
 
 Basically, if all prerequisites are installed:
 
-  cd src/build_orig             # 1. enter build directory
-  ./run-cmake.sh                # 2.       build setup
-  #./run-cmake-cuda.sh          # build with 32-bit GPU support
-  #./run-cmake-cuda-64.sh       #   -or- build setup with 64-bit GPU support (needs installed CUDA libraries and compiler and a GPU with device capability 2.0+)
-  make                          # 3. compile everything
+  cd src/build_orig                                  # 1. enter build directory
+  cmake ..                                           # 2.       build setup
+  make                                               # 3. compile everything
+  cd ../magnum                                       # 4. change directory to create symbolic links 
+  ln -s ../build_orig/magnum_cpu.py magnum_cpu.py        # 4. create symbolic links 
+  ln -s ../build_orig/magnum_cuda.py magnum_cuda.py      # 5. create symbolic links 
+  ln -s ../build_orig/_magnum_cpu.so _magnum_cpu.so      # 6. create symbolic links 
+  ln -s ../build_orig/_magnum_cuda.so _magnum_cuda.so    # 7. create symbolic links 
 
-  # With global install:
-  sudo make install
 
-  # Without install: Set your $PYTHONPATH variable to the src/ directory 
+  # Set your $PYTHONPATH variable to the src/ directory 
   #                  (which contains the magnum and magneto subdirectories).
   export PYTHONPATH=xyz/src
 
 How to check if everything went fine:
 
   cd examples/sp4
-  ./sp4.py         # on CPU; or use -g0 or -G0 on GPU
-  ./sp4.py --help
+  python3 sp4.py         # on CPU; or use -g0 or -G0 on GPU
 
   find more examples in examples or source/magnum_tests
   some examples require more external libraries (plotly, matplotlib, ...)

@@ -46,8 +46,8 @@ class MagnumConfig(object):
         magneto.initialize(self.getCacheDirectory())
         #print(argv)
         #print(sys.argv)
-        #self.parseCommandLine(argv or sys.argv)
-        self.parseCommandLine(["-g", "auto"])
+        self.parseCommandLine(argv or sys.argv)
+        #self.parseCommandLine(["-g", "auto"])
 
         # Register cleanup function
         atexit.register(MagnumConfig.cleanupBeforeExit, self)

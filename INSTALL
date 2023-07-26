@@ -12,10 +12,10 @@ Basically, if all prerequisites are installed:
   cmake ..                                           # 2.       build setup
   make                                               # 3. compile everything
   cd ../magnum                                       # 4. change directory to create symbolic links 
-  ln -s ../build_orig/magnum_cpu.py magnum_cpu.py        # 4. create symbolic links 
-  ln -s ../build_orig/magnum_cuda.py magnum_cuda.py      # 5. create symbolic links 
-  ln -s ../build_orig/_magnum_cpu.so _magnum_cpu.so      # 6. create symbolic links 
-  ln -s ../build_orig/_magnum_cuda.so _magnum_cuda.so    # 7. create symbolic links 
+  ln -s ../build_orig/magneto_cpu.py magneto_cpu.py        # 4. create symbolic links 
+  ln -s ../build_orig/magneto_cuda.py magneto_cuda.py      # 5. create symbolic links 
+  ln -s ../build_orig/_magnetom_cpu.so _magneto_cpu.so      # 6. create symbolic links 
+  ln -s ../build_orig/_magneto_cuda.so _magneto_cuda.so    # 7. create symbolic links 
 
 
   # Set your $PYTHONPATH variable to the src/ directory 

@@ -62,14 +62,6 @@ void fs_kernel_dmi_2d(
 	// I. Prepare indices
 	const int i = sx + dim_x*sy; // center pos
 
-	const real Dxx = Dx_x[i]*delta_x*delta_x;
-	const real Dxy = Dx_y[i]*delta_x*delta_x;
-	const real Dxz = Dx_z[i]*delta_x*delta_x;
-
-	const real Dyx = Dy_x[i]*delta_y*delta_y;
-	const real Dyy = Dy_y[i]*delta_y*delta_y;
-	const real Dyz = Dy_z[i]*delta_y*delta_y;
-
 	int idx_l = i-     1;
 	int idx_r = i+     1;
 	int idx_u = i- dim_x;
@@ -155,6 +147,14 @@ void fs_kernel_dmi_2d(
 	__syncthreads();
 
 	if (sx < dim_x && sy < dim_y) {
+		const real Dxx = Dx_x[i]*delta_x*delta_x;
+        	const real Dxy = Dx_y[i]*delta_x*delta_x;
+        	const real Dxz = Dx_z[i]*delta_x*delta_x;
+
+        	const real Dyx = Dy_x[i]*delta_y*delta_y;
+        	const real Dyy = Dy_y[i]*delta_y*delta_y;
+        	const real Dyz = Dy_z[i]*delta_y*delta_y;
+
 		// III. Compute the finite differences
 		if (Ms_i > 0) {
 			real sum[3] = {0,0,0};
@@ -230,18 +230,6 @@ void fs_kernel_dmi_3d(
 	int idx_d = i +  dim_x;
 	int idx_f = i - dim_xy;
 	int idx_b = i + dim_xy;
-
-	const real Dxx = Dx_x[i]*delta_x*delta_x;
-	const real Dxy = Dx_y[i]*delta_x*delta_x;
-	const real Dxz = Dx_z[i]*delta_x*delta_x;
-
-	const real Dyx = Dy_x[i]*delta_y*delta_y;
-	const real Dyy = Dy_y[i]*delta_y*delta_y;
-	const real Dyz = Dy_z[i]*delta_y*delta_y;
-
-	const real Dzx = Dz_x[i]*delta_z*delta_z;
-	const real Dzy = Dz_y[i]*delta_z*delta_z;
-	const real Dzz = Dz_z[i]*delta_z*delta_z;
 
 	if (periodic_x) {
 		if (sx ==       0) idx_l += dim_x;
@@ -350,6 +338,18 @@ void fs_kernel_dmi_3d(
 	}
 	__syncthreads();
 	if (sx < dim_x && sy < dim_y && sz < dim_z) {
+		const real Dxx = Dx_x[i]*delta_x*delta_x;
+  		const real Dxy = Dx_y[i]*delta_x*delta_x;
+	        const real Dxz = Dx_z[i]*delta_x*delta_x;
+
+        	const real Dyx = Dy_x[i]*delta_y*delta_y;
+	        const real Dyy = Dy_y[i]*delta_y*delta_y;
+	        const real Dyz = Dy_z[i]*delta_y*delta_y;
+
+        	const real Dzx = Dz_x[i]*delta_z*delta_z;
+        	const real Dzy = Dz_y[i]*delta_z*delta_z;
+        	const real Dzz = Dz_z[i]*delta_z*delta_z;
+
 		// III. Compute the finite differences
 		if (Ms_i > 0.0) {
 			real sum[3] = {0,0,0};

@@ -1,1 +1,1 @@
-../build_orig/magneto_cpu.py
+../build/magneto_cpu.py

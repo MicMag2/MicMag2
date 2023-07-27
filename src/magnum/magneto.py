@@ -19,8 +19,4 @@ try:
     from .magneto_cuda import *
 except ImportError:
     from .magneto_cpu import *
-    #from .magneto_omp import *
-    #print("load open mp version")
-    #except Import Error:
-    #from .magneto_cpu import *
 

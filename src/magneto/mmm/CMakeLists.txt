@@ -16,8 +16,6 @@ set(SRC
   dmi/fs_dmi.cpp
   dmi/fs_dmi_cpu.cpp
 
-
-
   # demag
   demag/phi/demag_phi_tensor.cpp
   demag/tensor_round.cpp
@@ -28,6 +26,7 @@ set(SRC
   demag/fs_tensor.cpp
   demag/fs_demag_tensor.cpp
   demag/multiscale.cpp
+
   #temperature
   temperature/fdm_temperature.cpp
   temperature/fdm_temperature_cpu.cpp
@@ -70,17 +69,6 @@ set(SRC
   interlayerExchange/interlayerExchange_cpu.cpp
   interlayerExchange/interlayerExchange_multi.cpp
   interlayerExchange/interlayerExchange_multi_cpu.cpp
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -7,7 +7,7 @@ cmake_minimum_required (VERSION 2.8.0)
 project (Magneto)
 
 option(ENABLE_CUDA_32 "Enable CUDA (only 32 bit support)" OFF)
-option(ENABLE_CUDA_64 "Enable CUDA (both 32 and 64 bit support, needs CUDA device capability of 2.0 or higher)" ON)
+option(ENABLE_CUDA_64 "Enable CUDA (both 32 and 64 bit support, needs CUDA device capability of 2.0 or higher)" OFF)
 
 option(USE_PYTHON2 "Use Python2" OFF)
 option(USE_PYTHON3 "Use Python3" ON)

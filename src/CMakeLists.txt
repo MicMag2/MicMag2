@@ -9,10 +9,12 @@ project (Magneto)
 option(ENABLE_CUDA_32 "Enable CUDA (only 32 bit support)" OFF)
 option(ENABLE_CUDA_64 "Enable CUDA (both 32 and 64 bit support, needs CUDA device capability of 2.0 or higher)" OFF)
 
+
 option(USE_PYTHON2 "Use Python2" OFF)
 option(USE_PYTHON3 "Use Python3" ON)
 option(USE_CVODE "Use CVode" OFF)
 
+set(ENABLE_CUDA OFF)
 if(ENABLE_CUDA_32 OR ENABLE_CUDA_64)
   set(ENABLE_CUDA ON)
 endif(ENABLE_CUDA_32 OR ENABLE_CUDA_64)

@@ -1,11 +1,11 @@
 Authors of expansions in MicMag2
-Thomas Brian Winkler <twinkler@uni-mainz.de>
-Kai Litzius <kai.litzius@uni-a.de>
-Andrea deLucia 
-Kilian Leutner <kileutne@students.uni-mainz.de>
-Max Ramstöck
-Hans Fangohr <hans.fangohr@mpsd.mpg.de>
-Mathias Kläui <klaeui@uni-mainz.de>
+Thomas Brian Winkler <twinkler@uni-mainz.de> (maintenance, HB moudle adaption for GPU)
+Kai Litzius <kai.litzius@uni-a.de> (maintenance, several modules )
+Andrea deLucia (HB interactions, multiscale module)
+Kilian Leutner <kileutne@students.uni-mainz.de> (maintenance, Topology module)
+Max Ramstöck (maintenance)
+Hans Fangohr <hans.fangohr@mpsd.mpg.de> (supervision)
+Mathias Kläui <klaeui@uni-mainz.de> (supervision)
 
 Authors of original MicroMagnum:
 

@@ -47,7 +47,7 @@ class MagnumConfig(object):
         #print(argv)
         #print(sys.argv)
         self.parseCommandLine(argv or sys.argv)
-        #self.parseCommandLine(["-g", "auto"])
+        # self.parseCommandLine(["-G", "auto"])
 
         # Register cleanup function
         atexit.register(MagnumConfig.cleanupBeforeExit, self)
@@ -251,13 +251,13 @@ class MagnumConfig(object):
         ll_map = [logging.DEBUG, logging.INFO, logging.WARN, logging.ERROR, logging.CRITICAL]
         logger.setLevel(ll_map[options.loglevel])
 
-        logger.info("----------------------------------------------------------------------")
-        logger.info("MicMag %s" % magnum.__version__)
-        logger.info("Copyright (C) 2012 - 2023 by the MicroMagnum team and the MicMag2 contributors.")
-        logger.info("This program comes with ABSOLUTELY NO WARRANTY.")
-        logger.info("This is free software, and you are welcome to redistribute it under")
-        logger.info("certain conditions; see the file COPYING in the distribution package.")
-        logger.info("----------------------------------------------------------------------")
+        #logger.info("----------------------------------------------------------------------")
+        #logger.info("MicMag %s" % magnum.__version__)
+        #logger.info("Copyright (C) 2012 - 2023 by the MicroMagnum team and the MicMag2 contributors.")
+        #logger.info("This program comes with ABSOLUTELY NO WARRANTY.")
+        #logger.info("This is free software, and you are welcome to redistribute it under")
+        #logger.info("certain conditions; see the file COPYING in the distribution package.")
+        #logger.info("----------------------------------------------------------------------")
 
         # -g, -G
         if options.gpu32 and options.gpu64: logger.warn("Ignoring -g argument because -G was specified")

@@ -26,7 +26,7 @@ import time
 
 from .io import writeOMF
 
-class TemperatureField(module.Module):
+class FSTemperatureField(module.Module):
     def __init__(self):
         super(TemperatureField, self).__init__()
 

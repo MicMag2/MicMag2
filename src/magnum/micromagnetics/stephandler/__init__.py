@@ -34,6 +34,7 @@ from .data_table_log    import DataTableLog
 from .fancy_screen_log  import FancyScreenLog
 from .image_storage2 import ImageStorage2
 from .image_storage2 import writeImage2
+from .screen_log_minimizer import ScreenLogMinimizer
 #from .device_handler    import DeviceHandler
 
-__all__ = ["OOMMFStorage", "writeImage2", "ImageStorage", "ImageStorage2", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog"]
+__all__ = ["OOMMFStorage", "writeImage2", "ImageStorage", "ImageStorage2", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog", "ScreenLogMinimizer"]

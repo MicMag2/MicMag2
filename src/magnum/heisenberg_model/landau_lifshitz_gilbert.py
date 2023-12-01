@@ -59,11 +59,11 @@ class LandauLifshitzGilbert(module.Module):
             if 'EFFECTIVE_FIELD_TERM'   in prop.keys(): self.field_terms.append(prop['EFFECTIVE_FIELD_TERM'])
             if 'EFFECTIVE_FIELD_ENERGY' in prop.keys(): self.field_energies.append(prop['EFFECTIVE_FIELD_ENERGY'])
             if 'LLGE_TERM'              in prop.keys(): self.llge_terms.append(prop['LLGE_TERM'])
-        logger.info("LandauLifshitzGilbert module configuration:")
-        logger.info(" - H_tot = %s", " + ".join(self.field_terms) or "0")
-        logger.info(" - E_tot = %s", " + ".join(self.field_energies) or "0")
-        logger.info(" - dM/dt = %s", " + ".join(["LLGE(M, H_tot)"] + self.llge_terms) or "0")
-        if not self.__do_precess: logger.info(" - Precession term is disabled")
+        #logger.info("LandauLifshitzGilbert module configuration:")
+        #logger.info(" - H_tot = %s", " + ".join(self.field_terms) or "0")
+        #logger.info(" - E_tot = %s", " + ".join(self.field_energies) or "0")
+        #logger.info(" - dM/dt = %s", " + ".join(["LLGE(M, H_tot)"] + self.llge_terms) or "0")
+        #if not self.__do_precess: logger.info(" - Precession term is disabled")
 
     def calculate(self, state, id):
         if id == "M":
@@ -81,7 +81,7 @@ class LandauLifshitzGilbert(module.Module):
 
     def update(self, state, id, value):
         if id == "M":
-            logger.info("Assigning new magnetic state M")
+            #logger.info("Assigning new magnetic state M")
             module.assign(state.y, value)
             state.y.normalize(self.system.mu)   # XXX: Is this a good idea? (Solution: Use unit magnetization everywhere.)
             state.flush_cache()
@@ -137,8 +137,8 @@ class LandauLifshitzGilbert(module.Module):
         self.__f2 = f2 = Field(self.system.mesh) # damping factors of llge
 
         alpha, mu = self.system.alpha, self.system.mu
-        
- 
+
+
         # Prepare factors
         for x,y,z in self.system.mesh.iterateCellIndices():
             alpha_i, mu_i = alpha.get(x,y,z), mu.get(x,y,z)

@@ -49,12 +49,6 @@ class RungeKutta(Evolver):
         # shortcuts
         #print("y, y0, y_err in evolve")
         y, y0, y_err = (state.y, self.__y0, self.__y_err)
-        
-        #print(y.to_numpy()[0,0,0])
-
-        #print(y0.to_numpy()[0,0,0])
-        #print("y_err in evolve before apply "+str(y_err.to_numpy()[0,0,0]))
-
 
         # This is needed to be able to roll back one step
         y0.assign(y)
@@ -67,7 +61,6 @@ class RungeKutta(Evolver):
 
         while True:
             # Try a step from state.t to state.t+h_try
-            #print("apply")
             dydt = self.apply(state, h_try)
             # Step size control (was h too big?)
             # calculate the minimal acceptable step size
@@ -86,10 +79,10 @@ class RungeKutta(Evolver):
             h_try = t_max - state.t   # make h_try smaller.
             y.assign(y0)              # reverse last step
             self.apply(state, h_try)  # assume that a smaller step size is o.k.
-        
+
         # Update state
         state.t += h_try
-        state.h  = h_try; state.__runge_kutta_next_h = h_new        
+        state.h  = h_try; state.__runge_kutta_next_h = h_new
         state.step += 1
         state.substep = 0
         state.flush_cache()
@@ -110,9 +103,6 @@ class RungeKutta(Evolver):
         else:
             k[0] = state0.differentiate()
 
-        #print("in apply before step loop y_tmp"+str(y_tmp.to_numpy()[100,100,0]))
-        #print("in apply before step loop y"+str(y.to_numpy()[100,100,0]))
-        #print("in apply before step loop y_err"+str(y_err.to_numpy()[100,100,0]))
         # step 1 to 5
         for step in range(1, num_steps):
             # calculate ytmp...
@@ -123,17 +113,15 @@ class RungeKutta(Evolver):
             else:
                 # C++ version for num_steps==6 (rkf45,cc45)
                 magneto.rk_prepare_step(step, h, tab, k[0], k[1] or k[0], k[2] or k[0], k[3] or k[0], k[4] or k[0], k[5] or k[0], y, y_tmp)
-                #print("in apply after prepare step y_tmp"+str(y_tmp.to_numpy()[100,100,0]))
 
             state1 = state0.clone(y_tmp)
             state1.t = state0.t + h * tab.getA(step)
             state1.substep = step
             k[step] = state1.differentiate()
-            #print 'up left corner magnetization is : ', state.y.get(109, 19, 0)
         # II. Linear-combine step vectors, add them to y, calculate error y_err
         if num_steps == 6:
             magneto.rk_combine_result(h, tab, k[0], k[1], k[2], k[3], k[4], k[5], y, y_err)
-        
+
         elif num_steps == 3:
             magneto.rk_combine_result(h, tab, k[0], k[1], k[2], y, y_err)
         else:
@@ -141,7 +129,6 @@ class RungeKutta(Evolver):
             for step in range(0, num_steps):
                 y    .add(k[step], h * tab.getC (step))
                 y_err.add(k[step], h * tab.getEC(step))
-#        print('passo')
 
         # III. Exploit fsal property?
         if tab.fsal:

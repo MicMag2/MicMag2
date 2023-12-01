@@ -68,8 +68,11 @@ def create_solver(world, module_list = [],  finescale = False, **kwargs):
         step_size = kwargs.pop("step_size", 3e-13)
         evo = evolver.RungeKutta4(sys.mesh, step_size)
     elif evolver_id in ["euler"]:
-        step_size = kwargs.pop("step_size", 1e-15)
+        step_size = kwargs.pop("step_size", 1e-15)#1e-15
         evo = evolver.Euler(sys.mesh, step_size)
+    elif evolver_id in ["heun"]:
+        step_size = kwargs.pop("step_size", 1e-14)#1e-14
+        evo = evolver.Heun(sys.mesh, step_size)
     elif evolver_id in ["cvode"]:
         eps_rel = kwargs.pop("eps_rel", 1e-4)
         eps_abs = kwargs.pop("eps_abs", 1e-3)
@@ -77,7 +80,7 @@ def create_solver(world, module_list = [],  finescale = False, **kwargs):
         step_size = kwargs.pop("step_size", 1e-12)
         evo = evolver.Cvode(sys.mesh, eps_abs, eps_rel, step_size, newton_method)
     else:
-        raise ValueError("Invalid evolver type specified: %s (valid choices: 'rk23','rkf45','dp54','euler','cvode'; default is 'rkf45')" % evolver_id)
+        raise ValueError("Invalid evolver type specified: %s (valid choices: 'rk23','rkf45','dp54','euler','heun','cvode'; default is 'rkf45')" % evolver_id)
 
     ###### III. Create Solver from Evolver and module system ######
 

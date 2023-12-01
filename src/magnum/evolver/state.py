@@ -26,6 +26,8 @@ class State(object):
     def __init__(self, mesh):
         self.t = 0
         self.h = 0
+        #self.step_size = 1e-14
+        #self.stepsize = 1e-14
         self.step = 0
         self.substep = 0
         self.mesh = mesh

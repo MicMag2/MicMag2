@@ -32,7 +32,7 @@ class LandauLifshitzGilbert(module.Module):
         self.__valid_factors = False
 
     def calculates(self):
-        return ["dMdt", "M", "H_tot", "E_tot", "deg_per_ns"]
+        return ["dMdt","dMdt2", "M", "H_tot", "E_tot", "deg_per_ns", "minimizer_M", "minimizer_dM"]
 
     def updates(self):
         return ["M"]
@@ -55,19 +55,16 @@ class LandauLifshitzGilbert(module.Module):
         self.field_energies = []
         self.llge_terms = []
         for mod in system.modules:
-            #print mod
-            #print mod.name()
-            #print mod.properties()
             prop = mod.properties()
             if 'EFFECTIVE_FIELD_TERM'   in prop.keys(): self.field_terms.append(prop['EFFECTIVE_FIELD_TERM'])
             if 'EFFECTIVE_FIELD_ENERGY' in prop.keys(): self.field_energies.append(prop['EFFECTIVE_FIELD_ENERGY'])
             if 'LLGE_TERM'              in prop.keys(): self.llge_terms.append(prop['LLGE_TERM'])
 
-        logger.info("LandauLifshitzGilbert module configuration:")
-        logger.info(" - H_tot = %s", " + ".join(self.field_terms) or "0")
-        logger.info(" - E_tot = %s", " + ".join(self.field_energies) or "0")
-        logger.info(" - dM/dt = %s", " + ".join(["LLGE(M, H_tot)"] + self.llge_terms) or "0")
-        if not self.__do_precess: logger.info(" - Precession term is disabled")
+        #logger.info("LandauLifshitzGilbert module configuration:")
+        #logger.info(" - H_tot = %s", " + ".join(self.field_terms) or "0")
+        #logger.info(" - E_tot = %s", " + ".join(self.field_energies) or "0")
+        #logger.info(" - dM/dt = %s", " + ".join(["LLGE(M, H_tot)"] + self.llge_terms) or "0")
+        #if not self.__do_precess: logger.info(" - Precession term is disabled")
 
     def calculate(self, state, id):
         if id == "M":
@@ -78,14 +75,23 @@ class LandauLifshitzGilbert(module.Module):
             return self.calculate_E_tot(state)
         elif id == "dMdt":
             return self.calculate_dMdt(state)
+        elif id == "dMdt2":
+            return self.calculate_dMdt2(state)
         elif id == "deg_per_ns":
             return self.calculate_deg_per_ns(state)
+        elif id == "minimizer_M":
+            return lambda h: self.calculate_minimizer_M(state, h)
+        elif id == "minimizer_dM":
+            return self.calculate_minimizer_dM(state)
+
+
+
         else:
             raise KeyError(id)
 
     def update(self, state, id, value):
         if id == "M":
-            logger.info("Assigning new magnetic state M")
+            #logger.info("Assigning new magnetic state M")
             module.assign(state.y, value)
             state.y.normalize(self.system.Ms)   # XXX: Is this a good idea? (Solution: Use unit magnetization everywhere.)
             state.flush_cache()
@@ -98,8 +104,22 @@ class LandauLifshitzGilbert(module.Module):
         H_tot.fill((0.0, 0.0, 0.0))
         for H_id in self.field_terms:
             H_i = getattr(state, H_id)
-            #print H_id, H_i.get(0,0,0)
             H_tot.add(H_i)
+        return H_tot
+
+    def calculate_H_tot2(self, state):   #for Heun integration, without evaluating temperature module again
+        #if hasattr(state.cache, "H_tot"): return state.cache.H_tot
+        H_th_old = state.H_th
+        H_tot = state.cache.H_tot = VectorField(self.system.mesh)
+        H_tot.fill((0.0, 0.0, 0.0))
+        for H_id in self.field_terms:
+            #print(H_id)
+            if not H_id =="H_th":
+                H_i = getattr(state, H_id)
+                H_tot.add(H_i)
+            #else:
+            #    print("skip temperature")
+        H_tot.add(H_th_old)
         return H_tot
 
     def calculate_E_tot(self, state):
@@ -125,6 +145,58 @@ class LandauLifshitzGilbert(module.Module):
             dMdt.add(dMdt_i)
 
         return dMdt
+
+    def calculate_minimizer_dM(self, state):
+        # TODO other LLG terms?
+        if not self.__valid_factors: self.__initFactors()
+
+        if hasattr(state.cache, "minimizer_dM"): return state.cache.minimizer_dM
+        result = state.cache.minimizer_dM = VectorField(self.system.mesh)
+
+        # Get effective field
+        H_tot = self.calculate_H_tot(state)
+
+        # TODO do this in every step?
+        zero = Field(self.system.mesh)
+        zero.fill(0.0)
+
+        magneto.llge(zero, self.__f2, state.M, H_tot, result)
+
+        return result
+
+    def calculate_minimizer_M(self, state, h):
+        # TODO other LLG terms?
+        if not self.__valid_factors: self.__initFactors()
+
+        result = VectorField(self.system.mesh)
+
+        # Get effective field
+        H_tot = self.calculate_H_tot(state)
+
+        magneto.minimize(self.__f2, h, state.M, H_tot, result)
+
+        return result
+
+
+
+    def calculate_dMdt2(self, state):  #for Heun integration
+        if not self.__valid_factors: self.__initFactors()
+
+        if hasattr(state.cache, "dMdt2"): return state.cache.dMdt2
+        dMdt2 = state.cache.dMdt2 = VectorField(self.system.mesh)
+
+        # Get effective field
+        H_tot = self.calculate_H_tot2(state)
+
+        # Basic term
+        magneto.llge(self.__f1, self.__f2, state.M, H_tot, dMdt2)
+
+        # Optional other terms
+        for dMdt_id in self.llge_terms:
+            dMdt_i = getattr(state, dMdt_id)
+            dMdt2.add(dMdt_i)
+
+        return dMdt2
 
     def calculate_deg_per_ns(self, state):
         if hasattr(state.cache, "deg_per_ns"): return state.cache.deg_per_ns

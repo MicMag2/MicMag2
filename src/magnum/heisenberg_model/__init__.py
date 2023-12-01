@@ -37,14 +37,15 @@ from .spinHall_field import FSSpinHallField
 from .pulse_field import PulseField
 from .macro_spin_torque import FSMacroSpinTorque
 from .dmi_field import FSDMIField
-from .temperature_field import TemperatureField
+from .temperature_field import FSTemperatureField
+from .topology import FSTopology
 
 __all__ = [
     "HeisenbergModel", "HeisenbergModelSolver", "create_solver",
     "MU0", "H_BAR", "ELECTRON_CHARGE", "MU_BOHR", "GYROMAGNETIC_RATIO", "BOLTZMANN_CONSTANT",
     "LandauLifshitzGilbert", "FSExchangeField", "FSStrayField", "FSStrayFieldCalculator","FSStrayFieldTensor",
     "FSExternalField", "FSAnisotropyField", "HomogeneousField", "HomogeneousCurrent",
-    "SpinTorque", "FSAlternatingField", "FSAlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "FSSpinHallField", "PulseCurrent", "PulseField", "FSMacroSpinTorque", "FSDMIField", "TemperatureField"
+    "SpinTorque", "FSAlternatingField", "FSAlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "FSSpinHallField", "PulseCurrent", "PulseField", "FSMacroSpinTorque", "FSDMIField", "FSTemperatureField", "FSTopology"
 ]
 
 ## submodules

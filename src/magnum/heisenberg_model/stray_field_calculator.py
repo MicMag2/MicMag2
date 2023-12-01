@@ -94,11 +94,11 @@ class FSStrayFieldCalculator(object):
         nx, ny, nz = mesh.num_nodes
         dx, dy, dz = mesh.delta
 
-        if nx * ny * nz > 32:
-            if not (nx < ny < nz):
-                logger.info("Performance hint: The number of cells nx, ny, nz in each direction should satisfy nx >= ny >= nz.")
-            if (nx == 1 or ny == 1) and nz != 1:
-                logger.info("Performance hint: Meshes with 2-dimensional cell grids should span the xy-plane, i.e. the number of cells in z-direction should be 1.")
+        #if nx * ny * nz > 32:
+        #    if not (nx < ny < nz):
+        #        logger.info("Performance hint: The number of cells nx, ny, nz in each direction should satisfy nx >= ny >= nz.")
+        #    if (nx == 1 or ny == 1) and nz != 1:
+        #        logger.info("Performance hint: Meshes with 2-dimensional cell grids should span the xy-plane, i.e. the number of cells in z-direction should be 1.")
 
         # generate calculation function depending on user-selected method
         if method == "tensor":
@@ -155,11 +155,11 @@ class FSStrayFieldTensor(object):
         nx, ny, nz = mesh.num_nodes
         dx, dy, dz = mesh.delta
 
-        if nx * ny * nz > 32:
-            if not (nx < ny < nz):
-                logger.info("Performance hint: The number of cells nx, ny, nz in each direction should satisfy nx >= ny >= nz.")
-            if (nx == 1 or ny == 1) and nz != 1:
-                logger.info("Performance hint: Meshes with 2-dimensional cell grids should span the xy-plane, i.e. the number of cells in z-direction should be 1.")
+        #if nx * ny * nz > 32:
+        #    if not (nx < ny < nz):
+        #        logger.info("Performance hint: The number of cells nx, ny, nz in each direction should satisfy nx >= ny >= nz.")
+        #    if (nx == 1 or ny == 1) and nz != 1:
+        #        logger.info("Performance hint: Meshes with 2-dimensional cell grids should span the xy-plane, i.e. the number of cells in z-direction should be 1.")
 
         # generate calculation function depending on user-selected method
         tensor = DemagTensorField(mesh, padding)

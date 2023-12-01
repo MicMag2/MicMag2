@@ -25,7 +25,7 @@ import numbers
 class MicroMagnetics(module.System):
     def __init__(self, world):
         super(MicroMagnetics, self).__init__(world.mesh)
-       
+
         self.__state_class = None
         self.__world = world
 
@@ -51,6 +51,9 @@ class MicroMagnetics(module.System):
 
                 def differentiate(this):
                     return this.dMdt
+
+                def differentiate2(this):
+                    return this.dMdt2
 
                 def __getitem__(this, key):
                     if self.world.hasBody(key):

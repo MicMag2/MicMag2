@@ -24,6 +24,7 @@ from magnum.create_solver import create_solver
 from .constants import MU0, H_BAR, ELECTRON_CHARGE, MU_BOHR, GYROMAGNETIC_RATIO, BOLTZMANN_CONSTANT
 from .landau_lifshitz_gilbert import LandauLifshitzGilbert
 from .exchange_field import ExchangeField
+from .exchange_field_nnn import ExchangeFieldNNN
 from .stray_field import StrayField, StrayFieldCalculator
 from .external_field import ExternalField
 from .anisotropy_field import AnisotropyField
@@ -43,7 +44,7 @@ from .current_path import CurrentPath
 __all__ = [
     "MicroMagnetics", "MicroMagneticsSolver", "create_solver",
     "MU0", "H_BAR", "ELECTRON_CHARGE", "MU_BOHR", "GYROMAGNETIC_RATIO", "BOLTZMANN_CONSTANT",
-    "LandauLifshitzGilbert", "ExchangeField", "StrayField", "StrayFieldCalculator",
+    "LandauLifshitzGilbert", "ExchangeField", "ExchangeFieldNNN","StrayField", "StrayFieldCalculator",
     "ExternalField", "AnisotropyField", "HomogeneousField", "HomogeneousCurrent","MultiInterlayerExchangeField","InterlayerExchangeField",
     "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "PulseField",  "DMIField", "TemperatureField","MacroSpinTorque","Topology","CurrentPath"
 ]

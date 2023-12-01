@@ -225,6 +225,7 @@ public:
 	void assign(const VectorMatrix &other);
 	void scale(double factor);
 	void scale(Vector3d factors);
+	void multiplyField(class Matrix &op);
 	void add(const VectorMatrix &op, double scale = 1.0);
 	void randomize();
 

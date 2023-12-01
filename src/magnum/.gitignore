@@ -1,0 +1,4 @@
+_magneto_cuda.so
+_magneto_cpu.so
+magneto_cpu.py
+magneto_cuda.py

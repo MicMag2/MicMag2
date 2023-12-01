@@ -1,4 +1,5 @@
 FROM debian:bullseye
+
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update 
 RUN apt-get install -y build-essential protobuf-compiler libzmq3-dev curl g++ git
@@ -17,3 +18,4 @@ RUN rm ../magnum/_magneto_cpu.so
 WORKDIR ../magnum
 RUN ln -s ../build/magneto_cpu.py magneto_cpu.py
 RUN ln -s ../build/_magneto_cpu.so _magneto_cpu.so
+RUN export PYTHONPATH="$PYTHONPATH:/MicMag2/src/

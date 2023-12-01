@@ -24,6 +24,7 @@
 
 #include "matrix/AbstractMatrix.h"
 #include "Vector3d.h"
+#include "Vector3d.h"
 
 #include "VectorMatrix_accessor.h"
 #ifdef HAVE_CUDA
@@ -59,6 +60,7 @@ public:
 	void assign(const VectorMatrix &other);
 	void scale(double factor);
 	void scale(const Vector3d &factors);
+	void multiplyField(const class Matrix &op);
 	void add(const VectorMatrix &op, double scale = 1.0);
 	void randomize();
 

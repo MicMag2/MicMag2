@@ -17,24 +17,43 @@
  * along with MicroMagnum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-%include "mmm/exchange.i"
-%include "mmm/exchange_nnn.i"
-%include "mmm/fs_exchange.i"
-%include "mmm/llge.i"
-%include "mmm/demag.i"
-%include "mmm/anisotropy.i"
-%include "mmm/fs_anisotropy.i"
-%include "mmm/zhangli.i"
-%include "mmm/fdm_slonchewski.i"
-%include "mmm/io.i"
-%include "mmm/fs_spinhall.i"
-%include "mmm/fs_fdm_slonchewski.i"
-%include "mmm/dmi.i"
-%include "mmm/fs_dmi.i"
-%include "mmm/interlayerExchange.i"
-%include "mmm/interlayerExchange_multi.i"
-%include "mmm/temperature.i"
-%include "mmm/fs_temperature.i"
-%include "mmm/topology.i"
-%include "mmm/amr.i"
-%include "mmm/minimize.i"
+#include "config.h"
+#include "minimize.h"
+#include "minimize_cpu.h"
+#ifdef HAVE_CUDA
+#include "minimize_cuda.h"
+#include <cuda_runtime.h>
+#endif
+
+#include "Magneto.h"
+#include "Benchmark.h"
+
+#include <cassert>
+
+void minimize(
+	const Matrix &f, const double h,
+	const VectorMatrix &M,
+	const VectorMatrix &H,
+	VectorMatrix &M2)
+{
+	const bool use_cuda = isCudaEnabled();
+
+	if (use_cuda) {
+#ifdef HAVE_CUDA
+		CUTIC("minimize");
+#ifdef HAVE_CUDA_64
+		if (isCuda64Enabled())
+			minimize_cu64(f, h, M, H, M2);
+		else
+#endif
+			minimize_cu32(f, h, M, H, M2);
+		CUTOC("minimize");
+#else
+		assert(0);
+#endif
+	} else {
+		TIC("minimize");
+		minimize_cpu(f, h, M, H, M2);
+		TOC("minimize");
+	}
+}

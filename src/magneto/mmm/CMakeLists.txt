@@ -38,6 +38,12 @@ set(SRC
   exchange/exchange_cpu.cpp
   exchange/fs_exchange.cpp
   exchange/fs_exchange_cpu.cpp
+
+  # exchange_nnn
+  exchange_nnn/exchange_nnn.cpp
+  exchange_nnn/exchange_nnn_cpu.cpp
+
+  #spinhall
   spinhall/fs_spinhall.cpp
   spinhall/fs_spinhall_cpu.cpp
 
@@ -63,6 +69,10 @@ set(SRC
   # charge
   topology/charge.cpp
 
+  # minimize
+  minimize/minimize.cpp
+  minimize/minimize_cpu.cpp
+
 
   # interlayerExchange
   interlayerExchange/interlayerExchange.cpp
@@ -80,6 +90,7 @@ set(CUSRC
   temperature/fdm_temperature_cuda.cu
   temperature/fs_fdm_temperature_cuda.cu
   exchange/exchange_cuda.cu
+  exchange_nnn/exchange_nnn_cuda.cu
   llge/llge_cuda.cu
   spintorque/fdm_zhangli_cuda.cu
   anisotropy/fs_anisotropy_cuda.cu
@@ -90,6 +101,7 @@ set(CUSRC
   exchange/fs_exchange_cuda.cu
   macrospintorque/fs_fdm_slonchewski_cuda.cu
   macrospintorque/fdm_slonchewski_cuda.cu
+  minimize/minimize_cuda.cu
 )
 
 append_magneto_src(${CMAKE_CURRENT_SOURCE_DIR} "${SRC}")

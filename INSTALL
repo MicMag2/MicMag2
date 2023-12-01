@@ -5,6 +5,9 @@ swig == 4.0.2
 CUDA libraries and compiler and a GPU with architecture compute_61 
 FFTW package (3.3) 
 
+numpy
+matplotlib
+
 
 Basically, if all prerequisites are installed:
 
@@ -14,7 +17,7 @@ Basically, if all prerequisites are installed:
   cd ../magnum                                       # 4. change directory to create symbolic links 
   ln -s ../build_orig/magneto_cpu.py magneto_cpu.py        # 4. create symbolic links 
   ln -s ../build_orig/magneto_cuda.py magneto_cuda.py      # 5. create symbolic links 
-  ln -s ../build_orig/_magnetom_cpu.so _magneto_cpu.so      # 6. create symbolic links 
+  ln -s ../build_orig/_magneto_cpu.so _magneto_cpu.so      # 6. create symbolic links 
   ln -s ../build_orig/_magneto_cuda.so _magneto_cuda.so    # 7. create symbolic links 
 
 

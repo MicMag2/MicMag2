@@ -133,6 +133,16 @@ void VectorMatrix::scale(const Vector3d &factors)
 		readUnlock(dev);
 	}
 }
+void VectorMatrix::multiplyField(const Matrix &op)
+{
+		const int dev = computeStrategy2(op);
+        //const int dev = computeStrategy1();
+		readLock(dev);op.readLock(dev);
+		for (int c=0; c<num_arrays; ++c) {
+			matty::getDevice(dev)->multiply(getArray(dev, c), op.getArray(dev));
+		}
+		readUnlock(dev); op.readUnlock(dev);
+}
 
 void VectorMatrix::add(const VectorMatrix &op, double factor)
 {

@@ -296,7 +296,8 @@ configure_file(
 message ("-- Found Python ${PYTHON_VERSION}, will install at ${PYTHON_SITE_MODULES}")
 
 # install directory magnum, exclude the symlinks
-install(DIRECTORY magnum DESTINATION "${PYTHON_SITE_MODULES}" PATTERN "magnum/magneto_cuda.py magnum/_magneto_cuda.so magnum/magneto_cpu.py magnum/_magneto_cpu.so CMakeLists.txt" EXCLUDE)
+install(DIRECTORY magnum DESTINATION "${PYTHON_SITE_MODULES}" PATTERN magnum/magneto_cpu.py magnum/_magneto_cpu.so CMakeLists.txt" EXCLUDE)
+#install(DIRECTORY magnum DESTINATION "${PYTHON_SITE_MODULES}" PATTERN magnum/magneto_cuda.py magnum/_magneto_cuda.so magnum/magneto_cpu.py magnum/_magneto_cpu.so CMakeLists.txt" EXCLUDE)
 
 # copy cuda files, if used
 if(ENABLE_CUDA)

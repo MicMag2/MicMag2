@@ -24,15 +24,16 @@
 #  |   |- OOMMFStorage
 #  |   |- ImageStorage
 #  |- FancyScreenLog
-#  |- test 
+#  |- test
 
 from .oommf_storage     import OOMMFStorage
 from .image_storage     import ImageStorage
 from .vtk_storage       import VTKStorage
 from .screen_log        import ScreenLog
+from .screen_log_minimizer        import ScreenLogMinimizer
 from .data_table_log    import DataTableLog
 from .fancy_screen_log  import FancyScreenLog
 #from .fscontinuity_check  import FSContinuityCheck
 #from .stephandlertest   import test
 
-__all__ = ["OOMMFStorage", "ImageStorage", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog"]
+__all__ = ["OOMMFStorage", "ImageStorage", "VTKStorage", "ScreenLog", "DataTableLog", "FancyScreenLog", "ScreenLogMinimizer"]

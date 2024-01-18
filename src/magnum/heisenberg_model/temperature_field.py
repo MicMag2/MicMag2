@@ -28,7 +28,7 @@ from .io import writeOMF
 
 class FSTemperatureField(module.Module):
     def __init__(self):
-        super(TemperatureField, self).__init__()
+        super(FSTemperatureField, self).__init__()
 
     def calculates(self):
         return ["H_th", "E_th"]
@@ -43,7 +43,7 @@ class FSTemperatureField(module.Module):
         self.system = system
         self.kelv_seed = None
         #if not isinstance(self.evolver, evolver.Euler): raise NotImplementedError("TemperatureField: Only implemented for Euler solver!")
-        logger.warn("The Temperature Field only works properly for fixed step sizes. This is currently only fulfilled by the Euler evolver! Furthermore, CPU and GPU currently use different random generators!")
+        logger.warn("The Temperature Field only works properly for fixed step sizes. This is currently only fulfilled by the Euler or Heun evolver! Furthermore, CPU and GPU currently use different random generators!")
 
     def calculate(self, state, id):
         cache = state.cache

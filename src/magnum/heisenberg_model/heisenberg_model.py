@@ -55,7 +55,8 @@ class HeisenbergModel(module.System):
 
                 def differentiate(this):
                     return this.dMdt
-
+                def differentiate2(this):
+                    return this.dMdt2
                 def __getitem__(this, key):
                     if self.world.hasBody(key):
                         return BodyProxy(self, this, self.world.findBody(key)) # BodyProxy defined at bottom of this file.

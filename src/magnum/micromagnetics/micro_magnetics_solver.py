@@ -123,12 +123,10 @@ class MicroMagneticsSolver(solver.Solver):
     def setPrecessionTerm(self, precess):
 
         idx = [i for i, m in enumerate(self.system.modules) if "Landau" in str(type(m))]
-        print(idx[0])
         del self.system.modules[idx[0]]
         self.system.addModule(LandauLifshitzGilbert(do_precess=precess))
         #        sys.addModule(LandauLifshitzGilbert(do_precess = kwargs.pop("do_precess", True)))
         self.system.modules.reverse()
-        print("precession is set to "+str(precess))
 
 
     def handle_interrupt(self):

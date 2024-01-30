@@ -9,6 +9,9 @@ set(SRC
   anisotropy/anisotropy_cpu.cpp
   anisotropy/fs_anisotropy.cpp
   anisotropy/fs_anisotropy_cpu.cpp
+  anisotropy/anisotropy_new.cpp
+  anisotropy/anisotropy_new_cpu.cpp
+
 
   #dmi
   dmi/dmi.cpp
@@ -65,6 +68,8 @@ set(SRC
   macrospintorque/fdm_slonchewski_cpu.cpp
   macrospintorque/fs_fdm_slonchewski.cpp
   macrospintorque/fs_fdm_slonchewski_cpu.cpp
+  macrospintorque/fdm_slonchewski_angleDep.cpp
+  macrospintorque/fdm_slonchewski_cpu_angleDep.cpp
 
   # charge
   topology/charge.cpp
@@ -101,6 +106,7 @@ set(CUSRC
   exchange/fs_exchange_cuda.cu
   macrospintorque/fs_fdm_slonchewski_cuda.cu
   macrospintorque/fdm_slonchewski_cuda.cu
+  macrospintorque/fdm_slonchewski_cuda_angleDep.cu
   minimize/minimize_cuda.cu
 )
 

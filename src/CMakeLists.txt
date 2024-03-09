@@ -60,6 +60,9 @@ endmacro(append_magneto_cusrc)
 #find_package (Boost REQUIRED)
 
 # FFTW
+include_directories(/usr/local/include)
+include_directories(/usr/include)
+include_directories(${CONDA_PREFIX}/include)
 find_library(FFTW   fftw3 REQUIRED)
 find_library(FFTWF  fftw3f REQUIRED)
 find_library(FFTWT  fftw3_threads REQUIRED)
@@ -258,7 +261,7 @@ endif(USE_NEW_SWIG)
 
 
 if(HAVE_CVODE)
-  swig_link_libraries(${SWIG_MODULE_NAME} ${FFTW_LIBRARIES} ${SUNDIALS_CVODE_LIBRARIES} ${SUNDIALS_NVECSERIAL_LIBRARIES})
+  swig_link_libraries(${SWIG_MODULE_NAME} ${_LIBRARIES} ${SUNDIALS_CVODE_LIBRARIES} ${SUNDIALS_NVECSERIAL_LIBRARIES})
 else(HAVE_CVODE)
   swig_link_libraries(${SWIG_MODULE_NAME} ${FFTW_LIBRARIES})
 endif(HAVE_CVODE)

@@ -21,6 +21,7 @@
 #define TRANSFORMER_CPU_H
 
 #include <fftw3.h>
+/*#include </usr/local/include/fftw3.h>*/
 
 #include "matrix/matty.h"
 

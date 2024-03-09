@@ -22,7 +22,7 @@
 
 #include "matrix/matty.h"
 
-#include </usr/local/include/fftw3.h>
+#include <fftw3.h>
 
 class Transposer_CPU
 {

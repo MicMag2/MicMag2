@@ -60,8 +60,8 @@ endmacro(append_magneto_cusrc)
 #find_package (Boost REQUIRED)
 
 # FFTW
-#include_directories(/usr/local/include)
-#include_directories(/usr/include)
+include_directories(/usr/local/include)
+include_directories(/usr/include)
 include_directories(${CONDA_PREFIX}/include)
 find_library(FFTW   fftw3 REQUIRED)
 find_library(FFTWF  fftw3f REQUIRED)

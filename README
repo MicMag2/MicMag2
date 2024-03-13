@@ -1,12 +1,18 @@
 # Welcome to the MicMag2 official repository
 
 MicMag2 is an combined atomsitic and micromagnetic simulation package. The core programm was originally named MicroMagnum, while a lot of expansions was implemented by the MicMag2 contributors (see AUTHORS for more details).
-At the moment, the purpose of this code is ONLY to reproduce data from the paper "Energetics & Dynamics of a stable Bloch point" (arxiv:2303.10091). The code repository for the mentioned paper can be found soon (link will be updated). However, more packages will be included and tested in the near future to make this code a full-fledged simulation package. 
-Please cite the following papers and repos if you use this code:
 
 
+## Features
 
-# The code was already used in several publications:
+MicMag2 provides CPU and CPU multithreading support as well as float and double GPU support for most of the packages.
+You can run LLG equations of micromagnetic problems and can include SOT STT extensions.
+Interesting Modules, such as CurrentPath calculation, Higher order anisotropy and angle-dependent SOT are included. 
+More modules are under active developement.
+Please have a look at the examples folder if you are interested in the syntax.
+Installation instructions are available in INSTALL file.
+
+### The code was already used in several publications:
 
 -MicoMagnum Repository: https://github.com/MicroMagnum/MicroMagnum
 -Winkler et al., Phys. Rev. Applied 16, 044014 (2021)
@@ -16,7 +22,7 @@ Please cite the following papers and repos if you use this code:
 -Prychynenko et al., Phys. Rev. Applied 9, 014034 (2018)
 -Winkler et al., arxiv:2303.10091 (2023)
 
-# Please cite the following publciations if you use Micmag2
+### Please cite the following publciations if you use Micmag2
 
 -MicoMagnum Repository: https://github.com/MicroMagnum/MicroMagnum
 -Winkler et al., Phys. Rev. Applied 16, 044014 (2021)

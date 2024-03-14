@@ -51,9 +51,9 @@ double fs_dmi_cpu(
 					continue;
 				}
 				
-				const Vector3d Dx_delta = Dx_acc.get(i)*delta_x*delta_x;
-				const Vector3d Dy_delta = Dy_acc.get(i)*delta_y*delta_y;
-				const Vector3d Dz_delta = Dz_acc.get(i)*delta_z*delta_z;
+				const Vector3d Dx_delta = Dx_acc.get(i);
+				const Vector3d Dy_delta = Dy_acc.get(i);
+				const Vector3d Dz_delta = Dz_acc.get(i);
 
 				int idx_l = i -      1;
 				int idx_r = i +      1;

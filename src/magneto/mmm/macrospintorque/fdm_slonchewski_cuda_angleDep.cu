@@ -56,8 +56,10 @@ void kernel_fdm_slonchewski_angleDep_2d(
 	const real *jx, const real *jy, const real *jz, 
 	const real *Ms, 
 	const real *alpha,
-	const real *a_DL,
-	const real *a_FL)
+	const real *xi,
+	const real *alpha_hall,	
+	const real *a_DL_fn,
+	const real *a_FL_fn)
 {
 	// Cell index
 	const int x = blockIdx.x * blockDim.x + threadIdx.x;
@@ -70,8 +72,11 @@ void kernel_fdm_slonchewski_angleDep_2d(
 		const real jx_k = jx[k], jy_k = jy[k], jz_k = jz[k];
 		const real Ms_k    = Ms[k];
 		const real alpha_k = alpha[k];	
-		const real a_DL_k = a_DL[k];	
-		const real a_FL_k = a_FL[k];
+		const real xi_k = xi[k];	
+		const real alpha_hall_k = alpha_hall[k];
+		const real a_DL_fn_k = a_DL_fn[k];	
+		const real a_FL_fn_k = a_FL_fn[k];	
+		
 
 		real p_x, p_y, p_z;
 		real Mxp_x, Mxp_y, Mxp_z;
@@ -91,10 +96,11 @@ void kernel_fdm_slonchewski_angleDep_2d(
 				  Mxp_x, Mxp_y, Mxp_z); // damping:  t=mxu=mx(mxp)
 
 			const real gamma_pr = GYROMAGNETIC_RATIO / (1.0 + alpha_k*alpha_k);
-
-			dMx[k] += gamma_pr * ((alpha_k * a_FL_k + a_DL_k) * MxMxp_x/Ms_k + (a_FL_k - alpha_k * a_DL_k) *  Mxp_x);
-			dMy[k] += gamma_pr * ((alpha_k * a_FL_k + a_DL_k) * MxMxp_y/Ms_k + (a_FL_k - alpha_k * a_DL_k) *  Mxp_y);
-			dMz[k] += gamma_pr * ((alpha_k * a_FL_k + a_DL_k) * MxMxp_z/Ms_k + (a_FL_k - alpha_k * a_DL_k) *  Mxp_z);
+			const real a_j = (H_BAR * alpha_hall_k) / (2.* ELECTRON_CHARGE * Ms_k * delta_z * MU0);
+			
+			dMx[k] += gamma_pr * a_j * ((a_DL_fn_k*1.0 + a_FL_fn_k*xi_k*alpha_k) * MxMxp_x/Ms_k + (a_FL_fn_k*xi_k - a_DL_fn_k*alpha_k) *  Mxp_x);
+			dMy[k] += gamma_pr * a_j * ((a_DL_fn_k*1.0 + a_FL_fn_k*xi_k*alpha_k) * MxMxp_y/Ms_k + (a_FL_fn_k*xi_k - a_DL_fn_k*alpha_k) *  Mxp_y);
+			dMz[k] += gamma_pr * a_j * ((a_DL_fn_k*1.0 + a_FL_fn_k*xi_k*alpha_k) * MxMxp_z/Ms_k + (a_FL_fn_k*xi_k - a_DL_fn_k*alpha_k) *  Mxp_z);
 
 
 		} else {
@@ -115,8 +121,10 @@ void kernel_fdm_slonchewski_angleDep_3d(
 	const real *jx, const real *jy, const real *jz, 
 	const real *Ms, 
 	const real *alpha,
-	const real *a_DL,
-	const real *a_FL)
+	const real *xi,
+	const real *alpha_hall,	
+	const real *a_DL_fn,
+	const real *a_FL_fn)
 {
 
 	// Cell index
@@ -132,9 +140,11 @@ void kernel_fdm_slonchewski_angleDep_3d(
 			const real jx_k = jx[k], jy_k = jy[k], jz_k = jz[k];
 			const real Ms_k    = Ms[k];
 			const real alpha_k = alpha[k];	
-			const real a_DL_k = a_DL[k];	
-			const real a_FL_k = a_FL[k];	
-
+			const real xi_k = xi[k];	
+			const real alpha_hall_k = alpha_hall[k];
+			const real a_DL_fn_k = a_DL_fn[k];	
+			const real a_FL_fn_k = a_FL_fn[k];	
+			
 			real p_x, p_y, p_z;
 			real Mxp_x, Mxp_y, Mxp_z;
 			real MxMxp_x, MxMxp_y, MxMxp_z;
@@ -152,10 +162,11 @@ void kernel_fdm_slonchewski_angleDep_3d(
 					  Mxp_x, Mxp_y, Mxp_z); // damping:  t=mxu=mx(mxp)
 
 				const real gamma_pr = GYROMAGNETIC_RATIO / (1.0 + alpha_k*alpha_k);
+				const real a_j = (H_BAR * alpha_hall_k) / (2.* ELECTRON_CHARGE * Ms_k * delta_z * MU0);
 
-				dMx[k] += gamma_pr * ((alpha_k * a_FL_k + a_DL_k) * MxMxp_x/Ms_k + (a_FL_k - alpha_k * a_DL_k) *  Mxp_x);
-				dMy[k] += gamma_pr * ((alpha_k * a_FL_k + a_DL_k) * MxMxp_y/Ms_k + (a_FL_k - alpha_k * a_DL_k) *  Mxp_y);
-				dMz[k] += gamma_pr * ((alpha_k * a_FL_k + a_DL_k) * MxMxp_z/Ms_k + (a_FL_k - alpha_k * a_DL_k) *  Mxp_z);
+				dMx[k] += gamma_pr * a_j * ((a_DL_fn_k*1.0 + a_FL_fn_k*xi_k*alpha_k) * MxMxp_x/Ms_k + (a_FL_fn_k*xi_k - a_DL_fn_k*alpha_k) *  Mxp_x);
+				dMy[k] += gamma_pr * a_j * ((a_DL_fn_k*1.0 + a_FL_fn_k*xi_k*alpha_k) * MxMxp_y/Ms_k + (a_FL_fn_k*xi_k - a_DL_fn_k*alpha_k) *  Mxp_y);
+				dMz[k] += gamma_pr * a_j * ((a_DL_fn_k*1.0 + a_FL_fn_k*xi_k*alpha_k) * MxMxp_z/Ms_k + (a_FL_fn_k*xi_k - a_DL_fn_k*alpha_k) *  Mxp_z);
 
 			} else {
 				dMx[k] += 0.0;
@@ -175,15 +186,17 @@ void fdm_slonchewski_cuda_angleDep_impl(
 	int dim_x, int dim_y, int dim_z,
 	double delta_x, double delta_y, double delta_z,
 	const Matrix &Ms,
+	const VectorMatrix &j,	
 	const Matrix &alpha,
-	const VectorMatrix &j,
-	const Matrix &a_DL,
-	const Matrix &a_FL,
+	const Matrix &xi,
+	const Matrix &alpha_hall,
+	const Matrix &DL_fn_eval,
+	const Matrix &FL_fn_eval,	
 	const VectorMatrix &M,
 	VectorMatrix &dM)
 {
 	{
-		typename Matrix_const_cuda_accessor<real>::t Ms_acc(Ms), alpha_acc(alpha), a_DL_acc(a_DL), a_FL_acc(a_FL); 
+		typename Matrix_const_cuda_accessor<real>::t Ms_acc(Ms), alpha_acc(alpha), alpha_hall_acc(alpha_hall), xi_acc(xi), a_DL_fn_acc(DL_fn_eval), a_FL_fn_acc(FL_fn_eval);  
 		typename VectorMatrix_const_cuda_accessor<real>::t M_acc(M), j_acc(j);
 		typename VectorMatrix_cuda_accessor<real>::t dM_acc(dM);
 
@@ -192,7 +205,7 @@ void fdm_slonchewski_cuda_angleDep_impl(
 			const dim3 grid_dim((dim_x+BLOCK_SIZE_X-1) / BLOCK_SIZE_X, (dim_y+BLOCK_SIZE_Y-1) / BLOCK_SIZE_Y);
 			const dim3 block_dim(BLOCK_SIZE_X, BLOCK_SIZE_Y);
 
-			kernel_fdm_slonchewski_angleDep_2d<real><<<grid_dim, block_dim>>>(dim_x, dim_y, delta_x, delta_y, delta_z, M_acc.ptr_x(), M_acc.ptr_y(), M_acc.ptr_z(), dM_acc.ptr_x(), dM_acc.ptr_y(), dM_acc.ptr_z(), j_acc.ptr_x(), j_acc.ptr_y(), j_acc.ptr_z(), Ms_acc.ptr(), alpha_acc.ptr(), a_DL_acc.ptr(),  a_FL_acc.ptr());
+			kernel_fdm_slonchewski_angleDep_2d<real><<<grid_dim, block_dim>>>(dim_x, dim_y, delta_x, delta_y, delta_z, M_acc.ptr_x(), M_acc.ptr_y(), M_acc.ptr_z(), dM_acc.ptr_x(), dM_acc.ptr_y(), dM_acc.ptr_z(), j_acc.ptr_x(), j_acc.ptr_y(), j_acc.ptr_z(), Ms_acc.ptr(), alpha_acc.ptr(), xi_acc.ptr(), alpha_hall_acc.ptr(), a_DL_fn_acc.ptr(), a_FL_fn_acc.ptr());
 
 			checkCudaLastError("gpu_SLONCHEWSKI_angleDep(): kernel_slonchewski_angleDep_2d execution failed!");
 
@@ -203,7 +216,7 @@ void fdm_slonchewski_cuda_angleDep_impl(
 			const dim3 block_dim(BLOCK_SIZE_X, BLOCK_SIZE_Y);
 	
 
-			kernel_fdm_slonchewski_angleDep_3d<real><<<grid_dim, block_dim>>>(dim_x, dim_y, dim_z, delta_x, delta_y, delta_z, M_acc.ptr_x(), M_acc.ptr_y(), M_acc.ptr_z(), dM_acc.ptr_x(), dM_acc.ptr_y(), dM_acc.ptr_z(), j_acc.ptr_x(), j_acc.ptr_y(), j_acc.ptr_z(), Ms_acc.ptr(), alpha_acc.ptr(), a_DL_acc.ptr(), a_FL_acc.ptr());
+			kernel_fdm_slonchewski_angleDep_3d<real><<<grid_dim, block_dim>>>(dim_x, dim_y, dim_z, delta_x, delta_y, delta_z, M_acc.ptr_x(), M_acc.ptr_y(), M_acc.ptr_z(), dM_acc.ptr_x(), dM_acc.ptr_y(), dM_acc.ptr_z(), j_acc.ptr_x(), j_acc.ptr_y(), j_acc.ptr_z(), Ms_acc.ptr(), alpha_acc.ptr(), xi_acc.ptr(), alpha_hall_acc.ptr(), a_DL_fn_acc.ptr(), a_FL_fn_acc.ptr());
 
 			checkCudaLastError("gpu_SLONCHEWSKI_angleDep(): kernel_slonchewski_angleDep_3d execution failed!");
 
@@ -216,18 +229,20 @@ void fdm_slonchewski_cuda_angleDep(
 	int dim_x, int dim_y, int dim_z,
 	double delta_x, double delta_y, double delta_z,
 	const Matrix &Ms,
-	const Matrix &alpha,
 	const VectorMatrix &j,
-	const Matrix &a_DL,
-	const Matrix &a_FL,
+	const Matrix &alpha,
+	const Matrix &xi,
+	const Matrix &alpha_hall,
+	const Matrix &DL_fn_eval,
+	const Matrix &FL_fn_eval,	
 	const VectorMatrix &M,
 	VectorMatrix &dM,
-	bool cuda64)
+	bool cuda64)	
 {
 #ifdef HAVE_CUDA_64
 	if (cuda64)
-	return fdm_slonchewski_cuda_angleDep_impl<double>(dim_x, dim_y, dim_z, delta_x, delta_y, delta_z, Ms, alpha, j, a_DL, a_FL, M, dM);
+	return fdm_slonchewski_cuda_angleDep_impl<double>(dim_x, dim_y, dim_z, delta_x, delta_y, delta_z, Ms, j, alpha, xi, alpha_hall, DL_fn_eval, FL_fn_eval, M, dM);
 	else
 #endif
-	return fdm_slonchewski_cuda_angleDep_impl<float>(dim_x, dim_y, dim_z, delta_x, delta_y, delta_z, Ms, alpha, j, a_DL, a_FL, M, dM);
+	return fdm_slonchewski_cuda_angleDep_impl<float>(dim_x, dim_y, dim_z, delta_x, delta_y, delta_z, Ms, j, alpha, xi, alpha_hall, DL_fn_eval, FL_fn_eval, M, dM);
 }

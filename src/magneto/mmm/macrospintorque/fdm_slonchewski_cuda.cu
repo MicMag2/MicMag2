@@ -155,9 +155,9 @@ void kernel_fdm_slonchewski_3d(
 				//const double Jabs = - pow(jx_k*jx_k + jy_k*jy_k + jz_k*jz_k, 0.5);  // absolute value of current in p.
 				const real a_j = (H_BAR * alpha_hall_k) / (2.* ELECTRON_CHARGE * Ms_k * delta_z * MU0);
 
-				dMx[k] += gamma_pr * a_j * (-(1.0 + xi_k*alpha_k) * MxMxp_x/Ms_k - (xi_k - alpha_k) *  Mxp_x);
-				dMy[k] += gamma_pr * a_j * (-(1.0 + xi_k*alpha_k) * MxMxp_y/Ms_k - (xi_k - alpha_k) *  Mxp_y);
-				dMz[k] += gamma_pr * a_j * (-(1.0 + xi_k*alpha_k) * MxMxp_z/Ms_k - (xi_k - alpha_k) *  Mxp_z);
+				dMx[k] += gamma_pr * a_j * ((1.0 + xi_k*alpha_k) * MxMxp_x/Ms_k + (xi_k - alpha_k) *  Mxp_x);
+				dMy[k] += gamma_pr * a_j * ((1.0 + xi_k*alpha_k) * MxMxp_y/Ms_k + (xi_k - alpha_k) *  Mxp_y);
+				dMz[k] += gamma_pr * a_j * ((1.0 + xi_k*alpha_k) * MxMxp_z/Ms_k + (xi_k - alpha_k) *  Mxp_z);
 
 			} else {
 				dMx[k] += 0.0;

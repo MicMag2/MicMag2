@@ -35,6 +35,7 @@ from .alternating_current import AlternatingCurrent
 from .simple_field import SimpleExternalField, SimpleVectorField
 from .pulse_field import PulseField
 from .macro_spin_torque import MacroSpinTorque
+from .macro_spin_torque_angle_dependent import MacroSpinTorqueAngleDep
 from .interlayer_exchange_field import InterlayerExchangeField
 from .interlayer_exchange_field_multi  import MultiInterlayerExchangeField
 from .dmi_field import DMIField
@@ -46,7 +47,7 @@ __all__ = [
     "MU0", "H_BAR", "ELECTRON_CHARGE", "MU_BOHR", "GYROMAGNETIC_RATIO", "BOLTZMANN_CONSTANT",
     "LandauLifshitzGilbert", "ExchangeField", "ExchangeFieldNNN","StrayField", "StrayFieldCalculator",
     "ExternalField", "AnisotropyField", "HomogeneousField", "HomogeneousCurrent","MultiInterlayerExchangeField","InterlayerExchangeField",
-    "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "PulseField",  "DMIField", "TemperatureField","MacroSpinTorque","Topology","CurrentPath"
+    "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "PulseField",  "DMIField", "TemperatureField","MacroSpinTorque", "MacroSpinTorqueAngleDep","Topology","CurrentPath"
 ]
 
 ## submodules

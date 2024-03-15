@@ -26,18 +26,17 @@
 #include "mmm/constants.h"
 
 
-#include "../external_code/cpp_string2function_parser/exprtk/exprtk.hpp"
+#include "../external_code/exprtk.hpp"
 
 void fdm_slonchewski_cpu_angleDep(
 	int dim_x, int dim_y, int dim_z,
 	double delta_x, double delta_y, double delta_z,
-	double r_x, double r_y, double r_z,
 	double time,
 	const Matrix &Ms,
 	const Matrix &alpha,
 	const VectorMatrix &j,
-	const Matrix &a_DL,
-	const Matrix &a_FL,
+	const Matrix &xi,
+	const Matrix &alpha_hall,
 	const std::string &fn_DL,
 	const std::string &fn_FL,
 	const VectorMatrix &M,
@@ -50,7 +49,7 @@ void fdm_slonchewski_cpu_angleDep(
 	//   c2(theta): precession factor
 	//   Ms*cos(theta) = M*p
 
-	Matrix::ro_accessor Ms_acc(Ms), alpha_acc(alpha), a_DL_acc(a_DL), a_FL_acc(a_FL);
+	Matrix::ro_accessor Ms_acc(Ms), alpha_acc(alpha), xi_acc(xi), alpha_hall_acc(alpha_hall);
 	VectorMatrix::const_accessor j_acc(j);
 	VectorMatrix::const_accessor M_acc(M);
 	VectorMatrix::accessor dM_acc(dM);
@@ -59,10 +58,12 @@ void fdm_slonchewski_cpu_angleDep(
 	typedef exprtk::expression<double>     expression_t;
 	typedef exprtk::parser<double>             parser_t;
 
-	double var_x;
+	double var_theta;
+	double var_phi;
 
 	symbol_table_t symbol_table;
-	symbol_table.add_variable("x", var_x);
+	symbol_table.add_variable("x", var_theta);
+	symbol_table.add_variable("y", var_phi);
 	symbol_table.add_variable("t", time);
 	symbol_table.add_constants();
 
@@ -80,9 +81,10 @@ void fdm_slonchewski_cpu_angleDep(
 
 	const int N = dim_x * dim_y * dim_z;
         //double vals[];
-	const Vector3d ref = Vector3d(r_x, r_y, r_z);
 	for (int n=0; n<N; ++n) {
 		const double alpha_n = alpha_acc.at(n);
+		const double xi_n = xi_acc.at(n);
+		const double alpha_hall_n = alpha_hall_acc.at(n);
 		const double Ms_n    = Ms_acc.at(n);
 
 		const Vector3d j_n = j_acc.get(n);
@@ -102,23 +104,25 @@ void fdm_slonchewski_cpu_angleDep(
 
 
 		// evaluate angular dependence
-		const double dotProduct = ref.x*M_n.x + ref.y*M_n.y + ref.z*M_n.z;
-		const double norm       = sqrt((ref.x*ref.x + ref.y*ref.y + ref.z*ref.z)*(M_n.x*M_n.x + M_n.y*M_n.y + M_n.z*M_n.z));
+		const double norm       = sqrt(M_n.x*M_n.x + M_n.y*M_n.y + M_n.z*M_n.z);
+		
+		const double sigy		= M_n.y/sqrt(M_n.y*M_n.y);
+		const double xynorm		= sqrt(M_n.x*M_n.x + M_n.y*M_n.y);
 
-		var_x = acos(dotProduct/norm);
+		var_theta = acos(M_n.z/norm);
+		var_phi   = sigy * acos(M_n.x/xynorm);
 
 		//const double f_DL = expression_DL.value();
 		//const double f_FL = expression_FL.value();
 		//std::cout << var_x << " " << f_DL << " " << f_FL << std::endl;
 
 
-		const double a_DL_n  = a_DL_acc.at(n)*expression_DL.value();
-		const double a_FL_n  = a_FL_acc.at(n)*expression_FL.value();
-		
+		const double a_j = (H_BAR * alpha_hall_n) / (2.* ELECTRON_CHARGE * Ms_n * delta_z * MU0);
+
 		Vector3d dM_n = dM_acc.get(n);
-		dM_n.x += gamma_pr * ((alpha_n * a_FL_n + a_DL_n) * MxMxp.x/Ms_n + (a_FL_n - alpha_n * a_DL_n) * Mxp.x);
-		dM_n.y += gamma_pr * ((alpha_n * a_FL_n + a_DL_n) * MxMxp.y/Ms_n + (a_FL_n - alpha_n * a_DL_n) * Mxp.y);
-		dM_n.z += gamma_pr * ((alpha_n * a_FL_n + a_DL_n) * MxMxp.z/Ms_n + (a_FL_n - alpha_n * a_DL_n) * Mxp.z);
+		dM_n.x += gamma_pr * a_j * ((1.*expression_DL.value() + xi_n*alpha_n*expression_FL.value()) * MxMxp.x/Ms_n + (xi_n*expression_FL.value() - alpha_n*expression_DL.value()) * Mxp.x);
+		dM_n.y += gamma_pr * a_j * ((1.*expression_DL.value() + xi_n*alpha_n*expression_FL.value()) * MxMxp.y/Ms_n + (xi_n*expression_FL.value() - alpha_n*expression_DL.value()) * Mxp.y);
+		dM_n.z += gamma_pr * a_j * ((1.*expression_DL.value() + xi_n*alpha_n*expression_FL.value()) * MxMxp.z/Ms_n + (xi_n*expression_FL.value() - alpha_n*expression_DL.value()) * Mxp.z);
 		dM_acc.set(n, dM_n);
 	}
 }

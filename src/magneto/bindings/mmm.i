@@ -26,6 +26,7 @@
 %include "mmm/fs_anisotropy.i"
 %include "mmm/zhangli.i"
 %include "mmm/fdm_slonchewski.i"
+%include "mmm/fdm_slonchewski_angleDep.i"
 %include "mmm/io.i"
 %include "mmm/fs_spinhall.i"
 %include "mmm/fs_fdm_slonchewski.i"

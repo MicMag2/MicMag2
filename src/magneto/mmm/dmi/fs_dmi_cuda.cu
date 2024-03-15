@@ -147,13 +147,13 @@ void fs_kernel_dmi_2d(
 	__syncthreads();
 
 	if (sx < dim_x && sy < dim_y) {
-		const real Dxx = Dx_x[i]*delta_x*delta_x;
-        	const real Dxy = Dx_y[i]*delta_x*delta_x;
-        	const real Dxz = Dx_z[i]*delta_x*delta_x;
+		const real Dxx = Dx_x[i];
+        	const real Dxy = Dx_y[i];
+        	const real Dxz = Dx_z[i];
 
-        	const real Dyx = Dy_x[i]*delta_y*delta_y;
-        	const real Dyy = Dy_y[i]*delta_y*delta_y;
-        	const real Dyz = Dy_z[i]*delta_y*delta_y;
+        	const real Dyx = Dy_x[i];
+        	const real Dyy = Dy_y[i];
+        	const real Dyz = Dy_z[i];
 
 		// III. Compute the finite differences
 		if (Ms_i > 0) {
@@ -338,17 +338,17 @@ void fs_kernel_dmi_3d(
 	}
 	__syncthreads();
 	if (sx < dim_x && sy < dim_y && sz < dim_z) {
-		const real Dxx = Dx_x[i]*delta_x*delta_x;
-  		const real Dxy = Dx_y[i]*delta_x*delta_x;
-	        const real Dxz = Dx_z[i]*delta_x*delta_x;
+		const real Dxx = Dx_x[i];
+  		const real Dxy = Dx_y[i];
+	        const real Dxz = Dx_z[i];
 
-        	const real Dyx = Dy_x[i]*delta_y*delta_y;
-	        const real Dyy = Dy_y[i]*delta_y*delta_y;
-	        const real Dyz = Dy_z[i]*delta_y*delta_y;
+        	const real Dyx = Dy_x[i];
+	        const real Dyy = Dy_y[i];
+	        const real Dyz = Dy_z[i];
 
-        	const real Dzx = Dz_x[i]*delta_z*delta_z;
-        	const real Dzy = Dz_y[i]*delta_z*delta_z;
-        	const real Dzz = Dz_z[i]*delta_z*delta_z;
+        	const real Dzx = Dz_x[i];
+        	const real Dzy = Dz_y[i];
+        	const real Dzz = Dz_z[i];
 
 		// III. Compute the finite differences
 		if (Ms_i > 0.0) {

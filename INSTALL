@@ -2,12 +2,42 @@ Prerequisites:
 
 Python == 3.8
 swig == 4.0.2
-CUDA libraries and compiler and a GPU with architecture compute_61 
 FFTW package (3.3) 
 
+CUDA libraries and compiler and a GPU with architecture compute_61 
+Note: for gpu install you need gcc 10 and g++ 10 
+
+
+python packages:
 numpy
 matplotlib
 
+METHOD 1 - 
+If prerequisites are installed, do:
+
+  cd src
+  bash run-make-all.sh
+
+
+METHOD 2 - IN CONDA ENVIRONMENT (RECOMMENDED FOR HACKY HOUR 2024, ONY CPU)
+install miniconda 
+
+  conda create -n hackyhour python=3.8 swig=4.0.2 numpy matplotlib conda-forge::fftw
+  conda activate hackyhour
+  pip install notebook ipython  
+  git clone https://github.com/MicMag2/MicMag2
+  cd MicMag2/src
+  bash run-make-cpu-conda.sh
+  jupyter notebook
+
+NOTE: If fftw lib is not detected, install via:
+  sudo apt-get install libfftw3-3 libfftw3-bin libfftw3-dev
+NOTE: notebook and ipython package are only needed for the sake of the hacky hour session
+then open the jupyter script
+
+
+
+METHOD 3 - MANUAL COMPILE
 
 Basically, if all prerequisites are installed:
 
@@ -20,7 +50,7 @@ Basically, if all prerequisites are installed:
   ln -s ../build_orig/_magneto_cpu.so _magneto_cpu.so      # 6. create symbolic links 
   ln -s ../build_orig/_magneto_cuda.so _magneto_cuda.so    # 7. create symbolic links 
 
-
+  
   # Set your $PYTHONPATH variable to the src/ directory 
   #                  (which contains the magnum and magneto subdirectories).
   export PYTHONPATH=xyz/src

@@ -12,6 +12,11 @@ More modules are under active developement.
 Please have a look at the examples folder if you are interested in the syntax.
 Installation instructions are available in INSTALL file.
 
+## Install instructions (also for HACKYHOUR 2024)
+
+Please see the install file for more instructions. The easiest way (CPU compile) is with a conda environment. 
+
+
 ### The code was already used in several publications:
 
 -MicoMagnum Repository: https://github.com/MicroMagnum/MicroMagnum

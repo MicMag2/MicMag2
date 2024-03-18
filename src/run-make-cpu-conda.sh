@@ -21,5 +21,5 @@ else
 	cp _magneto_cuda.so ../magnum/_magneto_cuda.so 2>/dev/null
         cd ..
 	export PYTHONPATH=$(pwd)
-	echo "python path exported temporarilly. Consider adding it in your ~/.bashrc file"
+	echo "CPU compile succesful! please export the pythonpath temporarilly by running: export PYTHONPATH=$(pwd). To add it permanently, export PYTHONPATH='path/to/micmag2/src' to your .bashrc"
 fi

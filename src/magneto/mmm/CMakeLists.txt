@@ -92,6 +92,7 @@ set(SRC
 
 set(CUSRC
   anisotropy/anisotropy_cuda.cu
+  anisotropy/anisotropy_new_cuda.cu
   temperature/fdm_temperature_cuda.cu
   temperature/fs_fdm_temperature_cuda.cu
   exchange/exchange_cuda.cu

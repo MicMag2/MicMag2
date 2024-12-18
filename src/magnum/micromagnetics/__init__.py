@@ -28,6 +28,7 @@ from .exchange_field_nnn import ExchangeFieldNNN
 from .stray_field import StrayField, StrayFieldCalculator
 from .external_field import ExternalField
 from .anisotropy_field import AnisotropyField
+from .anisotropy_field_new import AnisotropyFieldNew
 from .homogeneous_field import HomogeneousField, HomogeneousCurrent
 from .spin_torque import SpinTorque
 from .alternating_field import AlternatingField
@@ -46,7 +47,7 @@ __all__ = [
     "MicroMagnetics", "MicroMagneticsSolver", "create_solver",
     "MU0", "H_BAR", "ELECTRON_CHARGE", "MU_BOHR", "GYROMAGNETIC_RATIO", "BOLTZMANN_CONSTANT",
     "LandauLifshitzGilbert", "ExchangeField", "ExchangeFieldNNN","StrayField", "StrayFieldCalculator",
-    "ExternalField", "AnisotropyField", "HomogeneousField", "HomogeneousCurrent","MultiInterlayerExchangeField","InterlayerExchangeField",
+    "ExternalField", "AnisotropyField", "AnisotropyFieldNew", "HomogeneousField", "HomogeneousCurrent","MultiInterlayerExchangeField","InterlayerExchangeField",
     "SpinTorque", "AlternatingField", "AlternatingCurrent", "SimpleExternalField", "SimpleVectorField", "PulseField",  "DMIField", "TemperatureField","MacroSpinTorque", "MacroSpinTorqueAngleDep","Topology","CurrentPath"
 ]
 
